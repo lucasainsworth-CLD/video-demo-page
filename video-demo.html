@@ -1,0 +1,2326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Optimize Banner Videos for Performance</title>
+  <meta name="description" content="Hero Video Cloudinary Playground.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="pt-header">
+    <div class="pt-header__inner container">
+      <h1 class="pt-brand__text">Video Performance</h1>
+    </div>
+  </header>
+
+  <section class="pt-hero">
+    <div class="pt-hero__container" id="heroContainer">
+      <div class="pt-hero__placeholder" id="heroPlaceholder"></div>
+      <video 
+        id="heroVideo" 
+        class="pt-hero__video" 
+        autoplay 
+        muted 
+        playsinline 
+        loop
+        preload="metadata"
+      >
+        <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="pt-hero__overlay"></div>
+      <div class="pt-hero__text-overlay">
+        <h2 class="pt-hero__headline">Unmatched Craftsmanship. Timeless Elegance</h2>
+        <p class="pt-hero__subhead">Discover the art of luxury at Onyx & Linen</p>
+      </div>
+      <div class="pt-hero__metadata" id="metadataOverlay">
+        <span class="pt-hero__metadata-label">File Size:</span>
+        <span class="pt-hero__metadata-value" id="fileSizeValue">Loading...</span>
+        <span class="pt-hero__metadata-label">Video Length:</span>
+        <span class="pt-hero__metadata-value" id="videoLengthValue">Loading...</span>
+      </div>
+    </div>
+    <!-- Spacer to maintain document flow and push content below video -->
+    <div class="pt-hero__spacer" id="heroSpacer"></div>
+    
+    <section class="pt-url-editor container">
+      <div class="pt-url-editor__wrapper">
+        <label class="pt-url-editor__label" for="videoUrlInput">Video URL:</label>
+        <div class="pt-url-editor__box" id="urlEditorBox">
+          <div 
+            contenteditable="true"
+            id="videoUrlInput" 
+            class="pt-url-editor__input" 
+            data-placeholder="Enter video URL..."
+            spellcheck="false"
+            role="textbox"
+            aria-label="Video URL"
+          ></div>
+        </div>
+        <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
+          <span>update</span>
+          <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+    
+    <!-- Video Selection Buttons -->
+    <section class="pt-hero__video-selector container">
+      <div class="pt-hero__video-buttons">
+        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4">
+          <video 
+            class="pt-hero__video-button-preview"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
+          </video>
+        </button>
+        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4">
+          <video 
+            class="pt-hero__video-button-preview"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4" type="video/mp4">
+          </video>
+        </button>
+        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149310/Classical_skirt_mbcvo0.mp4">
+          <video 
+            class="pt-hero__video-button-preview"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149310/Classical_skirt_mbcvo0.mp4" type="video/mp4">
+          </video>
+        </button>
+        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763148171/kt11mzyxequt3cdlex88_rogbpm.mp4">
+          <video 
+            class="pt-hero__video-button-preview"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763148171/kt11mzyxequt3cdlex88_rogbpm.mp4" type="video/mp4">
+          </video>
+        </button>
+      </div>
+    </section>
+  </section>
+
+  <!-- Square Formatting Section -->
+  <section class="pt-square-formatting">
+    <div class="pt-square-formatting__banner">
+      <div class="pt-square-formatting__banner-inner container">
+        <h2 class="pt-square-formatting__title">Square Formatting</h2>
+      </div>
+    </div>
+    
+    <div class="pt-square-formatting__content container">
+      <div class="pt-square-formatting__layout">
+        <!-- Left: Image frame -->
+        <div class="pt-square-formatting__item">
+          <div class="pt-square-formatting__frame-wrapper">
+            <img 
+              id="squareImage"
+              class="pt-square-formatting__media"
+              src="https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg"
+              alt="Square image"
+            >
+          </div>
+          <div class="pt-square-formatting__editor">
+            <label class="pt-square-formatting__label" for="squareImageUrlInput">Image URL:</label>
+            <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
+              <div 
+                contenteditable="true"
+                id="squareImageUrlInput" 
+                class="pt-url-editor__input" 
+                data-placeholder="Enter image URL..."
+                spellcheck="false"
+                role="textbox"
+                aria-label="Image URL"
+              >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+            </div>
+            <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
+              <span>update</span>
+              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Right: Video frame -->
+        <div class="pt-square-formatting__item">
+          <div class="pt-square-formatting__frame-wrapper">
+            <video 
+              id="squareVideo"
+              class="pt-square-formatting__media"
+              controls
+              preload="metadata"
+            >
+              <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="pt-square-formatting__editor">
+            <label class="pt-square-formatting__label" for="squareVideoUrlInput">Video URL:</label>
+            <div class="pt-url-editor__box" id="squareVideoUrlEditorBox">
+              <div 
+                contenteditable="true"
+                id="squareVideoUrlInput" 
+                class="pt-url-editor__input" 
+                data-placeholder="Enter video URL..."
+                spellcheck="false"
+                role="textbox"
+                aria-label="Video URL"
+              >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4</div>
+            </div>
+            <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
+              <span>update</span>
+              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Constomize Video Player Section -->
+  <section class="pt-playground">
+    <div class="pt-playground__banner">
+      <div class="pt-playground__banner-inner container">
+        <h2 class="pt-playground__title">Customize Video Player</h2>
+      </div>
+    </div>
+    
+    <div class="pt-playground__content container">
+      <div class="pt-playground__layout">
+        <!-- Top: Rendered embed -->
+        <div class="pt-playground__output-section">
+          <label class="pt-playground__label">Preview:</label>
+          <div class="pt-playground__preview-wrapper" id="embedPreview">
+            <iframe
+              src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
+              width="640"
+              height="360" 
+              style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+              allowfullscreen
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+        
+        <!-- Bottom: Embed code input -->
+        <div class="pt-playground__input-section">
+          <label class="pt-playground__label" for="embedCodeInput">Embed Code:</label>
+          <div class="pt-playground__input-wrapper">
+            <textarea 
+              id="embedCodeInput" 
+              class="pt-playground__textarea" 
+              rows="12"
+              placeholder="Paste your embed code here..."
+              spellcheck="false"
+            ><iframe
+  src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
+  width="640"
+  height="360" 
+  style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+  allowfullscreen
+  frameborder="0"
+></iframe></textarea>
+          </div>
+          <div class="pt-playground__controls">
+            <button class="pt-playground__button" id="updateEmbedBtn" type="button">
+              <span>update</span>
+              <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Formatting Section -->
+  <section class="pt-mobile-playground">
+    <div class="pt-mobile-playground__banner">
+      <div class="pt-mobile-playground__banner-inner container">
+        <h2 class="pt-mobile-playground__title">Mobile formatting</h2>
+      </div>
+    </div>
+    
+    <div class="pt-mobile-playground__content container">
+      <div class="pt-mobile-playground__layout">
+        <!-- Left side: Video player and code box -->
+        <div class="pt-mobile-playground__controls">
+          <!-- Video player section -->
+          <div class="pt-mobile-playground__video-section">
+            <label class="pt-mobile-playground__label">Source Video:</label>
+            <div class="pt-mobile-playground__video-wrapper">
+              <video 
+                id="mobileVideo" 
+                class="pt-mobile-playground__video" 
+                controls
+                preload="metadata"
+              >
+                <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          
+          <!-- Code box section -->
+          <div class="pt-mobile-playground__code-section">
+            <label class="pt-mobile-playground__label" for="mobileVideoUrlInput">Video URL:</label>
+            <div class="pt-url-editor__box" id="mobileUrlEditorBox">
+              <div 
+                contenteditable="true"
+                id="mobileVideoUrlInput" 
+                class="pt-url-editor__input" 
+                data-placeholder="Enter video URL..."
+                spellcheck="false"
+                role="textbox"
+                aria-label="Video URL"
+              >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4</div>
+            </div>
+            <button class="pt-url-editor__button" id="updateMobileVideoBtn" type="button">
+              <span>update</span>
+              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Right side: Phone frame with iframe overlay -->
+        <div class="pt-mobile-playground__phone-section">
+          <div class="pt-mobile-playground__phone-wrapper">
+            <img 
+              src="https://res.cloudinary.com/dz6ajwh6k/image/upload/v1765254943/511-5115286_mobile-frame-on-hand-png-clipart_qbtbks.png" 
+              alt="Phone frame"
+              class="pt-mobile-playground__phone-image"
+            >
+            <div class="pt-mobile-playground__phone-screen" id="phoneScreen">
+              <video 
+                id="phoneVideo" 
+                class="pt-mobile-playground__phone-video" 
+                autoplay
+                muted
+                playsinline
+                loop
+                preload="metadata"
+                style="width: 100%; height: 100%; object-fit: cover;"
+              >
+                <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay">
+                <span class="pt-mobile-playground__file-size-label">File Size:</span>
+                <span class="pt-mobile-playground__file-size-value" id="mobileFileSizeValue">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+  </main>
+
+  <script>
+    // Header scroll fade effect
+    const header = document.querySelector('.pt-header');
+    if (header) {
+      function handleScroll() {
+        // Calculate 5% of the page height
+        const scrollThreshold = (document.documentElement.scrollHeight - window.innerHeight) * 0.05;
+        
+        if (window.scrollY > scrollThreshold) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+      
+      // Check initial scroll position
+      handleScroll();
+      
+      // Listen for scroll events
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // Function to update hero container negative margin based on header height
+    function updateHeroNegativeMargin() {
+      if (!header || !heroContainer) return;
+      
+      const headerHeight = header.offsetHeight;
+      if (headerHeight > 0) {
+        heroContainer.style.marginTop = '-' + headerHeight + 'px';
+      }
+    }
+
+    // Hero Video Configuration
+    const heroVideo = document.getElementById('heroVideo');
+    const heroContainer = document.getElementById('heroContainer');
+    const heroPlaceholder = document.getElementById('heroPlaceholder');
+    const heroSpacer = document.getElementById('heroSpacer');
+    const fileSizeValue = document.getElementById('fileSizeValue');
+    const videoLengthValue = document.getElementById('videoLengthValue');
+    
+    // Update negative margin on load and resize
+    if (header && heroContainer) {
+      updateHeroNegativeMargin();
+      window.addEventListener('resize', updateHeroNegativeMargin);
+    }
+    
+    // Function to update placeholder size to match current container
+    function updatePlaceholderSize() {
+      if (!heroPlaceholder || !heroContainer) return;
+      
+      const containerHeight = heroContainer.offsetHeight;
+      
+      if (containerHeight > 0) {
+        heroPlaceholder.style.width = '100%';
+        heroPlaceholder.style.height = containerHeight + 'px';
+      }
+    }
+    
+    // Function to update spacer to match container height and position for document flow
+    function updateHeroSpacer() {
+      if (!heroSpacer || !heroContainer) return;
+      
+      const containerHeight = heroContainer.offsetHeight;
+      const headerHeight = header ? header.offsetHeight : 0;
+      
+      if (containerHeight > 0) {
+        // Position spacer to match container's visual position (accounting for negative margin)
+        heroSpacer.style.top = '-' + headerHeight + 'px';
+        heroSpacer.style.height = containerHeight + 'px';
+        heroSpacer.style.width = '100%';
+        heroSpacer.style.left = '0';
+        heroSpacer.style.transform = '';
+      }
+    }
+    
+    // Function to get current container height for placeholder
+    function getContainerHeight() {
+      if (!heroContainer) return 0;
+      return heroContainer.offsetHeight || parseFloat(window.getComputedStyle(heroContainer).height) || 0;
+    }
+    
+    
+    // Helper function to format file size
+    function formatFileSize(bytes) {
+      if (!bytes || bytes === 0) return 'Unknown';
+      
+      const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+      let size = bytes;
+      let unitIndex = 0;
+      
+      while (size >= 1024 && unitIndex < units.length - 1) {
+        size /= 1024;
+        unitIndex++;
+      }
+      
+      return size.toFixed(2) + ' ' + units[unitIndex];
+    }
+
+    // Helper function to parse file size string back to bytes
+    function parseFileSize(sizeString) {
+      if (!sizeString || sizeString === 'Loading...' || sizeString === 'Unknown' || 
+          sizeString === 'Size unavailable' || sizeString === 'Error' || sizeString === 'Error loading') {
+        return null;
+      }
+
+      const match = sizeString.match(/^([\d.]+)\s*([A-Z]+)$/i);
+      if (!match) return null;
+
+      const size = parseFloat(match[1]);
+      const unit = match[2].toUpperCase();
+
+      const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const unitIndex = units.indexOf(unit);
+
+      if (unitIndex === -1) return null;
+
+      return size * Math.pow(1024, unitIndex);
+    }
+
+    // Helper function to format video duration
+    function formatVideoDuration(seconds) {
+      if (isNaN(seconds) || !isFinite(seconds) || seconds <= 0) {
+        return 'Unknown';
+      }
+
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = Math.floor(seconds % 60);
+
+      if (hours > 0) {
+        return `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      } else {
+        return `${minutes}:${String(secs).padStart(2, '0')}`;
+      }
+    }
+
+    // Function to check and update video length
+    function checkAndUpdateVideoLength() {
+      if (!heroVideo || !videoLengthValue) return;
+
+      // Check if duration is available and valid
+      if (heroVideo.duration && isFinite(heroVideo.duration) && heroVideo.duration > 0) {
+        videoLengthValue.textContent = formatVideoDuration(heroVideo.duration);
+        return true;
+      }
+      return false;
+    }
+
+    // Function to update video length display
+    function updateVideoLength() {
+      if (!heroVideo || !videoLengthValue) return;
+
+      // Show loading state
+      videoLengthValue.textContent = 'Loading...';
+
+      // Try to get duration immediately
+      if (checkAndUpdateVideoLength()) {
+        return;
+      }
+
+      // If not available, wait for metadata events
+      const checkDuration = function() {
+        if (!checkAndUpdateVideoLength()) {
+          // Try again after a short delay
+          setTimeout(function() {
+            if (!checkAndUpdateVideoLength()) {
+              videoLengthValue.textContent = 'Unknown';
+            }
+          }, 500);
+        }
+      };
+
+      // Listen for various events that might provide duration
+      heroVideo.addEventListener('loadedmetadata', checkDuration, { once: true });
+      heroVideo.addEventListener('durationchange', checkDuration, { once: true });
+      heroVideo.addEventListener('loadeddata', checkDuration, { once: true });
+      
+      // Fallback timeout
+      setTimeout(function() {
+        if (videoLengthValue && videoLengthValue.textContent === 'Loading...') {
+          checkDuration();
+        }
+      }, 3000);
+    }
+
+    // Easing function for smooth animation
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    // Function to animate file size transition
+    function animateFileSize(oldBytes, newBytes, duration = 1000) {
+      if (!fileSizeValue) return;
+      
+      if (oldBytes === null || oldBytes === undefined) {
+        // No previous value, just set directly
+        fileSizeValue.textContent = formatFileSize(newBytes);
+        return;
+      }
+
+      const startTime = performance.now();
+      const difference = newBytes - oldBytes;
+
+      function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(progress);
+        
+        const currentBytes = oldBytes + (difference * eased);
+        fileSizeValue.textContent = formatFileSize(currentBytes);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          // Ensure final value is exact
+          fileSizeValue.textContent = formatFileSize(newBytes);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    
+    // Function to fetch and display file size with animation
+    async function updateFileSize(videoUrl) {
+      if (!fileSizeValue) return Promise.resolve();
+      
+      // Get current file size before updating
+      const currentText = fileSizeValue.textContent;
+      const oldBytes = parseFileSize(currentText);
+      
+      // Show loading state
+      fileSizeValue.textContent = 'Loading...';
+      
+      try {
+        // Use HEAD request to get file size without downloading the video
+        const response = await fetch(videoUrl, { method: 'HEAD' });
+        
+        if (response.ok) {
+          const contentLength = response.headers.get('Content-Length');
+          
+          if (contentLength) {
+            const fileSize = parseInt(contentLength, 10);
+            animateFileSize(oldBytes, fileSize);
+            return Promise.resolve();
+          } else {
+            // If Content-Length not available, try alternative method
+            await loadVideoSizeFromMetadata(videoUrl, oldBytes);
+            return Promise.resolve();
+          }
+        } else {
+          // If HEAD fails, try loading video metadata
+          await loadVideoSizeFromMetadata(videoUrl, oldBytes);
+          return Promise.resolve();
+        }
+      } catch (error) {
+        console.warn('Could not fetch file size via HEAD request:', error);
+        // Fallback to metadata method
+        await loadVideoSizeFromMetadata(videoUrl, oldBytes);
+        return Promise.resolve();
+      }
+    }
+    
+    // Fallback method: Try to get size from video metadata
+    async function loadVideoSizeFromMetadata(videoUrl, oldBytes = null, isMobile = false) {
+      try {
+        const response = await fetch(videoUrl, { method: 'GET', headers: { Range: 'bytes=0-1' } });
+        const contentRange = response.headers.get('Content-Range');
+        
+        if (contentRange) {
+          // Content-Range format: "bytes 0-1/12345678"
+          const match = contentRange.match(/\/(\d+)/);
+          if (match) {
+            const fileSize = parseInt(match[1], 10);
+            if (isMobile && mobileFileSizeValue) {
+              animateMobileFileSize(oldBytes, fileSize);
+            } else {
+              animateFileSize(oldBytes, fileSize);
+            }
+            return;
+          }
+        }
+        
+        // Last resort: try to get from response
+        const contentLength = response.headers.get('Content-Length');
+        if (contentLength) {
+          const fileSize = parseInt(contentLength, 10);
+          if (isMobile && mobileFileSizeValue) {
+            animateMobileFileSize(oldBytes, fileSize);
+          } else {
+            animateFileSize(oldBytes, fileSize);
+          }
+          return;
+        }
+        
+        if (isMobile && mobileFileSizeValue) {
+          mobileFileSizeValue.textContent = 'Size unavailable';
+        } else if (fileSizeValue) {
+          fileSizeValue.textContent = 'Size unavailable';
+        }
+      } catch (error) {
+        console.error('Error fetching file size:', error);
+        if (isMobile && mobileFileSizeValue) {
+          mobileFileSizeValue.textContent = 'Error';
+        } else if (fileSizeValue) {
+          fileSizeValue.textContent = 'Error';
+        }
+      }
+    }
+    
+    // Helper function to resize container based on video aspect ratio
+    function resizeVideoContainer(updatePlaceholder = true) {
+      if (!heroVideo || !heroContainer) return;
+      
+      // Wait for video dimensions to be available
+      if (heroVideo.videoWidth && heroVideo.videoHeight) {
+        // Container is always full width, calculate height based on aspect ratio
+        const containerWidth = heroContainer.offsetWidth || window.innerWidth;
+        const aspectRatio = heroVideo.videoHeight / heroVideo.videoWidth;
+        const containerHeight = containerWidth * aspectRatio;
+        
+        // Set container height based on aspect ratio (width is always 100%)
+        heroContainer.style.height = containerHeight + 'px';
+        
+        // Video element fills container (width: 100%, height: auto via CSS)
+        heroVideo.style.width = '';
+        heroVideo.style.height = '';
+        
+        // Update placeholder size after resize
+        if (updatePlaceholder) {
+          // Use a small delay to ensure container has updated
+          setTimeout(function() {
+            updatePlaceholderSize();
+            updateHeroSpacer();
+          }, 10);
+        }
+      }
+    }
+    
+    // Function to update video source and resize container
+    function updateHeroVideo(videoUrl) {
+      if (!heroVideo || !heroContainer) return;
+      
+      // Store current container height before changing video
+      const currentHeight = getContainerHeight();
+      
+      // Update placeholder to current container size BEFORE changing video
+      // This preserves the size to prevent jumping
+      if (currentHeight > 0 && heroPlaceholder) {
+        heroPlaceholder.style.width = '100%';
+        heroPlaceholder.style.height = currentHeight + 'px';
+      }
+      
+      // Reset video dimensions before loading new video
+      heroVideo.style.width = '';
+      heroVideo.style.height = '';
+      
+      // Flag to ensure we only update metadata once per video change
+      let metadataUpdated = false;
+      let fileSizeUpdated = false;
+      let videoLengthUpdated = false;
+      
+      // Function to check if video metadata is actually ready
+      function isMetadataReady() {
+        return heroVideo.readyState >= 2 && 
+               heroVideo.videoWidth > 0 && 
+               heroVideo.videoHeight > 0 &&
+               (heroVideo.duration > 0 || heroVideo.readyState >= 3);
+      }
+      
+      // Function to update file size with retry logic
+      function updateFileSizeWithRetry(url, retries = 5, delay = 500) {
+        if (fileSizeUpdated) return;
+        
+        const attemptUpdate = function(attempt) {
+          if (attempt > retries) {
+            fileSizeUpdated = true;
+            updateFileSize(url);
+            return;
+          }
+          
+          // Try to update file size
+          updateFileSize(url).then(function() {
+            // Check if we got a valid result
+            if (fileSizeValue && 
+                fileSizeValue.textContent !== 'Loading...' && 
+                fileSizeValue.textContent !== 'Size unavailable' &&
+                fileSizeValue.textContent !== 'Error') {
+              fileSizeUpdated = true;
+            } else if (attempt < retries) {
+              // Retry after delay
+              setTimeout(function() {
+                attemptUpdate(attempt + 1);
+              }, delay);
+            } else {
+              fileSizeUpdated = true;
+            }
+          }).catch(function() {
+            if (attempt < retries) {
+              setTimeout(function() {
+                attemptUpdate(attempt + 1);
+              }, delay);
+            } else {
+              fileSizeUpdated = true;
+            }
+          });
+        };
+        
+        // Start with initial delay to let video load
+        setTimeout(function() {
+          attemptUpdate(1);
+        }, 1000);
+      }
+      
+      // Function to update video length with retry logic
+      function updateVideoLengthWithRetry(retries = 5, delay = 500) {
+        if (videoLengthUpdated) return;
+        
+        const attemptUpdate = function(attempt) {
+          if (attempt > retries) {
+            videoLengthUpdated = true;
+            updateVideoLength();
+            return;
+          }
+          
+          // Check if duration is available and valid
+          if (heroVideo.duration && 
+              isFinite(heroVideo.duration) && 
+              heroVideo.duration > 0 &&
+              heroVideo.readyState >= 2) {
+            videoLengthValue.textContent = formatVideoDuration(heroVideo.duration);
+            videoLengthUpdated = true;
+          } else if (attempt < retries) {
+            // Retry after delay
+            setTimeout(function() {
+              attemptUpdate(attempt + 1);
+            }, delay);
+          } else {
+            videoLengthUpdated = true;
+            updateVideoLength();
+          }
+        };
+        
+        // Start with initial delay to let video load
+        setTimeout(function() {
+          attemptUpdate(1);
+        }, 1000);
+      }
+      
+      // Function to handle metadata loaded and update file size/length
+      function handleMetadataAndUpdate() {
+        if (metadataUpdated) return;
+        metadataUpdated = true;
+        
+        // Resize container
+        resizeVideoContainer(true);
+        // Update placeholder after resize completes
+        setTimeout(function() {
+          updatePlaceholderSize();
+          updateHeroSpacer();
+        }, 100);
+        
+        // Update file size and length with retry logic
+        updateFileSizeWithRetry(videoUrl);
+        updateVideoLengthWithRetry();
+      }
+      
+      // Clear existing src to force reload of new video
+      heroVideo.src = '';
+      heroVideo.load();
+      
+      // Set up multiple event handlers BEFORE setting new src to catch early events
+      heroVideo.addEventListener('loadedmetadata', function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, { once: true });
+      
+      heroVideo.addEventListener('durationchange', function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, { once: true });
+      
+      heroVideo.addEventListener('loadeddata', function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, { once: true });
+      
+      heroVideo.addEventListener('canplay', function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, { once: true });
+      
+      heroVideo.addEventListener('canplaythrough', function() {
+        if (!metadataUpdated) {
+          handleMetadataAndUpdate();
+        }
+      }, { once: true });
+      
+      // Set new video source
+      heroVideo.src = videoUrl;
+      
+      // Maintain container at current height to prevent jump during loading
+      // Width is always 100%, we just maintain height
+      if (currentHeight > 0) {
+        heroContainer.style.height = currentHeight + 'px';
+      }
+      
+      // Load the new video
+      heroVideo.load();
+      
+      // Check after delays if metadata loaded quickly (before event fired)
+      setTimeout(function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, 200);
+      
+      setTimeout(function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, 1000);
+      
+      setTimeout(function() {
+        if (!metadataUpdated && isMetadataReady()) {
+          handleMetadataAndUpdate();
+        }
+      }, 2000);
+      
+      return new Promise((resolve, reject) => {
+        const loadedDataHandler = function() {
+          // Final backup: try to update if not already done
+          if (!metadataUpdated && isMetadataReady()) {
+            handleMetadataAndUpdate();
+          }
+          resolve();
+        };
+        
+        heroVideo.addEventListener('loadeddata', loadedDataHandler, { once: true });
+        heroVideo.addEventListener('canplaythrough', function() {
+          if (!metadataUpdated) {
+            handleMetadataAndUpdate();
+          }
+        }, { once: true });
+        heroVideo.addEventListener('error', reject, { once: true });
+        
+        // Also check immediately if already loaded
+        if (heroVideo.readyState >= 3) {
+          setTimeout(loadedDataHandler, 0);
+        }
+      });
+    }
+    
+    // Handle video loading and resize on page load
+    if (heroVideo && heroContainer) {
+      // Get initial video URL
+      const sourceElement = heroVideo.querySelector('source');
+      const initialVideoSrc = sourceElement ? sourceElement.src : (heroVideo.src || '');
+      
+      // Function to handle file size and length update after video loads
+      function handleVideoMetadataLoaded() {
+        resizeVideoContainer(true);
+        // Update placeholder after initial load
+        setTimeout(function() {
+          updatePlaceholderSize();
+          updateHeroSpacer();
+        }, 50);
+        
+        // Wait 1 second after video finishes loading before updating file size and length
+        if (initialVideoSrc) {
+          setTimeout(function() {
+            updateFileSize(initialVideoSrc);
+            updateVideoLength();
+          }, 1000);
+        }
+      }
+      
+      // Check if video metadata is already loaded
+      if (heroVideo.readyState >= 1) {
+        // Video metadata already loaded, handle it immediately
+        handleVideoMetadataLoaded();
+      } else {
+        // Wait for metadata to load
+        heroVideo.addEventListener('loadedmetadata', handleVideoMetadataLoaded, { once: true });
+      }
+      
+      // Handle window resize to maintain aspect ratio
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          if (heroVideo && heroVideo.videoWidth && heroVideo.videoHeight) {
+            resizeVideoContainer(true);
+          }
+        }, 100);
+      });
+      
+      // Handle video errors gracefully
+      heroVideo.addEventListener('error', function() {
+        console.error('Error loading video:', heroVideo.error);
+        if (fileSizeValue) {
+          fileSizeValue.textContent = 'Error loading';
+        }
+      });
+      
+      // Ensure video plays once loaded
+      heroVideo.addEventListener('loadeddata', function() {
+        heroVideo.play().catch(function(error) {
+          console.warn('Video autoplay prevented:', error);
+        });
+        // Try to get duration when data is loaded
+        checkAndUpdateVideoLength();
+      });
+
+      // Also try on canplay event
+      heroVideo.addEventListener('canplay', function() {
+        checkAndUpdateVideoLength();
+      }, { once: true });
+
+      // Try immediately if video is already loaded
+      if (heroVideo.readyState >= 2) {
+        setTimeout(checkAndUpdateVideoLength, 100);
+      }
+      
+    }
+    
+    // Export function for easy video updates during demo
+    // Usage: updateHeroVideo('https://your-video-url.mp4')
+    window.updateHeroVideo = updateHeroVideo;
+
+    // URL Editor Configuration
+    const videoUrlInput = document.getElementById('videoUrlInput');
+    const updateVideoBtn = document.getElementById('updateVideoBtn');
+    const urlEditorBox = document.getElementById('urlEditorBox');
+
+    // Color palette for URL segments
+    const segmentColors = [
+      '#4EC9B0', // teal
+      '#569CD6', // blue
+      '#9CDCFE', // light blue
+      '#DCDCAA', // yellow
+      '#CE9178', // orange
+      '#C586C0', // purple
+      '#D7BA7D', // tan
+      '#4FC1FF', // cyan
+      '#F48771', // coral
+      '#A9D0FF'  // light cyan
+    ];
+
+    // Function to render URL with color-coded segments
+    // Color changes after the 3rd "/" and then after each "/" after that
+    function renderColorCodedUrl(url) {
+      if (!url) return '';
+
+      // Split URL by "/" separator
+      const segments = url.split('/');
+      let html = '';
+      let colorIndex = 0;
+
+      segments.forEach((segment, index) => {
+        // Everything up to and including the 3rd "/" stays white/default
+        // After the 3rd "/" (which comes after segment index 3), change color after each "/"
+        if (index < 2) {
+          // First 4 segments (0, 1, 2, 3) - default white color
+          html += escapeHtml(segment);
+        } else {
+          // After 3rd "/" (starting from segment index 4) - use colors, changing after each "/"
+          html += `<span style="color: ${segmentColors[colorIndex % segmentColors.length]}">${escapeHtml(segment)}</span>`;
+          colorIndex++;
+        }
+        
+        // Add separator after each segment except the last
+        if (index < segments.length - 1) {
+          html += '/';
+        }
+      });
+
+      return html;
+    }
+
+    // Helper to escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Function to update URL display and input
+    function updateUrlDisplay(url) {
+      if (!url) {
+        if (videoUrlInput) {
+          videoUrlInput.textContent = '';
+        }
+        return;
+      }
+
+      // Update the contenteditable div with color-coded URL
+      if (videoUrlInput) {
+        videoUrlInput.innerHTML = renderColorCodedUrl(url);
+      }
+    }
+
+    // Function to get cursor position as character offset from start
+    function getCursorPosition() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) {
+        // If no selection, cursor is at the end
+        return (videoUrlInput.textContent || videoUrlInput.innerText || '').length;
+      }
+      
+      try {
+        const range = selection.getRangeAt(0);
+        
+        // Get plain text content up to cursor position
+        // This works better with HTML content than toString()
+        const preCaretRange = document.createRange();
+        preCaretRange.setStart(videoUrlInput, 0);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        
+        // Clone the range and extract text content (ignoring HTML structure)
+        const clonedRange = preCaretRange.cloneContents();
+        const tempDiv = document.createElement('div');
+        tempDiv.appendChild(clonedRange);
+        
+        // Return the length of plain text before cursor
+        return (tempDiv.textContent || tempDiv.innerText || '').length;
+      } catch (e) {
+        // Fallback: return end position
+        return (videoUrlInput.textContent || videoUrlInput.innerText || '').length;
+      }
+    }
+    
+    // Function to set cursor position from character offset
+    function setCursorPosition(position) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      
+      let currentOffset = 0;
+      const walker = document.createTreeWalker(
+        videoUrlInput,
+        NodeFilter.SHOW_TEXT,
+        null
+      );
+      
+      let node;
+      while ((node = walker.nextNode())) {
+        const nodeLength = node.textContent.length;
+        if (currentOffset + nodeLength >= position) {
+          const offsetInNode = position - currentOffset;
+          range.setStart(node, Math.min(offsetInNode, nodeLength));
+          range.setEnd(node, Math.min(offsetInNode, nodeLength));
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return;
+        }
+        currentOffset += nodeLength;
+      }
+      
+      // If position is beyond text length, place at end
+      if (videoUrlInput.lastChild && videoUrlInput.lastChild.nodeType === Node.TEXT_NODE) {
+        const lastNode = videoUrlInput.lastChild;
+        range.setStart(lastNode, lastNode.textContent.length);
+        range.setEnd(lastNode, lastNode.textContent.length);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+    
+    // Function to sync the color-coded display with input value
+    let syncTimeout = null;
+    let isTyping = false;
+    function syncColorCodedDisplay() {
+      if (!videoUrlInput) return;
+      
+      // Mark that we're in a typing session
+      isTyping = true;
+      
+      // Debounce to avoid cursor jumping while typing - longer delay for better stability
+      clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(function() {
+        // Get plain text FIRST to ensure we have the latest content
+        const url = videoUrlInput.textContent || videoUrlInput.innerText || '';
+        
+        if (!url) {
+          videoUrlInput.innerHTML = '';
+          isTyping = false;
+          return;
+        }
+        
+        // Save cursor position AFTER we have the text but BEFORE modifying DOM
+        let cursorPos = 0;
+        try {
+          cursorPos = getCursorPosition();
+        } catch (e) {
+          // Fallback: assume cursor is at end
+          cursorPos = url.length;
+        }
+        
+        // Clamp cursor position to valid range
+        const safeCursorPos = Math.min(Math.max(0, cursorPos), url.length);
+        
+        // Update with color-coded version
+        videoUrlInput.innerHTML = renderColorCodedUrl(url);
+        
+        // Restore cursor position - use double RAF to ensure DOM is fully updated
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            try {
+              setCursorPosition(safeCursorPos);
+              // Ensure element stays focused
+              if (document.activeElement !== videoUrlInput) {
+                videoUrlInput.focus();
+              }
+            } catch (e) {
+              // If restoration fails, just focus at end
+              videoUrlInput.focus();
+              const urlLength = (videoUrlInput.textContent || '').length;
+              setCursorPosition(Math.min(safeCursorPos, urlLength));
+            }
+            isTyping = false;
+          });
+        });
+      }, 300); // Increased debounce delay for better stability
+    }
+    
+    // Function to get plain text URL from contenteditable
+    function getUrlFromInput() {
+      if (!videoUrlInput) return '';
+      return videoUrlInput.textContent || videoUrlInput.innerText || '';
+    }
+
+    // Function to handle video update
+    async function handleVideoUpdate() {
+      const newUrl = getUrlFromInput().trim();
+
+      if (!newUrl) {
+        alert('Please enter a video URL');
+        return;
+      }
+
+      // Basic URL validation
+      try {
+        new URL(newUrl);
+      } catch (e) {
+        alert('Please enter a valid URL');
+        return;
+      }
+
+      // Disable button during update
+      if (updateVideoBtn) {
+        updateVideoBtn.disabled = true;
+        const buttonSpan = updateVideoBtn.querySelector('span');
+        const buttonIcon = updateVideoBtn.querySelector('svg');
+        if (buttonSpan) buttonSpan.textContent = 'Updating...';
+        if (buttonIcon) buttonIcon.style.display = 'none';
+      }
+
+      try {
+        // Update the video
+        await updateHeroVideo(newUrl);
+        
+        // Update the source element as well
+        const sourceElement = heroVideo?.querySelector('source');
+        if (sourceElement) {
+          sourceElement.src = newUrl;
+        }
+
+        // Update URL display
+        updateUrlDisplay(newUrl);
+
+        // Show success briefly
+        if (updateVideoBtn) {
+          const buttonSpan = updateVideoBtn.querySelector('span');
+          const buttonIcon = updateVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Updated!';
+          if (buttonIcon) buttonIcon.style.display = 'none';
+          
+          setTimeout(() => {
+            if (updateVideoBtn) {
+              if (buttonSpan) buttonSpan.textContent = 'update';
+              if (buttonIcon) buttonIcon.style.display = '';
+              updateVideoBtn.disabled = false;
+            }
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error updating video:', error);
+        alert('Error updating video. Please check the URL and try again.');
+        
+        if (updateVideoBtn) {
+          const buttonSpan = updateVideoBtn.querySelector('span');
+          const buttonIcon = updateVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Update Video';
+          if (buttonIcon) buttonIcon.style.display = '';
+          updateVideoBtn.disabled = false;
+        }
+      }
+    }
+
+    // Initialize URL editor
+    if (videoUrlInput && updateVideoBtn) {
+      // Set initial video URL
+      const sourceElement = heroVideo?.querySelector('source');
+      const initialVideoSrc = sourceElement ? sourceElement.src : (heroVideo?.src || '');
+      
+      if (initialVideoSrc) {
+        updateUrlDisplay(initialVideoSrc);
+      }
+
+      // Handle update button click
+      updateVideoBtn.addEventListener('click', handleVideoUpdate);
+
+      // Handle Enter key in input
+      videoUrlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleVideoUpdate();
+        }
+      });
+
+      // Sync color-coded display in real-time as user types
+      videoUrlInput.addEventListener('input', function(e) {
+        // Sync after input is processed - the debounce will handle timing
+        syncColorCodedDisplay();
+      });
+      
+      // Sync on paste
+      videoUrlInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+          const textNode = document.createTextNode(paste);
+          range.insertNode(textNode);
+          range.setStartAfter(textNode);
+          range.setEndAfter(textNode);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        setTimeout(syncColorCodedDisplay, 0);
+      });
+      
+      // Prevent formatting when pasting
+      videoUrlInput.addEventListener('paste', function(e) {
+        // Already handled above, but ensure plain text
+      }, true);
+    }
+
+    // Video Selector Buttons Configuration
+    const videoButtons = document.querySelectorAll('.pt-hero__video-button');
+    
+    // Initialize video buttons - play previews on hover
+    videoButtons.forEach(function(button) {
+      const video = button.querySelector('.pt-hero__video-button-preview');
+      if (!video) return;
+      
+      // Play video on hover
+      button.addEventListener('mouseenter', function() {
+        video.play().catch(function(error) {
+          console.warn('Could not play preview video:', error);
+        });
+      });
+      
+      // Pause video when not hovering
+      button.addEventListener('mouseleave', function() {
+        video.pause();
+        video.currentTime = 0;
+      });
+      
+      // Handle click to update hero video
+      button.addEventListener('click', async function() {
+        const videoUrl = button.getAttribute('data-video-url');
+        if (!videoUrl) return;
+        
+        try {
+          // Update hero video
+          await updateHeroVideo(videoUrl);
+          
+          // Update source element
+          const sourceElement = heroVideo?.querySelector('source');
+          if (sourceElement) {
+            sourceElement.src = videoUrl;
+          }
+          
+          // Update URL input display
+          updateUrlDisplay(videoUrl);
+          
+          // Visual feedback - add active state
+          videoButtons.forEach(function(btn) {
+            btn.style.borderColor = '';
+          });
+          button.style.borderColor = 'var(--color-primary)';
+          button.style.boxShadow = 'var(--shadow-lg)';
+          
+          // Reset border after animation
+          setTimeout(function() {
+            button.style.borderColor = '';
+            button.style.boxShadow = '';
+          }, 500);
+          
+        } catch (error) {
+          console.error('Error updating video:', error);
+          alert('Error updating video. Please try again.');
+        }
+      });
+      
+      // Ensure video is loaded and ready
+      video.addEventListener('loadedmetadata', function() {
+        // Video is ready for preview
+      });
+    });
+
+    // Embed Code Playground Configuration
+    const embedCodeInput = document.getElementById('embedCodeInput');
+    const updateEmbedBtn = document.getElementById('updateEmbedBtn');
+    const embedPreview = document.getElementById('embedPreview');
+
+    // Function to handle embed code update
+    function handleEmbedUpdate() {
+      if (!embedCodeInput || !embedPreview) return;
+
+      const embedCode = embedCodeInput.value.trim();
+
+      if (!embedCode) {
+        alert('Please enter embed code');
+        return;
+      }
+
+      // Disable button during update
+      if (updateEmbedBtn) {
+        updateEmbedBtn.disabled = true;
+        const buttonSpan = updateEmbedBtn.querySelector('span');
+        const buttonIcon = updateEmbedBtn.querySelector('svg');
+        if (buttonSpan) buttonSpan.textContent = 'Updating...';
+        if (buttonIcon) buttonIcon.style.display = 'none';
+      }
+
+      try {
+        // Clear previous embed completely
+        while (embedPreview.firstChild) {
+          embedPreview.removeChild(embedPreview.firstChild);
+        }
+        
+        // Insert new embed code
+        embedPreview.innerHTML = embedCode;
+
+        // Show success briefly
+        if (updateEmbedBtn) {
+          const buttonSpan = updateEmbedBtn.querySelector('span');
+          const buttonIcon = updateEmbedBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Updated!';
+          if (buttonIcon) buttonIcon.style.display = 'none';
+          
+          setTimeout(() => {
+            if (updateEmbedBtn) {
+              if (buttonSpan) buttonSpan.textContent = 'update';
+              if (buttonIcon) buttonIcon.style.display = '';
+              updateEmbedBtn.disabled = false;
+            }
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error updating embed:', error);
+        alert('Error updating embed. Please check the code and try again.');
+        
+        if (updateEmbedBtn) {
+          const buttonSpan = updateEmbedBtn.querySelector('span');
+          const buttonIcon = updateEmbedBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'update';
+          if (buttonIcon) buttonIcon.style.display = '';
+          updateEmbedBtn.disabled = false;
+        }
+      }
+    }
+
+    // Initialize embed playground
+    if (embedCodeInput && updateEmbedBtn) {
+      // Handle update button click
+      updateEmbedBtn.addEventListener('click', handleEmbedUpdate);
+
+      // Handle Cmd/Ctrl + Enter to update
+      embedCodeInput.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+          e.preventDefault();
+          handleEmbedUpdate();
+        }
+      });
+    }
+
+    // Square Formatting Configuration
+    const squareImage = document.getElementById('squareImage');
+    const squareImageUrlInput = document.getElementById('squareImageUrlInput');
+    const updateSquareImageBtn = document.getElementById('updateSquareImageBtn');
+    const squareVideo = document.getElementById('squareVideo');
+    const squareVideoUrlInput = document.getElementById('squareVideoUrlInput');
+    const updateSquareVideoBtn = document.getElementById('updateSquareVideoBtn');
+
+    // Function to get cursor position for square image input
+    function getSquareImageCursorPosition() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) {
+        return (squareImageUrlInput.textContent || squareImageUrlInput.innerText || '').length;
+      }
+      
+      try {
+        const range = selection.getRangeAt(0);
+        const preCaretRange = document.createRange();
+        preCaretRange.setStart(squareImageUrlInput, 0);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        
+        const clonedRange = preCaretRange.cloneContents();
+        const tempDiv = document.createElement('div');
+        tempDiv.appendChild(clonedRange);
+        return (tempDiv.textContent || tempDiv.innerText || '').length;
+      } catch (e) {
+        return (squareImageUrlInput.textContent || squareImageUrlInput.innerText || '').length;
+      }
+    }
+    
+    // Function to set cursor position for square image input
+    function setSquareImageCursorPosition(position) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      
+      let currentOffset = 0;
+      const walker = document.createTreeWalker(
+        squareImageUrlInput,
+        NodeFilter.SHOW_TEXT,
+        null
+      );
+      
+      let node;
+      while ((node = walker.nextNode())) {
+        const nodeLength = node.textContent.length;
+        if (currentOffset + nodeLength >= position) {
+          const offsetInNode = position - currentOffset;
+          range.setStart(node, Math.min(offsetInNode, nodeLength));
+          range.setEnd(node, Math.min(offsetInNode, nodeLength));
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return;
+        }
+        currentOffset += nodeLength;
+      }
+      
+      if (squareImageUrlInput.lastChild && squareImageUrlInput.lastChild.nodeType === Node.TEXT_NODE) {
+        const lastNode = squareImageUrlInput.lastChild;
+        range.setStart(lastNode, lastNode.textContent.length);
+        range.setEnd(lastNode, lastNode.textContent.length);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+    
+    // Function to sync square image color-coded display
+    let squareImageSyncTimeout = null;
+    function syncSquareImageColorCodedDisplay() {
+      if (!squareImageUrlInput) return;
+      
+      clearTimeout(squareImageSyncTimeout);
+      squareImageSyncTimeout = setTimeout(function() {
+        const url = squareImageUrlInput.textContent || squareImageUrlInput.innerText || '';
+        
+        if (!url) {
+          squareImageUrlInput.innerHTML = '';
+          return;
+        }
+        
+        let cursorPos = 0;
+        try {
+          cursorPos = getSquareImageCursorPosition();
+        } catch (e) {
+          cursorPos = url.length;
+        }
+        
+        const safeCursorPos = Math.min(Math.max(0, cursorPos), url.length);
+        squareImageUrlInput.innerHTML = renderColorCodedUrl(url);
+        
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            try {
+              setSquareImageCursorPosition(safeCursorPos);
+              if (document.activeElement !== squareImageUrlInput) {
+                squareImageUrlInput.focus();
+              }
+            } catch (e) {
+              squareImageUrlInput.focus();
+              const urlLength = (squareImageUrlInput.textContent || '').length;
+              setSquareImageCursorPosition(Math.min(safeCursorPos, urlLength));
+            }
+          });
+        });
+      }, 300);
+    }
+
+    // Function to get cursor position for square video input
+    function getSquareVideoCursorPosition() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) {
+        return (squareVideoUrlInput.textContent || squareVideoUrlInput.innerText || '').length;
+      }
+      
+      try {
+        const range = selection.getRangeAt(0);
+        const preCaretRange = document.createRange();
+        preCaretRange.setStart(squareVideoUrlInput, 0);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        
+        const clonedRange = preCaretRange.cloneContents();
+        const tempDiv = document.createElement('div');
+        tempDiv.appendChild(clonedRange);
+        return (tempDiv.textContent || tempDiv.innerText || '').length;
+      } catch (e) {
+        return (squareVideoUrlInput.textContent || squareVideoUrlInput.innerText || '').length;
+      }
+    }
+    
+    // Function to set cursor position for square video input
+    function setSquareVideoCursorPosition(position) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      
+      let currentOffset = 0;
+      const walker = document.createTreeWalker(
+        squareVideoUrlInput,
+        NodeFilter.SHOW_TEXT,
+        null
+      );
+      
+      let node;
+      while ((node = walker.nextNode())) {
+        const nodeLength = node.textContent.length;
+        if (currentOffset + nodeLength >= position) {
+          const offsetInNode = position - currentOffset;
+          range.setStart(node, Math.min(offsetInNode, nodeLength));
+          range.setEnd(node, Math.min(offsetInNode, nodeLength));
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return;
+        }
+        currentOffset += nodeLength;
+      }
+      
+      if (squareVideoUrlInput.lastChild && squareVideoUrlInput.lastChild.nodeType === Node.TEXT_NODE) {
+        const lastNode = squareVideoUrlInput.lastChild;
+        range.setStart(lastNode, lastNode.textContent.length);
+        range.setEnd(lastNode, lastNode.textContent.length);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+    
+    // Function to sync square video color-coded display
+    let squareVideoSyncTimeout = null;
+    function syncSquareVideoColorCodedDisplay() {
+      if (!squareVideoUrlInput) return;
+      
+      clearTimeout(squareVideoSyncTimeout);
+      squareVideoSyncTimeout = setTimeout(function() {
+        const url = squareVideoUrlInput.textContent || squareVideoUrlInput.innerText || '';
+        
+        if (!url) {
+          squareVideoUrlInput.innerHTML = '';
+          return;
+        }
+        
+        let cursorPos = 0;
+        try {
+          cursorPos = getSquareVideoCursorPosition();
+        } catch (e) {
+          cursorPos = url.length;
+        }
+        
+        const safeCursorPos = Math.min(Math.max(0, cursorPos), url.length);
+        squareVideoUrlInput.innerHTML = renderColorCodedUrl(url);
+        
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            try {
+              setSquareVideoCursorPosition(safeCursorPos);
+              if (document.activeElement !== squareVideoUrlInput) {
+                squareVideoUrlInput.focus();
+              }
+            } catch (e) {
+              squareVideoUrlInput.focus();
+              const urlLength = (squareVideoUrlInput.textContent || '').length;
+              setSquareVideoCursorPosition(Math.min(safeCursorPos, urlLength));
+            }
+          });
+        });
+      }, 300);
+    }
+
+    // Function to get plain text URL from square image input
+    function getSquareImageUrlFromInput() {
+      if (!squareImageUrlInput) return '';
+      return squareImageUrlInput.textContent || squareImageUrlInput.innerText || '';
+    }
+
+    // Function to update square image URL display
+    function updateSquareImageUrlDisplay(url) {
+      if (!url) {
+        if (squareImageUrlInput) {
+          squareImageUrlInput.textContent = '';
+        }
+        return;
+      }
+      if (squareImageUrlInput) {
+        squareImageUrlInput.innerHTML = renderColorCodedUrl(url);
+      }
+    }
+
+    // Function to handle square image update
+    function handleSquareImageUpdate() {
+      const newUrl = getSquareImageUrlFromInput().trim();
+
+      if (!newUrl) {
+        alert('Please enter an image URL');
+        return;
+      }
+
+      // Basic URL validation
+      try {
+        new URL(newUrl);
+      } catch (e) {
+        alert('Please enter a valid URL');
+        return;
+      }
+
+      // Disable button during update
+      if (updateSquareImageBtn) {
+        updateSquareImageBtn.disabled = true;
+        const buttonSpan = updateSquareImageBtn.querySelector('span');
+        const buttonIcon = updateSquareImageBtn.querySelector('svg');
+        if (buttonSpan) buttonSpan.textContent = 'Updating...';
+        if (buttonIcon) buttonIcon.style.display = 'none';
+      }
+
+      try {
+        // Update the image
+        if (squareImage) {
+          squareImage.src = newUrl;
+        }
+
+        // Update URL display
+        updateSquareImageUrlDisplay(newUrl);
+
+        // Show success briefly
+        if (updateSquareImageBtn) {
+          const buttonSpan = updateSquareImageBtn.querySelector('span');
+          const buttonIcon = updateSquareImageBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Updated!';
+          if (buttonIcon) buttonIcon.style.display = 'none';
+          
+          setTimeout(() => {
+            if (updateSquareImageBtn) {
+              if (buttonSpan) buttonSpan.textContent = 'update';
+              if (buttonIcon) buttonIcon.style.display = '';
+              updateSquareImageBtn.disabled = false;
+            }
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error updating image:', error);
+        alert('Error updating image. Please check the URL and try again.');
+        
+        if (updateSquareImageBtn) {
+          const buttonSpan = updateSquareImageBtn.querySelector('span');
+          const buttonIcon = updateSquareImageBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'update';
+          if (buttonIcon) buttonIcon.style.display = '';
+          updateSquareImageBtn.disabled = false;
+        }
+      }
+    }
+
+    // Function to get plain text URL from square video input
+    function getSquareVideoUrlFromInput() {
+      if (!squareVideoUrlInput) return '';
+      return squareVideoUrlInput.textContent || squareVideoUrlInput.innerText || '';
+    }
+
+    // Function to update square video URL display
+    function updateSquareVideoUrlDisplay(url) {
+      if (!url) {
+        if (squareVideoUrlInput) {
+          squareVideoUrlInput.textContent = '';
+        }
+        return;
+      }
+      if (squareVideoUrlInput) {
+        squareVideoUrlInput.innerHTML = renderColorCodedUrl(url);
+      }
+    }
+
+    // Function to handle square video update
+    async function handleSquareVideoUpdate() {
+      const newUrl = getSquareVideoUrlFromInput().trim();
+
+      if (!newUrl) {
+        alert('Please enter a video URL');
+        return;
+      }
+
+      // Basic URL validation
+      try {
+        new URL(newUrl);
+      } catch (e) {
+        alert('Please enter a valid URL');
+        return;
+      }
+
+      // Disable button during update
+      if (updateSquareVideoBtn) {
+        updateSquareVideoBtn.disabled = true;
+        const buttonSpan = updateSquareVideoBtn.querySelector('span');
+        const buttonIcon = updateSquareVideoBtn.querySelector('svg');
+        if (buttonSpan) buttonSpan.textContent = 'Updating...';
+        if (buttonIcon) buttonIcon.style.display = 'none';
+      }
+
+      try {
+        // Update the video
+        if (squareVideo) {
+          squareVideo.src = '';
+          squareVideo.load();
+          
+          const sourceElement = squareVideo.querySelector('source');
+          if (sourceElement) {
+            sourceElement.src = newUrl;
+          } else {
+            const newSource = document.createElement('source');
+            newSource.src = newUrl;
+            newSource.type = 'video/mp4';
+            squareVideo.appendChild(newSource);
+          }
+          
+          squareVideo.src = newUrl;
+          squareVideo.load();
+        }
+
+        // Update URL display
+        updateSquareVideoUrlDisplay(newUrl);
+
+        // Show success briefly
+        if (updateSquareVideoBtn) {
+          const buttonSpan = updateSquareVideoBtn.querySelector('span');
+          const buttonIcon = updateSquareVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Updated!';
+          if (buttonIcon) buttonIcon.style.display = 'none';
+          
+          setTimeout(() => {
+            if (updateSquareVideoBtn) {
+              if (buttonSpan) buttonSpan.textContent = 'update';
+              if (buttonIcon) buttonIcon.style.display = '';
+              updateSquareVideoBtn.disabled = false;
+            }
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error updating video:', error);
+        alert('Error updating video. Please check the URL and try again.');
+        
+        if (updateSquareVideoBtn) {
+          const buttonSpan = updateSquareVideoBtn.querySelector('span');
+          const buttonIcon = updateSquareVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'update';
+          if (buttonIcon) buttonIcon.style.display = '';
+          updateSquareVideoBtn.disabled = false;
+        }
+      }
+    }
+
+    // Initialize square formatting
+    if (squareImageUrlInput && updateSquareImageBtn) {
+      // Set initial image URL
+      const initialImageSrc = squareImage?.src || '';
+      if (initialImageSrc) {
+        updateSquareImageUrlDisplay(initialImageSrc);
+      }
+
+      // Handle update button click
+      updateSquareImageBtn.addEventListener('click', handleSquareImageUpdate);
+
+      // Handle Enter key in input
+      squareImageUrlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSquareImageUpdate();
+        }
+      });
+
+      // Sync color-coded display in real-time as user types
+      squareImageUrlInput.addEventListener('input', function(e) {
+        syncSquareImageColorCodedDisplay();
+      });
+      
+      // Sync on paste
+      squareImageUrlInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+          const textNode = document.createTextNode(paste);
+          range.insertNode(textNode);
+          range.setStartAfter(textNode);
+          range.setEndAfter(textNode);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        setTimeout(syncSquareImageColorCodedDisplay, 0);
+      });
+    }
+
+    if (squareVideoUrlInput && updateSquareVideoBtn) {
+      // Set initial video URL
+      const sourceElement = squareVideo?.querySelector('source');
+      const initialVideoSrc = sourceElement ? sourceElement.src : (squareVideo?.src || '');
+      if (initialVideoSrc) {
+        updateSquareVideoUrlDisplay(initialVideoSrc);
+      }
+
+      // Handle update button click
+      updateSquareVideoBtn.addEventListener('click', handleSquareVideoUpdate);
+
+      // Handle Enter key in input
+      squareVideoUrlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSquareVideoUpdate();
+        }
+      });
+
+      // Sync color-coded display in real-time as user types
+      squareVideoUrlInput.addEventListener('input', function(e) {
+        syncSquareVideoColorCodedDisplay();
+      });
+      
+      // Sync on paste
+      squareVideoUrlInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+          const textNode = document.createTextNode(paste);
+          range.insertNode(textNode);
+          range.setStartAfter(textNode);
+          range.setEndAfter(textNode);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        setTimeout(syncSquareVideoColorCodedDisplay, 0);
+      });
+    }
+
+    // Mobile Playground Configuration
+    const mobileVideoUrlInput = document.getElementById('mobileVideoUrlInput');
+    const updateMobileVideoBtn = document.getElementById('updateMobileVideoBtn');
+    const mobileVideo = document.getElementById('mobileVideo');
+    const phoneVideo = document.getElementById('phoneVideo');
+    const mobileFileSizeValue = document.getElementById('mobileFileSizeValue');
+
+    // Function to get cursor position for mobile input
+    function getMobileCursorPosition() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) {
+        return (mobileVideoUrlInput.textContent || mobileVideoUrlInput.innerText || '').length;
+      }
+      
+      try {
+        const range = selection.getRangeAt(0);
+        
+        // Get plain text content up to cursor position
+        // This works better with HTML content than toString()
+        const preCaretRange = document.createRange();
+        preCaretRange.setStart(mobileVideoUrlInput, 0);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        
+        // Clone the range and extract text content (ignoring HTML structure)
+        const clonedRange = preCaretRange.cloneContents();
+        const tempDiv = document.createElement('div');
+        tempDiv.appendChild(clonedRange);
+        
+        // Return the length of plain text before cursor
+        return (tempDiv.textContent || tempDiv.innerText || '').length;
+      } catch (e) {
+        return (mobileVideoUrlInput.textContent || mobileVideoUrlInput.innerText || '').length;
+      }
+    }
+    
+    // Function to set cursor position for mobile input
+    function setMobileCursorPosition(position) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      
+      let currentOffset = 0;
+      const walker = document.createTreeWalker(
+        mobileVideoUrlInput,
+        NodeFilter.SHOW_TEXT,
+        null
+      );
+      
+      let node;
+      while ((node = walker.nextNode())) {
+        const nodeLength = node.textContent.length;
+        if (currentOffset + nodeLength >= position) {
+          const offsetInNode = position - currentOffset;
+          range.setStart(node, Math.min(offsetInNode, nodeLength));
+          range.setEnd(node, Math.min(offsetInNode, nodeLength));
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return;
+        }
+        currentOffset += nodeLength;
+      }
+      
+      if (mobileVideoUrlInput.lastChild && mobileVideoUrlInput.lastChild.nodeType === Node.TEXT_NODE) {
+        const lastNode = mobileVideoUrlInput.lastChild;
+        range.setStart(lastNode, lastNode.textContent.length);
+        range.setEnd(lastNode, lastNode.textContent.length);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+    
+    // Function to sync mobile color-coded display
+    let mobileSyncTimeout = null;
+    let isMobileTyping = false;
+    function syncMobileColorCodedDisplay() {
+      if (!mobileVideoUrlInput) return;
+      
+      // Mark that we're in a typing session
+      isMobileTyping = true;
+      
+      clearTimeout(mobileSyncTimeout);
+      mobileSyncTimeout = setTimeout(function() {
+        const url = mobileVideoUrlInput.textContent || mobileVideoUrlInput.innerText || '';
+        
+        if (!url) {
+          mobileVideoUrlInput.innerHTML = '';
+          isMobileTyping = false;
+          return;
+        }
+        
+        let cursorPos = 0;
+        try {
+          cursorPos = getMobileCursorPosition();
+        } catch (e) {
+          cursorPos = url.length;
+        }
+        
+        const safeCursorPos = Math.min(Math.max(0, cursorPos), url.length);
+        mobileVideoUrlInput.innerHTML = renderColorCodedUrl(url);
+        
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            try {
+              setMobileCursorPosition(safeCursorPos);
+              if (document.activeElement !== mobileVideoUrlInput) {
+                mobileVideoUrlInput.focus();
+              }
+            } catch (e) {
+              mobileVideoUrlInput.focus();
+              const urlLength = (mobileVideoUrlInput.textContent || '').length;
+              setMobileCursorPosition(Math.min(safeCursorPos, urlLength));
+            }
+            isMobileTyping = false;
+          });
+        });
+      }, 300); // Increased debounce delay for better stability
+    }
+
+    // Function to animate mobile file size transition
+    function animateMobileFileSize(oldBytes, newBytes, duration = 1000) {
+      if (!mobileFileSizeValue) return;
+      
+      if (oldBytes === null || oldBytes === undefined) {
+        mobileFileSizeValue.textContent = formatFileSize(newBytes);
+        return;
+      }
+
+      const startTime = performance.now();
+      const difference = newBytes - oldBytes;
+
+      function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(progress);
+        
+        const currentBytes = oldBytes + (difference * eased);
+        mobileFileSizeValue.textContent = formatFileSize(currentBytes);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          mobileFileSizeValue.textContent = formatFileSize(newBytes);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // Function to update mobile file size
+    async function updateMobileFileSize(videoUrl) {
+      if (!mobileFileSizeValue) return;
+      
+      const currentText = mobileFileSizeValue.textContent;
+      const oldBytes = parseFileSize(currentText);
+      
+      mobileFileSizeValue.textContent = 'Loading...';
+      
+      try {
+        const response = await fetch(videoUrl, { method: 'HEAD' });
+        
+        if (response.ok) {
+          const contentLength = response.headers.get('Content-Length');
+          
+          if (contentLength) {
+            const fileSize = parseInt(contentLength, 10);
+            animateMobileFileSize(oldBytes, fileSize);
+          } else {
+            await loadVideoSizeFromMetadata(videoUrl, oldBytes, true);
+          }
+        } else {
+          await loadVideoSizeFromMetadata(videoUrl, oldBytes, true);
+        }
+      } catch (error) {
+        console.warn('Could not fetch file size via HEAD request:', error);
+        await loadVideoSizeFromMetadata(videoUrl, oldBytes, true);
+      }
+    }
+
+    // Function to update phone video only (source video stays at default)
+    async function updatePhoneVideo(videoUrl) {
+      if (!phoneVideo) return;
+
+      // Flag to ensure we only update file size once per video change
+      let fileSizeUpdated = false;
+
+      // Function to handle file size update
+      function handleFileSizeUpdate() {
+        if (fileSizeUpdated) return;
+        fileSizeUpdated = true;
+        
+        // Wait 1 second after video finishes loading before updating file size
+        setTimeout(function() {
+          updateMobileFileSize(videoUrl);
+        }, 1000);
+      }
+
+      // Clear existing src to force reload (only phone video)
+      phoneVideo.src = '';
+      phoneVideo.load();
+
+      // Set up multiple event handlers BEFORE setting new src
+      phoneVideo.addEventListener('loadedmetadata', handleFileSizeUpdate, { once: true });
+      phoneVideo.addEventListener('durationchange', function() {
+        if (!fileSizeUpdated && phoneVideo.readyState >= 1) {
+          handleFileSizeUpdate();
+        }
+      }, { once: true });
+      phoneVideo.addEventListener('loadeddata', function() {
+        if (!fileSizeUpdated && phoneVideo.readyState >= 2) {
+          handleFileSizeUpdate();
+        }
+      }, { once: true });
+      phoneVideo.addEventListener('canplay', function() {
+        if (!fileSizeUpdated) {
+          handleFileSizeUpdate();
+        }
+      }, { once: true });
+
+      // Update only phone video
+      phoneVideo.src = videoUrl;
+      
+      // Load phone video
+      phoneVideo.load();
+
+      // Check after a brief delay if metadata loaded quickly
+      setTimeout(function() {
+        if (!fileSizeUpdated && phoneVideo.readyState >= 1) {
+          handleFileSizeUpdate();
+        }
+      }, 100);
+
+      return new Promise((resolve, reject) => {
+        let resolved = false;
+        
+        const handleLoad = function() {
+          // Final backup: try to update file size if not already done
+          if (!fileSizeUpdated) {
+            setTimeout(handleFileSizeUpdate, 50);
+          }
+          
+          if (!resolved) {
+            resolved = true;
+            resolve();
+          }
+        };
+        
+        const handleError = function() {
+          if (!resolved) {
+            resolved = true;
+            reject(new Error('Error loading video'));
+          }
+        };
+        
+        phoneVideo.addEventListener('loadeddata', handleLoad, { once: true });
+        phoneVideo.addEventListener('error', handleError, { once: true });
+        
+        // If already loaded
+        if (phoneVideo.readyState >= 2) {
+          setTimeout(handleLoad, 0);
+        }
+      });
+    }
+
+    // Function to get plain text URL from mobile input
+    function getMobileUrlFromInput() {
+      if (!mobileVideoUrlInput) return '';
+      return mobileVideoUrlInput.textContent || mobileVideoUrlInput.innerText || '';
+    }
+
+    // Function to update mobile URL display
+    function updateMobileUrlDisplay(url) {
+      if (!url) {
+        if (mobileVideoUrlInput) {
+          mobileVideoUrlInput.textContent = '';
+        }
+        return;
+      }
+      if (mobileVideoUrlInput) {
+        mobileVideoUrlInput.innerHTML = renderColorCodedUrl(url);
+      }
+    }
+
+    // Function to handle mobile video update
+    async function handleMobileVideoUpdate() {
+      const newUrl = getMobileUrlFromInput().trim();
+
+      if (!newUrl) {
+        alert('Please enter a video URL');
+        return;
+      }
+
+      // Basic URL validation
+      try {
+        new URL(newUrl);
+      } catch (e) {
+        alert('Please enter a valid URL');
+        return;
+      }
+
+      // Disable button during update
+      if (updateMobileVideoBtn) {
+        updateMobileVideoBtn.disabled = true;
+        const buttonSpan = updateMobileVideoBtn.querySelector('span');
+        const buttonIcon = updateMobileVideoBtn.querySelector('svg');
+        if (buttonSpan) buttonSpan.textContent = 'Updating...';
+        if (buttonIcon) buttonIcon.style.display = 'none';
+      }
+
+      try {
+        // Update only phone video (source video stays at default)
+        await updatePhoneVideo(newUrl);
+        
+        // Update only phone video source element
+        const phoneSourceElement = phoneVideo?.querySelector('source');
+        if (phoneSourceElement) {
+          phoneSourceElement.src = newUrl;
+        }
+
+        // Update URL display
+        updateMobileUrlDisplay(newUrl);
+
+        // Show success briefly
+        if (updateMobileVideoBtn) {
+          const buttonSpan = updateMobileVideoBtn.querySelector('span');
+          const buttonIcon = updateMobileVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'Updated!';
+          if (buttonIcon) buttonIcon.style.display = 'none';
+          
+          setTimeout(() => {
+            if (updateMobileVideoBtn) {
+              if (buttonSpan) buttonSpan.textContent = 'update';
+              if (buttonIcon) buttonIcon.style.display = '';
+              updateMobileVideoBtn.disabled = false;
+            }
+          }, 1000);
+        }
+      } catch (error) {
+        console.error('Error updating mobile videos:', error);
+        alert('Error updating videos. Please check the URL and try again.');
+        
+        if (updateMobileVideoBtn) {
+          const buttonSpan = updateMobileVideoBtn.querySelector('span');
+          const buttonIcon = updateMobileVideoBtn.querySelector('svg');
+          if (buttonSpan) buttonSpan.textContent = 'update';
+          if (buttonIcon) buttonIcon.style.display = '';
+          updateMobileVideoBtn.disabled = false;
+        }
+      }
+    }
+
+    // Initialize mobile playground
+    if (mobileVideoUrlInput && updateMobileVideoBtn) {
+      // Set initial video URL
+      const mobileSourceElement = mobileVideo?.querySelector('source');
+      const initialMobileVideoSrc = mobileSourceElement ? mobileSourceElement.src : (mobileVideo?.src || '');
+      
+      if (initialMobileVideoSrc) {
+        updateMobileUrlDisplay(initialMobileVideoSrc);
+      }
+
+      // Update file size on initial load
+      if (phoneVideo && initialMobileVideoSrc) {
+        phoneVideo.addEventListener('loadedmetadata', function() {
+          setTimeout(function() {
+            updateMobileFileSize(initialMobileVideoSrc);
+          }, 1000);
+        }, { once: true });
+        
+        // Check if already loaded
+        if (phoneVideo.readyState >= 1) {
+          setTimeout(function() {
+            updateMobileFileSize(initialMobileVideoSrc);
+          }, 1000);
+        }
+      }
+
+      // Handle update button click
+      updateMobileVideoBtn.addEventListener('click', handleMobileVideoUpdate);
+
+      // Handle Enter key in input
+      mobileVideoUrlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleMobileVideoUpdate();
+        }
+      });
+
+      // Sync color-coded display in real-time as user types
+      mobileVideoUrlInput.addEventListener('input', function(e) {
+        syncMobileColorCodedDisplay();
+      });
+      
+      // Sync on paste
+      mobileVideoUrlInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+          const textNode = document.createTextNode(paste);
+          range.insertNode(textNode);
+          range.setStartAfter(textNode);
+          range.setEndAfter(textNode);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        setTimeout(syncMobileColorCodedDisplay, 0);
+      });
+    }
+  </script>
+</body>
+</html>
