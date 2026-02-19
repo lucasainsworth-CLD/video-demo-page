@@ -3,18 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Optimize Banner Videos for Performance</title>
+  <link rel="icon" href="https://di2f2eolk-res.cloudinary.com/image/upload/width_30/height_30/v1738239354/samples/logo.png" type="image/png">
+  <title>Onyx & Linen - Video Performance</title>
   <meta name="description" content="Hero Video Cloudinary Playground.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <header class="pt-header">
     <div class="pt-header__inner container">
-      <h1 class="pt-brand__text">Video Performance</h1>
+      <a href="#" class="pt-header__logo-link" aria-label="Home">
+        <img src="https://di2f2eolk-res.cloudinary.com/image/upload/f_auto,q_auto,w_500/v1726693460/zy9w1erlzswz2nfezygu.png" alt="" class="pt-header__logo">
+      </a>
+      <nav class="pt-header__nav">
+        <div class="pt-header__nav-item pt-header__about-dropdown">
+          <a href="#" class="pt-header__link">About</a>
+          <div class="pt-header__about-overlay">
+            <div class="pt-header__about-content container">
+              <p class="pt-header__about-text">This isn't a real e-commerce page. This is a place to show the power of optimized videos to improve the performance of your site. Each image and video on this page is unoptimized, the page loads slowly, not all image are the right size for their containers.
+
+              </p>
+            </div>
+          </div>
+        </div>
+        <a href="optimized.html" target="_blank" rel="noopener noreferrer" class="pt-header__link">Optimized site</a>
+        <button class="pt-header__stats-toggle" type="button" id="assetStatsToggle" aria-pressed="false" aria-label="Toggle asset stats visibility">
+          Show asset stats
+        </button>
+      </nav>
     </div>
   </header>
 
@@ -35,10 +53,11 @@
       </video>
       <div class="pt-hero__overlay"></div>
       <div class="pt-hero__text-overlay">
-        <h2 class="pt-hero__headline">Unmatched Craftsmanship. Timeless Elegance</h2>
+        <h2 class="pt-hero__headline">Unmatched Craftsmanship 
+          Timeless Elegance</h2>
         <p class="pt-hero__subhead">Discover the art of luxury at Onyx & Linen</p>
       </div>
-      <div class="pt-hero__metadata" id="metadataOverlay">
+      <div class="pt-hero__metadata" id="metadataOverlay" data-asset-stats-overlay>
         <span class="pt-hero__metadata-label">File Size:</span>
         <span class="pt-hero__metadata-value" id="fileSizeValue">Loading...</span>
         <span class="pt-hero__metadata-label">Video Length:</span>
@@ -48,32 +67,36 @@
     <!-- Spacer to maintain document flow and push content below video -->
     <div class="pt-hero__spacer" id="heroSpacer"></div>
     
-    <section class="pt-url-editor container">
-      <div class="pt-url-editor__wrapper">
-        <label class="pt-url-editor__label" for="videoUrlInput">Video URL:</label>
-        <div class="pt-url-editor__box" id="urlEditorBox">
-          <div 
-            contenteditable="true"
-            id="videoUrlInput" 
-            class="pt-url-editor__input" 
-            data-placeholder="Enter video URL..."
-            spellcheck="false"
-            role="textbox"
-            aria-label="Video URL"
-          ></div>
-        </div>
-        <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
-          <span>update</span>
-          <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
-    </section>
-    
-    <!-- Video Selection Buttons -->
-    <section class="pt-hero__video-selector container">
-      <div class="pt-hero__video-buttons">
+    <section class="pt-url-editor pt-url-drawer container">
+      <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="heroVideoUrlDrawer" data-drawer-trigger aria-label="Toggle video URL editor">
+        <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+      <div class="pt-url-drawer__content" id="heroVideoUrlDrawer">
+        <div class="pt-url-drawer__content-inner">
+          <div class="pt-url-editor__wrapper">
+            <label class="pt-url-editor__label" for="videoUrlInput">Video URL:</label>
+            <div class="pt-url-editor__box" id="urlEditorBox">
+              <div 
+                contenteditable="true"
+                id="videoUrlInput" 
+                class="pt-url-editor__input" 
+                data-placeholder="Enter video URL..."
+                spellcheck="false"
+                role="textbox"
+                aria-label="Video URL"
+              ></div>
+            </div>
+            <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
+              <span>update</span>
+              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+          <section class="pt-hero__video-selector">
+            <div class="pt-hero__video-buttons">
         <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4">
           <video 
             class="pt-hero__video-button-preview"
@@ -120,15 +143,14 @@
         </button>
       </div>
     </section>
+        </div>
+      </div>
+    </section>
   </section>
 
   <!-- Square Formatting Section -->
   <section class="pt-square-formatting">
-    <div class="pt-square-formatting__banner">
-      <div class="pt-square-formatting__banner-inner container">
-        <h2 class="pt-square-formatting__title">Square Formatting</h2>
-      </div>
-    </div>
+
     
     <div class="pt-square-formatting__content container">
       <div class="pt-square-formatting__layout">
@@ -141,26 +163,38 @@
               src="https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg"
               alt="Square image"
             >
-          </div>
-          <div class="pt-square-formatting__editor">
-            <label class="pt-square-formatting__label" for="squareImageUrlInput">Image URL:</label>
-            <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
-              <div 
-                contenteditable="true"
-                id="squareImageUrlInput" 
-                class="pt-url-editor__input" 
-                data-placeholder="Enter image URL..."
-                spellcheck="false"
-                role="textbox"
-                aria-label="Image URL"
-              >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+            <div class="pt-square-formatting__overlay">
+              <button type="button" class="pt-square-formatting__overlay-btn">Shop Mens</button>
             </div>
-            <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
-              <span>update</span>
-              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+          </div>
+          <div class="pt-square-formatting__editor pt-url-drawer">
+            <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="squareImageUrlDrawer" data-drawer-trigger aria-label="Toggle image URL editor">
+              <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
               </svg>
             </button>
+            <div class="pt-url-drawer__content" id="squareImageUrlDrawer">
+              <div class="pt-url-drawer__content-inner">
+                <label class="pt-square-formatting__label" for="squareImageUrlInput">Edit URL:</label>
+                <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
+                  <div 
+                    contenteditable="true"
+                    id="squareImageUrlInput" 
+                    class="pt-url-editor__input" 
+                    data-placeholder="Enter image URL..."
+                    spellcheck="false"
+                    role="textbox"
+                    aria-label="Image URL"
+                  >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+                </div>
+                <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
+                  <span>update</span>
+                  <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -176,45 +210,51 @@
               <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-          </div>
-          <div class="pt-square-formatting__editor">
-            <label class="pt-square-formatting__label" for="squareVideoUrlInput">Video URL:</label>
-            <div class="pt-url-editor__box" id="squareVideoUrlEditorBox">
-              <div 
-                contenteditable="true"
-                id="squareVideoUrlInput" 
-                class="pt-url-editor__input" 
-                data-placeholder="Enter video URL..."
-                spellcheck="false"
-                role="textbox"
-                aria-label="Video URL"
-              >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4</div>
+            <div class="pt-square-formatting__overlay">
+              <button type="button" class="pt-square-formatting__overlay-btn">Shop Womens</button>
             </div>
-            <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
-              <span>update</span>
-              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+          </div>
+          <div class="pt-square-formatting__editor pt-url-drawer">
+            <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="squareVideoUrlDrawer" data-drawer-trigger aria-label="Toggle video URL editor">
+              <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
               </svg>
             </button>
+            <div class="pt-url-drawer__content" id="squareVideoUrlDrawer">
+              <div class="pt-url-drawer__content-inner">
+                <label class="pt-square-formatting__label" for="squareVideoUrlInput">Edit URL:</label>
+                <div class="pt-url-editor__box" id="squareVideoUrlEditorBox">
+                  <div 
+                    contenteditable="true"
+                    id="squareVideoUrlInput" 
+                    class="pt-url-editor__input" 
+                    data-placeholder="Enter video URL..."
+                    spellcheck="false"
+                    role="textbox"
+                    aria-label="Video URL"
+                  >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4</div>
+                </div>
+                <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
+                  <span>update</span>
+                  <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Constomize Video Player Section -->
+  <!-- Customize Video Player Section -->
   <section class="pt-playground">
-    <div class="pt-playground__banner">
-      <div class="pt-playground__banner-inner container">
-        <h2 class="pt-playground__title">Customize Video Player</h2>
-      </div>
-    </div>
-    
     <div class="pt-playground__content container">
       <div class="pt-playground__layout">
         <!-- Top: Rendered embed -->
         <div class="pt-playground__output-section">
-          <label class="pt-playground__label">Preview:</label>
+          <label class="pt-playground__label">See our fashion travelogue:</label>
           <div class="pt-playground__preview-wrapper" id="embedPreview">
             <iframe
               src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
@@ -229,16 +269,23 @@
         </div>
         
         <!-- Bottom: Embed code input -->
-        <div class="pt-playground__input-section">
-          <label class="pt-playground__label" for="embedCodeInput">Embed Code:</label>
-          <div class="pt-playground__input-wrapper">
-            <textarea 
-              id="embedCodeInput" 
-              class="pt-playground__textarea" 
-              rows="12"
-              placeholder="Paste your embed code here..."
-              spellcheck="false"
-            ><iframe
+        <div class="pt-playground__input-section pt-url-drawer">
+          <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="embedCodeDrawer" data-drawer-trigger aria-label="Toggle embed code editor">
+            <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+          <div class="pt-url-drawer__content" id="embedCodeDrawer">
+            <div class="pt-url-drawer__content-inner">
+              <label class="pt-playground__label" for="embedCodeInput">Edit video embed code:</label>
+              <div class="pt-playground__input-wrapper">
+                <textarea 
+                  id="embedCodeInput" 
+                  class="pt-playground__textarea" 
+                  rows="12"
+                  placeholder="Paste your embed code here..."
+                  spellcheck="false"
+                ><iframe
   src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
   width="640"
   height="360" 
@@ -247,14 +294,16 @@
   allowfullscreen
   frameborder="0"
 ></iframe></textarea>
-          </div>
-          <div class="pt-playground__controls">
-            <button class="pt-playground__button" id="updateEmbedBtn" type="button">
-              <span>update</span>
-              <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
+              </div>
+              <div class="pt-playground__controls">
+                <button class="pt-playground__button" id="updateEmbedBtn" type="button">
+                  <span>update</span>
+                  <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -334,7 +383,7 @@
                 <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
-              <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay">
+              <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay" data-asset-stats-overlay>
                 <span class="pt-mobile-playground__file-size-label">File Size:</span>
                 <span class="pt-mobile-playground__file-size-value" id="mobileFileSizeValue">Loading...</span>
               </div>
@@ -349,6 +398,41 @@
   </main>
 
   <script>
+    // Asset stats visibility toggle - controls all elements with data-asset-stats-overlay
+    const assetStatsToggle = document.getElementById('assetStatsToggle');
+    if (assetStatsToggle) {
+      assetStatsToggle.addEventListener('click', () => {
+        const isVisible = assetStatsToggle.getAttribute('aria-pressed') === 'true';
+        assetStatsToggle.setAttribute('aria-pressed', !isVisible);
+        assetStatsToggle.textContent = isVisible ? 'Show asset stats' : 'Hide asset stats';
+        document.querySelectorAll('[data-asset-stats-overlay]').forEach((el) => {
+          if (isVisible) {
+            el.setAttribute('data-asset-stats-hidden', '');
+          } else {
+            el.removeAttribute('data-asset-stats-hidden');
+          }
+        });
+      });
+      // Default to off: hide overlays and set button text
+      assetStatsToggle.textContent = 'Show asset stats';
+      document.querySelectorAll('[data-asset-stats-overlay]').forEach((el) => {
+        el.setAttribute('data-asset-stats-hidden', '');
+      });
+    }
+
+    // Reusable URL drawer toggle - works with any element with data-drawer-trigger
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-drawer-trigger]');
+      if (!trigger) return;
+      const drawer = trigger.closest('.pt-url-drawer');
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = contentId ? document.getElementById(contentId) : drawer?.querySelector('.pt-url-drawer__content');
+      if (!content) return;
+      const isOpen = content.getAttribute('data-open') === 'true';
+      content.setAttribute('data-open', !isOpen);
+      trigger.setAttribute('aria-expanded', !isOpen);
+    });
+
     // Header scroll fade effect
     const header = document.querySelector('.pt-header');
     if (header) {
