@@ -48,18 +48,22 @@
         loop
         preload="metadata"
       >
-        <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="pt-hero__overlay"></div>
       <div class="pt-hero__text-overlay">
         <h2 class="pt-hero__headline">Unmatched Craftsmanship 
-          Timeless Elegance</h2>
+          <br>Timeless Elegance</h2>
         <p class="pt-hero__subhead">Discover the art of luxury at Onyx & Linen</p>
       </div>
       <div class="pt-hero__metadata" id="metadataOverlay" data-asset-stats-overlay>
         <span class="pt-hero__metadata-label">File Size:</span>
         <span class="pt-hero__metadata-value" id="fileSizeValue">Loading...</span>
+        <span class="pt-hero__metadata-label">Dimensions:</span>
+        <span class="pt-hero__metadata-value" id="heroDimensionsValue">—</span>
+        <span class="pt-hero__metadata-label">Format:</span>
+        <span class="pt-hero__metadata-value" id="heroFormatValue">—</span>
         <span class="pt-hero__metadata-label">Video Length:</span>
         <span class="pt-hero__metadata-value" id="videoLengthValue">Loading...</span>
       </div>
@@ -97,17 +101,6 @@
           </div>
           <section class="pt-hero__video-selector">
             <div class="pt-hero__video-buttons">
-        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4">
-          <video 
-            class="pt-hero__video-button-preview"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
-          </video>
-        </button>
         <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4">
           <video 
             class="pt-hero__video-button-preview"
@@ -117,6 +110,17 @@
             preload="metadata"
           >
             <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4" type="video/mp4">
+          </video>
+        </button>
+        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4">
+          <video 
+            class="pt-hero__video-button-preview"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
           </video>
         </button>
         <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149310/Classical_skirt_mbcvo0.mp4">
@@ -166,6 +170,14 @@
             <div class="pt-square-formatting__overlay">
               <button type="button" class="pt-square-formatting__overlay-btn">Shop Mens</button>
             </div>
+            <div class="pt-square-formatting__metadata" id="squareImageMetadata" data-asset-stats-overlay>
+              <span class="pt-square-formatting__metadata-label">Size:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareImageSizeValue">—</span>
+              <span class="pt-square-formatting__metadata-label">Dimensions:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareImageDimensionsValue">—</span>
+              <span class="pt-square-formatting__metadata-label">Format:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareImageFormatValue">—</span>
+            </div>
           </div>
           <div class="pt-square-formatting__editor pt-url-drawer">
             <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="squareImageUrlDrawer" data-drawer-trigger aria-label="Toggle image URL editor">
@@ -212,6 +224,14 @@
             </video>
             <div class="pt-square-formatting__overlay">
               <button type="button" class="pt-square-formatting__overlay-btn">Shop Womens</button>
+            </div>
+            <div class="pt-square-formatting__metadata" id="squareVideoMetadata" data-asset-stats-overlay>
+              <span class="pt-square-formatting__metadata-label">Size:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareVideoSizeValue">—</span>
+              <span class="pt-square-formatting__metadata-label">Dimensions:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareVideoDimensionsValue">—</span>
+              <span class="pt-square-formatting__metadata-label">Format:</span>
+              <span class="pt-square-formatting__metadata-value" id="squareVideoFormatValue">—</span>
             </div>
           </div>
           <div class="pt-square-formatting__editor pt-url-drawer">
@@ -386,6 +406,10 @@
               <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay" data-asset-stats-overlay>
                 <span class="pt-mobile-playground__file-size-label">File Size:</span>
                 <span class="pt-mobile-playground__file-size-value" id="mobileFileSizeValue">Loading...</span>
+                <span class="pt-mobile-playground__file-size-label">Dimensions:</span>
+                <span class="pt-mobile-playground__file-size-value" id="mobileDimensionsValue">—</span>
+                <span class="pt-mobile-playground__file-size-label">Format:</span>
+                <span class="pt-mobile-playground__file-size-value" id="mobileFormatValue">—</span>
               </div>
             </div>
           </div>
@@ -471,6 +495,58 @@
     const heroSpacer = document.getElementById('heroSpacer');
     const fileSizeValue = document.getElementById('fileSizeValue');
     const videoLengthValue = document.getElementById('videoLengthValue');
+    const heroDimensionsValue = document.getElementById('heroDimensionsValue');
+    const heroFormatValue = document.getElementById('heroFormatValue');
+    
+    // Hero video asset evaluator - dimensions vs frame, format
+    function updateHeroVideoStats(videoUrl) {
+      if (!heroVideo || !heroContainer) return;
+      
+      // Format: parse from URL or source type
+      const src = videoUrl || (heroVideo.querySelector('source')?.src) || heroVideo.src || '';
+      const urlLower = src.toLowerCase();
+      let format = '—';
+      let isModern = false;
+      if (urlLower.includes('.webm')) {
+        format = 'WebM ✓';
+        isModern = true;
+      } else if (urlLower.includes('.mp4') || urlLower.includes('video/mp4')) {
+        format = 'MP4';
+      } else if (urlLower.includes('.mov')) {
+        format = 'MOV';
+      } else if (urlLower.includes('.av1') || urlLower.includes('av01')) {
+        format = 'AV1 ✓';
+        isModern = true;
+      } else if (src) {
+        format = src.split('.').pop().split('?')[0].toUpperCase() || '—';
+      }
+      
+      if (heroFormatValue) {
+        heroFormatValue.textContent = format;
+        heroFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
+      }
+      
+      // Dimensions vs frame
+      if (!heroDimensionsValue) return;
+      
+      if (heroVideo.videoWidth && heroVideo.videoHeight) {
+        const videoPixels = heroVideo.videoWidth * heroVideo.videoHeight;
+        const containerWidth = heroContainer.offsetWidth || 0;
+        const containerHeight = heroContainer.offsetHeight || 0;
+        const displayPixels = containerWidth * containerHeight;
+        
+        let ratioText = '';
+        if (displayPixels > 0 && videoPixels > displayPixels) {
+          const ratio = Math.sqrt(videoPixels / displayPixels);
+          ratioText = ' (' + ratio.toFixed(1) + '× display)';
+        }
+        
+        heroDimensionsValue.textContent = heroVideo.videoWidth + '×' + heroVideo.videoHeight + ratioText;
+        heroDimensionsValue.title = 'Video dimensions' + (ratioText ? '. Consider serving a smaller resolution.' : '');
+      } else {
+        heroDimensionsValue.textContent = '—';
+      }
+    }
     
     // Update negative margin on load and resize
     if (header && heroContainer) {
@@ -896,11 +972,20 @@
         // Update file size and length with retry logic
         updateFileSizeWithRetry(videoUrl);
         updateVideoLengthWithRetry();
+        
+        // Update dimensions and format (after resize so container has correct dimensions)
+        setTimeout(function() {
+          updateHeroVideoStats(videoUrl);
+        }, 150);
       }
       
       // Clear existing src to force reload of new video
       heroVideo.src = '';
       heroVideo.load();
+      
+      // Reset dimensions, set format from URL immediately
+      if (heroDimensionsValue) heroDimensionsValue.textContent = 'Loading...';
+      updateHeroVideoStats(videoUrl);
       
       // Set up multiple event handlers BEFORE setting new src to catch early events
       heroVideo.addEventListener('loadedmetadata', function() {
@@ -1008,6 +1093,7 @@
           setTimeout(function() {
             updateFileSize(initialVideoSrc);
             updateVideoLength();
+            updateHeroVideoStats(initialVideoSrc);
           }, 1000);
         }
       }
@@ -1530,9 +1616,15 @@
     const squareImage = document.getElementById('squareImage');
     const squareImageUrlInput = document.getElementById('squareImageUrlInput');
     const updateSquareImageBtn = document.getElementById('updateSquareImageBtn');
+    const squareImageSizeValue = document.getElementById('squareImageSizeValue');
+    const squareImageDimensionsValue = document.getElementById('squareImageDimensionsValue');
+    const squareImageFormatValue = document.getElementById('squareImageFormatValue');
     const squareVideo = document.getElementById('squareVideo');
     const squareVideoUrlInput = document.getElementById('squareVideoUrlInput');
     const updateSquareVideoBtn = document.getElementById('updateSquareVideoBtn');
+    const squareVideoSizeValue = document.getElementById('squareVideoSizeValue');
+    const squareVideoDimensionsValue = document.getElementById('squareVideoDimensionsValue');
+    const squareVideoFormatValue = document.getElementById('squareVideoFormatValue');
 
     // Function to get cursor position for square image input
     function getSquareImageCursorPosition() {
@@ -1730,6 +1822,109 @@
       }, 300);
     }
 
+    // Square frame asset evaluators
+    async function fetchFileSizeBytes(url) {
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        if (response.ok) {
+          const contentLength = response.headers.get('Content-Length');
+          if (contentLength) return parseInt(contentLength, 10);
+        }
+        const rangeResponse = await fetch(url, { method: 'GET', headers: { Range: 'bytes=0-1' } });
+        const contentRange = rangeResponse.headers.get('Content-Range');
+        if (contentRange) {
+          const match = contentRange.match(/\/(\d+)/);
+          if (match) return parseInt(match[1], 10);
+        }
+      } catch (e) { /* ignore */ }
+      return null;
+    }
+
+    function updateSquareImageStats(imageUrl) {
+      if (!squareImage || !squareImageSizeValue || !squareImageDimensionsValue || !squareImageFormatValue) return;
+      
+      const url = imageUrl || squareImage.src || '';
+      const urlLower = (url || '').toLowerCase();
+      
+      // Format
+      let format = '—';
+      let isModern = false;
+      if (urlLower.includes('.webp')) { format = 'WebP ✓'; isModern = true; }
+      else if (urlLower.includes('.avif')) { format = 'AVIF ✓'; isModern = true; }
+      else if (urlLower.includes('.jpg') || urlLower.includes('.jpeg')) format = 'JPEG';
+      else if (urlLower.includes('.png')) format = 'PNG';
+      else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
+      squareImageFormatValue.textContent = format;
+      squareImageFormatValue.title = isModern ? 'Modern format' : 'Consider WebP or AVIF for better compression';
+      
+      // Dimensions (need image loaded)
+      if (squareImage.naturalWidth && squareImage.naturalHeight) {
+        const frameWrapper = squareImage.closest('.pt-square-formatting__frame-wrapper');
+        const displayW = frameWrapper ? frameWrapper.offsetWidth : 0;
+        const displayH = frameWrapper ? frameWrapper.offsetHeight : 0;
+        const imgPixels = squareImage.naturalWidth * squareImage.naturalHeight;
+        const displayPixels = displayW * displayH;
+        let ratioText = '';
+        if (displayPixels > 0 && imgPixels > displayPixels) {
+          ratioText = ' (' + Math.sqrt(imgPixels / displayPixels).toFixed(1) + '× display)';
+        }
+        squareImageDimensionsValue.textContent = squareImage.naturalWidth + '×' + squareImage.naturalHeight + ratioText;
+      } else {
+        squareImageDimensionsValue.textContent = '—';
+      }
+      
+      // File size
+      if (!url) { squareImageSizeValue.textContent = '—'; return; }
+      squareImageSizeValue.textContent = 'Loading...';
+      fetchFileSizeBytes(url).then(function(bytes) {
+        if (squareImageSizeValue) {
+          squareImageSizeValue.textContent = bytes ? formatFileSize(bytes) : '—';
+        }
+      });
+    }
+
+    function updateSquareVideoStats(videoUrl) {
+      if (!squareVideo || !squareVideoSizeValue || !squareVideoDimensionsValue || !squareVideoFormatValue) return;
+      
+      const url = videoUrl || (squareVideo.querySelector('source')?.src) || squareVideo.src || '';
+      const urlLower = (url || '').toLowerCase();
+      
+      // Format
+      let format = '—';
+      let isModern = false;
+      if (urlLower.includes('.webm')) { format = 'WebM ✓'; isModern = true; }
+      else if (urlLower.includes('.mp4') || urlLower.includes('video/mp4')) format = 'MP4';
+      else if (urlLower.includes('.av1') || urlLower.includes('av01')) { format = 'AV1 ✓'; isModern = true; }
+      else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
+      squareVideoFormatValue.textContent = format;
+      squareVideoFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
+      
+      // Dimensions
+      if (squareVideo.videoWidth && squareVideo.videoHeight) {
+        const frameWrapper = squareVideo.closest('.pt-square-formatting__frame-wrapper');
+        const displayW = frameWrapper ? frameWrapper.offsetWidth : 0;
+        const displayH = frameWrapper ? frameWrapper.offsetHeight : 0;
+        const videoPixels = squareVideo.videoWidth * squareVideo.videoHeight;
+        const displayPixels = displayW * displayH;
+        let ratioText = '';
+        if (displayPixels > 0 && videoPixels > displayPixels) {
+          ratioText = ' (' + Math.sqrt(videoPixels / displayPixels).toFixed(1) + '× display)';
+        }
+        squareVideoDimensionsValue.textContent = squareVideo.videoWidth + '×' + squareVideo.videoHeight + ratioText;
+      } else {
+        squareVideoDimensionsValue.textContent = '—';
+      }
+      
+      // File size
+      if (!url) { squareVideoSizeValue.textContent = '—'; return; }
+      squareVideoSizeValue.textContent = 'Loading...';
+      fetchFileSizeBytes(url).then(function(bytes) {
+        if (squareVideoSizeValue) {
+          squareVideoSizeValue.textContent = bytes ? formatFileSize(bytes) : '—';
+        }
+      });
+    }
+
     // Function to get plain text URL from square image input
     function getSquareImageUrlFromInput() {
       if (!squareImageUrlInput) return '';
@@ -1778,7 +1973,19 @@
       try {
         // Update the image
         if (squareImage) {
+          if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = 'Loading...';
+          squareImage.onload = function() {
+            updateSquareImageStats(newUrl);
+            squareImage.onload = null;
+            squareImage.onerror = null;
+          };
+          squareImage.onerror = function() {
+            if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = '—';
+            squareImage.onload = null;
+            squareImage.onerror = null;
+          };
           squareImage.src = newUrl;
+          updateSquareImageStats(newUrl);
         }
 
         // Update URL display
@@ -1861,6 +2068,8 @@
       try {
         // Update the video
         if (squareVideo) {
+          if (squareVideoDimensionsValue) squareVideoDimensionsValue.textContent = 'Loading...';
+          if (squareVideoFormatValue) squareVideoFormatValue.textContent = 'Loading...';
           squareVideo.src = '';
           squareVideo.load();
           
@@ -1876,6 +2085,15 @@
           
           squareVideo.src = newUrl;
           squareVideo.load();
+          
+          const onMetadata = function() {
+            updateSquareVideoStats(newUrl);
+            squareVideo.removeEventListener('loadedmetadata', onMetadata);
+          };
+          squareVideo.addEventListener('loadedmetadata', onMetadata);
+          if (squareVideo.readyState >= 1 && squareVideo.videoWidth > 0) {
+            setTimeout(function() { updateSquareVideoStats(newUrl); }, 100);
+          }
         }
 
         // Update URL display
@@ -1916,6 +2134,17 @@
       const initialImageSrc = squareImage?.src || '';
       if (initialImageSrc) {
         updateSquareImageUrlDisplay(initialImageSrc);
+      }
+
+      // Initial asset stats
+      if (squareImage) {
+        if (squareImage.complete && squareImage.naturalWidth) {
+          updateSquareImageStats(initialImageSrc);
+        } else {
+          squareImage.addEventListener('load', function() {
+            updateSquareImageStats(initialImageSrc);
+          }, { once: true });
+        }
       }
 
       // Handle update button click
@@ -1961,6 +2190,17 @@
         updateSquareVideoUrlDisplay(initialVideoSrc);
       }
 
+      // Initial asset stats for square video
+      if (squareVideo && initialVideoSrc) {
+        if (squareVideo.readyState >= 1 && squareVideo.videoWidth > 0) {
+          updateSquareVideoStats(initialVideoSrc);
+        } else {
+          squareVideo.addEventListener('loadedmetadata', function() {
+            updateSquareVideoStats(initialVideoSrc);
+          }, { once: true });
+        }
+      }
+
       // Handle update button click
       updateSquareVideoBtn.addEventListener('click', handleSquareVideoUpdate);
 
@@ -2002,6 +2242,46 @@
     const mobileVideo = document.getElementById('mobileVideo');
     const phoneVideo = document.getElementById('phoneVideo');
     const mobileFileSizeValue = document.getElementById('mobileFileSizeValue');
+    const mobileDimensionsValue = document.getElementById('mobileDimensionsValue');
+    const mobileFormatValue = document.getElementById('mobileFormatValue');
+
+    // Phone video asset evaluator - dimensions vs frame, format
+    function updatePhoneVideoStats(videoUrl) {
+      if (!phoneVideo) return;
+      
+      const url = videoUrl || (phoneVideo.querySelector('source')?.src) || phoneVideo.src || '';
+      const urlLower = (url || '').toLowerCase();
+      
+      // Format
+      let format = '—';
+      let isModern = false;
+      if (urlLower.includes('.webm')) { format = 'WebM ✓'; isModern = true; }
+      else if (urlLower.includes('.mp4') || urlLower.includes('video/mp4')) format = 'MP4';
+      else if (urlLower.includes('.av1') || urlLower.includes('av01')) { format = 'AV1 ✓'; isModern = true; }
+      else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
+      if (mobileFormatValue) {
+        mobileFormatValue.textContent = format;
+        mobileFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
+      }
+      
+      // Dimensions
+      if (mobileDimensionsValue) {
+        if (phoneVideo.videoWidth && phoneVideo.videoHeight) {
+          const phoneScreen = phoneVideo.closest('.pt-mobile-playground__phone-screen');
+          const displayW = phoneScreen ? phoneScreen.offsetWidth : 0;
+          const displayH = phoneScreen ? phoneScreen.offsetHeight : 0;
+          const videoPixels = phoneVideo.videoWidth * phoneVideo.videoHeight;
+          const displayPixels = displayW * displayH;
+          let ratioText = '';
+          if (displayPixels > 0 && videoPixels > displayPixels) {
+            ratioText = ' (' + Math.sqrt(videoPixels / displayPixels).toFixed(1) + '× display)';
+          }
+          mobileDimensionsValue.textContent = phoneVideo.videoWidth + '×' + phoneVideo.videoHeight + ratioText;
+        } else {
+          mobileDimensionsValue.textContent = '—';
+        }
+      }
+    }
 
     // Function to get cursor position for mobile input
     function getMobileCursorPosition() {
@@ -2180,18 +2460,24 @@
       // Flag to ensure we only update file size once per video change
       let fileSizeUpdated = false;
 
-      // Function to handle file size update
+      // Function to handle file size and stats update
       function handleFileSizeUpdate() {
         if (fileSizeUpdated) return;
         fileSizeUpdated = true;
         
+        // Update format immediately from URL
+        updatePhoneVideoStats(videoUrl);
+        
         // Wait 1 second after video finishes loading before updating file size
         setTimeout(function() {
           updateMobileFileSize(videoUrl);
+          updatePhoneVideoStats(videoUrl);
         }, 1000);
       }
 
       // Clear existing src to force reload (only phone video)
+      if (mobileDimensionsValue) mobileDimensionsValue.textContent = 'Loading...';
+      if (mobileFormatValue) mobileFormatValue.textContent = 'Loading...';
       phoneVideo.src = '';
       phoneVideo.load();
 
@@ -2355,11 +2641,13 @@
         updateMobileUrlDisplay(initialMobileVideoSrc);
       }
 
-      // Update file size on initial load
+      // Update file size and stats on initial load
       if (phoneVideo && initialMobileVideoSrc) {
+        updatePhoneVideoStats(initialMobileVideoSrc);
         phoneVideo.addEventListener('loadedmetadata', function() {
           setTimeout(function() {
             updateMobileFileSize(initialMobileVideoSrc);
+            updatePhoneVideoStats(initialMobileVideoSrc);
           }, 1000);
         }, { once: true });
         
@@ -2367,6 +2655,7 @@
         if (phoneVideo.readyState >= 1) {
           setTimeout(function() {
             updateMobileFileSize(initialMobileVideoSrc);
+            updatePhoneVideoStats(initialMobileVideoSrc);
           }, 1000);
         }
       }

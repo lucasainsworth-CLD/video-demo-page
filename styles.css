@@ -355,12 +355,14 @@ main {
   font-weight: 200;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
   z-index: 2;
   pointer-events: none;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  white-space: nowrap;
+  max-width: 95vw;
 }
 
 .pt-hero__metadata-label {
@@ -618,6 +620,17 @@ main {
   border-top: 1px solid var(--color-border);
 }
 
+/* Tighter spacing when drawer is closed */
+.pt-url-editor.pt-url-drawer:has(.pt-url-drawer__content:not([data-open="true"])) {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.pt-square-formatting__editor.pt-url-drawer:has(.pt-url-drawer__content:not([data-open="true"])),
+.pt-playground__input-section.pt-url-drawer:has(.pt-url-drawer__content:not([data-open="true"])) {
+  gap: 4px;
+}
+
 /* Responsive adjustments for URL editor */
 @media (max-width: 768px) {
   .pt-url-editor {
@@ -722,7 +735,7 @@ main {
 }
 
 .pt-square-formatting__content {
-  padding: 24px 0;
+  padding: 14px 0;
   width: min(1440px, 100% - 48px);
 }
 
@@ -809,6 +822,42 @@ main {
   opacity: 0.8;
 }
 
+.pt-square-formatting__metadata {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 73, 183, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: calc(100% - 16px);
+}
+
+.pt-square-formatting__metadata-label {
+  opacity: 0.8;
+  font-size: 0.75rem;
+}
+
+.pt-square-formatting__metadata-value {
+  font-weight: 200;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+}
+
 /* Responsive adjustments for square formatting */
 @media (max-width: 1024px) {
   .pt-square-formatting__layout {
@@ -844,7 +893,7 @@ main {
 }
 
 .pt-playground__content {
-  padding: 24px 0;
+  padding: 4px 0;
 }
 
 .pt-playground__layout {
@@ -1208,10 +1257,13 @@ main {
   font-weight: 200;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
   z-index: 3;
   pointer-events: none;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  max-width: calc(100% - 16px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   white-space: nowrap;
 }
