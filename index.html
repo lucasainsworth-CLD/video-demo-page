@@ -32,9 +32,26 @@
         <button class="pt-header__stats-toggle" type="button" id="assetStatsToggle" aria-pressed="false" aria-label="Toggle asset stats visibility">
           Show asset stats
         </button>
+        <button class="pt-header__page-stats-toggle" type="button" id="pageStatsToggle" aria-expanded="false" aria-controls="pageStatsPopup" aria-label="Show page stats">
+          Show page stats
+        </button>
       </nav>
     </div>
   </header>
+
+  <!-- Page Stats Popup (placeholder - to be populated) -->
+  <div class="pt-page-stats-popup" id="pageStatsPopup" role="dialog" aria-labelledby="pageStatsTitle" aria-modal="true" hidden>
+    <div class="pt-page-stats-popup__backdrop" data-close-popup></div>
+    <div class="pt-page-stats-popup__content">
+      <div class="pt-page-stats-popup__header">
+        <h2 class="pt-page-stats-popup__title" id="pageStatsTitle">Page Stats</h2>
+        <button class="pt-page-stats-popup__close" type="button" aria-label="Close" data-close-popup>×</button>
+      </div>
+      <div class="pt-page-stats-popup__body">
+        <p class="pt-page-stats-popup__placeholder">Overall page size, time to load, and image/video stats will appear here.</p>
+      </div>
+    </div>
+  </div>
 
   <section class="pt-hero">
     <div class="pt-hero__container" id="heroContainer">
@@ -58,27 +75,53 @@
         <p class="pt-hero__subhead">Discover the art of luxury at Onyx & Linen</p>
       </div>
       <div class="pt-hero__metadata" id="metadataOverlay" data-asset-stats-overlay>
-        <span class="pt-hero__metadata-label">File Size:</span>
-        <span class="pt-hero__metadata-value" id="fileSizeValue">Loading...</span>
-        <span class="pt-hero__metadata-label">Dimensions:</span>
-        <span class="pt-hero__metadata-value" id="heroDimensionsValue">—</span>
-        <span class="pt-hero__metadata-label">Format:</span>
-        <span class="pt-hero__metadata-value" id="heroFormatValue">—</span>
-        <span class="pt-hero__metadata-label">Video Length:</span>
-        <span class="pt-hero__metadata-value" id="videoLengthValue">Loading...</span>
-      </div>
-    </div>
-    <!-- Spacer to maintain document flow and push content below video -->
-    <div class="pt-hero__spacer" id="heroSpacer"></div>
-    
-    <section class="pt-url-editor pt-url-drawer container">
-      <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="heroVideoUrlDrawer" data-drawer-trigger aria-label="Toggle video URL editor">
-        <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-      </button>
-      <div class="pt-url-drawer__content" id="heroVideoUrlDrawer">
-        <div class="pt-url-drawer__content-inner">
+        <div class="pt-hero__metadata-inner">
+          <div class="pt-hero__metadata-section pt-hero__metadata-section--file-size">
+            <div class="pt-hero__metadata-dial" id="fileSizeDial" data-dial-status="loading" aria-hidden="true">
+              <div class="pt-hero__metadata-dial__track"></div>
+              <div class="pt-hero__metadata-dial__fill" id="fileSizeDialFill"></div>
+            </div>
+            <div class="pt-hero__metadata-readout">
+              <span class="pt-hero__metadata-label">File Size:</span>
+              <span class="pt-hero__metadata-value" id="fileSizeValue">Loading...</span>
+            </div>
+            <p class="pt-hero__metadata-tip">For a looping hero video, aim for &lt;5 MB and under 17 seconds</p>
+          </div>
+          <div class="pt-hero__metadata-section pt-hero__metadata-section--dimensions">
+            <div class="pt-hero__metadata-dial" id="dimensionsDial" data-dial-status="loading" aria-hidden="true">
+              <div class="pt-hero__metadata-dial__track"></div>
+              <div class="pt-hero__metadata-dial__fill" id="dimensionsDialFill"></div>
+            </div>
+            <div class="pt-hero__metadata-readout">
+              <span class="pt-hero__metadata-label">Dimensions:</span>
+              <span class="pt-hero__metadata-value" id="heroDimensionsValue">—</span>
+            </div>
+            <p class="pt-hero__metadata-tip" id="dimensionsTip">Size should be smaller than or the same size as the frame.</p>
+          </div>
+          <div class="pt-hero__metadata-section pt-hero__metadata-section--format">
+            <div class="pt-hero__metadata-dial" id="formatDial" aria-hidden="true">
+              <div class="pt-hero__metadata-dial__track"></div>
+              <div class="pt-hero__metadata-dial__fill" id="formatDialFill"></div>
+            </div>
+            <div class="pt-hero__metadata-readout">
+              <span class="pt-hero__metadata-label">Format:</span>
+              <span class="pt-hero__metadata-value" id="heroFormatValue">—</span>
+            </div>
+            <p class="pt-hero__metadata-tip">WebM & AV1 = green, MP4 = yellow, MOV/AVI = red</p>
+          </div>
+          <div class="pt-hero__metadata-section pt-hero__metadata-section--video-length">
+            <div class="pt-hero__metadata-dial" id="videoLengthDial" aria-hidden="true">
+              <div class="pt-hero__metadata-dial__track"></div>
+              <div class="pt-hero__metadata-dial__fill" id="videoLengthDialFill"></div>
+            </div>
+            <div class="pt-hero__metadata-readout">
+              <span class="pt-hero__metadata-label">Video Length:</span>
+              <span class="pt-hero__metadata-value" id="videoLengthValue">Loading...</span>
+            </div>
+            <p class="pt-hero__metadata-tip">For embedded looping video, file size is key. General best practice is keep videos under 17 seconds.</p>
+          </div>
+        </div>
+        <div class="pt-hero__metadata-url">
           <div class="pt-url-editor__wrapper">
             <label class="pt-url-editor__label" for="videoUrlInput">Video URL:</label>
             <div class="pt-url-editor__box" id="urlEditorBox">
@@ -92,64 +135,29 @@
                 aria-label="Video URL"
               ></div>
             </div>
-            <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
-              <span>update</span>
-              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
+            <div class="pt-url-editor__buttons">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="Add f_auto,q_auto">
+                f_auto,q_auto
+              </button>
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="w_1280" title="Add w_1280">
+                w_1280
+              </button>
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_15" title="Add du_15">
+                du_15
+              </button>
+              <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
+                <span>update</span>
+                <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
           </div>
-          <section class="pt-hero__video-selector">
-            <div class="pt-hero__video-buttons">
-        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4">
-          <video 
-            class="pt-hero__video-button-preview"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4" type="video/mp4">
-          </video>
-        </button>
-        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4">
-          <video 
-            class="pt-hero__video-button-preview"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149224/Black_Evening_Suit_zlgagl.mp4" type="video/mp4">
-          </video>
-        </button>
-        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149310/Classical_skirt_mbcvo0.mp4">
-          <video 
-            class="pt-hero__video-button-preview"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149310/Classical_skirt_mbcvo0.mp4" type="video/mp4">
-          </video>
-        </button>
-        <button class="pt-hero__video-button" data-video-url="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763148171/kt11mzyxequt3cdlex88_rogbpm.mp4">
-          <video 
-            class="pt-hero__video-button-preview"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          >
-            <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763148171/kt11mzyxequt3cdlex88_rogbpm.mp4" type="video/mp4">
-          </video>
-        </button>
-      </div>
-    </section>
         </div>
       </div>
-    </section>
+    </div>
+    <!-- Spacer to maintain document flow and push content below video -->
+    <div class="pt-hero__spacer" id="heroSpacer"></div>
   </section>
 
   <!-- Square Formatting Section -->
@@ -171,40 +179,73 @@
               <button type="button" class="pt-square-formatting__overlay-btn">Shop Mens</button>
             </div>
             <div class="pt-square-formatting__metadata" id="squareImageMetadata" data-asset-stats-overlay>
-              <span class="pt-square-formatting__metadata-label">Size:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareImageSizeValue">—</span>
-              <span class="pt-square-formatting__metadata-label">Dimensions:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareImageDimensionsValue">—</span>
-              <span class="pt-square-formatting__metadata-label">Format:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareImageFormatValue">—</span>
-            </div>
-          </div>
-          <div class="pt-square-formatting__editor pt-url-drawer">
-            <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="squareImageUrlDrawer" data-drawer-trigger aria-label="Toggle image URL editor">
-              <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </button>
-            <div class="pt-url-drawer__content" id="squareImageUrlDrawer">
-              <div class="pt-url-drawer__content-inner">
-                <label class="pt-square-formatting__label" for="squareImageUrlInput">Edit URL:</label>
-                <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
-                  <div 
-                    contenteditable="true"
-                    id="squareImageUrlInput" 
-                    class="pt-url-editor__input" 
-                    data-placeholder="Enter image URL..."
-                    spellcheck="false"
-                    role="textbox"
-                    aria-label="Image URL"
-                  >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+              <div class="pt-square-formatting__metadata-inner">
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--file-size">
+                  <div class="pt-square-formatting__metadata-dial" id="squareImageFileSizeDial" data-dial-status="loading" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">File Size:</span>
+                    <span class="pt-square-formatting__metadata-value" id="squareImageSizeValue">Loading...</span>
+                  </div>
+                  <p class="pt-square-formatting__metadata-tip">For product images, aim for &lt;500 KB for fast loading</p>
                 </div>
-                <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
-                  <span>update</span>
-                  <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </button>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--dimensions">
+                  <div class="pt-square-formatting__metadata-dial" id="squareImageDimensionsDial" data-dial-status="loading" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">Dimensions:</span>
+                    <span class="pt-square-formatting__metadata-value" id="squareImageDimensionsValue">—</span>
+                  </div>
+                  <p class="pt-square-formatting__metadata-tip" id="squareImageDimensionsTip">Size should be smaller than or the same size as the frame.</p>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--format">
+                  <div class="pt-square-formatting__metadata-dial" id="squareImageFormatDial" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">Format:</span>
+                    <span class="pt-square-formatting__metadata-value" id="squareImageFormatValue">—</span>
+                  </div>
+                  <p class="pt-square-formatting__metadata-tip">WebP & AVIF = green, JPEG/PNG = yellow, legacy = red</p>
+                </div>
+              </div>
+              <div class="pt-square-formatting__metadata-url">
+                <div class="pt-url-editor__wrapper">
+                  <label class="pt-url-editor__label" for="squareImageUrlInput">Image URL:</label>
+                  <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
+                    <div 
+                      contenteditable="true"
+                      id="squareImageUrlInput" 
+                      class="pt-url-editor__input" 
+                      data-placeholder="Enter image URL..."
+                      spellcheck="false"
+                      role="textbox"
+                      aria-label="Image URL"
+                    >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+                  </div>
+                  <div class="pt-url-editor__buttons">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="Add f_auto,q_auto">
+                      f_auto,q_auto
+                    </button>
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900" title="Add c_fill,w_900,h_900">
+                      c_fill,w_900,h_900
+                    </button>
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="g_auto" title="Add g_auto">
+                      g_auto
+                    </button>
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="e_zoompan:mode_ztl;maxzoom_1.2;du_8;fps_15/e_loop,f_auto:animated,q_auto" title="Add zoompan animation">
+                      zoompan
+                    </button>
+                    <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
+                      <span>update</span>
+                      <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -444,6 +485,31 @@
       });
     }
 
+    // Page stats popup toggle
+    const pageStatsToggle = document.getElementById('pageStatsToggle');
+    const pageStatsPopup = document.getElementById('pageStatsPopup');
+    function openPageStatsPopup() {
+      if (pageStatsPopup) {
+        pageStatsPopup.removeAttribute('hidden');
+        pageStatsToggle?.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closePageStatsPopup() {
+      if (pageStatsPopup) {
+        pageStatsPopup.setAttribute('hidden', '');
+        pageStatsToggle?.setAttribute('aria-expanded', 'false');
+      }
+    }
+    if (pageStatsToggle && pageStatsPopup) {
+      pageStatsToggle.addEventListener('click', openPageStatsPopup);
+      pageStatsPopup.querySelectorAll('[data-close-popup]').forEach(function(el) {
+        el.addEventListener('click', closePageStatsPopup);
+      });
+      pageStatsPopup.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closePageStatsPopup();
+      });
+    }
+
     // Reusable URL drawer toggle - works with any element with data-drawer-trigger
     document.addEventListener('click', (e) => {
       const trigger = e.target.closest('[data-drawer-trigger]');
@@ -497,7 +563,190 @@
     const videoLengthValue = document.getElementById('videoLengthValue');
     const heroDimensionsValue = document.getElementById('heroDimensionsValue');
     const heroFormatValue = document.getElementById('heroFormatValue');
-    
+    const fileSizeDial = document.getElementById('fileSizeDial');
+    const fileSizeDialFill = document.getElementById('fileSizeDialFill');
+    const dimensionsDial = document.getElementById('dimensionsDial');
+    const dimensionsDialFill = document.getElementById('dimensionsDialFill');
+    const formatDial = document.getElementById('formatDial');
+    const videoLengthDial = document.getElementById('videoLengthDial');
+
+    // Interpolate between two hex colors (0 <= t <= 1)
+    function lerpColor(hex1, hex2, t) {
+      t = Math.max(0, Math.min(1, t));
+      var r1 = parseInt(hex1.slice(1, 3), 16), g1 = parseInt(hex1.slice(3, 5), 16), b1 = parseInt(hex1.slice(5, 7), 16);
+      var r2 = parseInt(hex2.slice(1, 3), 16), g2 = parseInt(hex2.slice(3, 5), 16), b2 = parseInt(hex2.slice(5, 7), 16);
+      var r = Math.round(r1 + (r2 - r1) * t);
+      var g = Math.round(g1 + (g2 - g1) * t);
+      var b = Math.round(b1 + (b2 - b1) * t);
+      return '#' + [r, g, b].map(function(x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+    }
+
+    // File size: 2 MB green, 7 MB yellow (through orange), 12 MB red
+    const FILE_SIZE_GREEN = 2 * 1024 * 1024;
+    const FILE_SIZE_YELLOW = 7 * 1024 * 1024;
+    const FILE_SIZE_RED = 12 * 1024 * 1024;
+
+    function getFileSizeColor(bytes) {
+      if (bytes <= FILE_SIZE_GREEN) return '#22c55e';
+      if (bytes <= FILE_SIZE_YELLOW) {
+        var t = (bytes - FILE_SIZE_GREEN) / (FILE_SIZE_YELLOW - FILE_SIZE_GREEN);
+        return t < 0.5 ? lerpColor('#22c55e', '#86efac', t * 2) : lerpColor('#86efac', '#facc15', (t - 0.5) * 2);
+      }
+      if (bytes <= FILE_SIZE_RED) return lerpColor('#facc15', '#f87171', (bytes - FILE_SIZE_YELLOW) / (FILE_SIZE_RED - FILE_SIZE_YELLOW));
+      return '#b91c1c';
+    }
+
+    function updateFileSizeDial(bytes) {
+      if (!fileSizeDial) return;
+      var section = fileSizeDial.closest('.pt-hero__metadata-section');
+      if (bytes === null || bytes === undefined) {
+        if (section) section.style.setProperty('--dial-color', '#9ca3af');
+        var track = fileSizeDial.querySelector('.pt-hero__metadata-dial__track');
+        if (track) track.style.borderColor = '#9ca3af';
+        return;
+      }
+      var color = getFileSizeColor(bytes);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = fileSizeDial.querySelector('.pt-hero__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
+    // Dimensions: <0.5x red, 0.5-1x dark→light green, 1x perfect, 1-1.2x light green→yellow, 1.2-2x yellow→red
+    const DIMENSIONS_LOW = 0.5;
+    const DIMENSIONS_PERFECT = 1;
+    const DIMENSIONS_YELLOW_START = 1.2;
+    const DIMENSIONS_RED = 2;
+
+    function getDimensionsColor(ratio) {
+      if (ratio < DIMENSIONS_LOW) return '#f87171';
+      if (ratio <= DIMENSIONS_PERFECT) return lerpColor('#166534', '#22c55e', (ratio - DIMENSIONS_LOW) / (DIMENSIONS_PERFECT - DIMENSIONS_LOW));
+      if (ratio <= DIMENSIONS_YELLOW_START) return lerpColor('#22c55e', '#facc15', (ratio - DIMENSIONS_PERFECT) / (DIMENSIONS_YELLOW_START - DIMENSIONS_PERFECT));
+      if (ratio <= DIMENSIONS_RED) return lerpColor('#facc15', '#f87171', (ratio - DIMENSIONS_YELLOW_START) / (DIMENSIONS_RED - DIMENSIONS_YELLOW_START));
+      return '#f87171';
+    }
+
+    function getDimensionsTipText(ratio) {
+      if (ratio === null || ratio === undefined) return 'Size should be smaller than or the same size as the frame.';
+      if (ratio < DIMENSIONS_LOW) return 'Flirting with danger! The resolution may be noticeably poor.';
+      if (ratio >= 0.99 && ratio <= 1.01) return 'Perfect resolution for the frame.';
+      if (ratio < DIMENSIONS_PERFECT) return 'Optimal file size—you\'re upscaling slightly, check that it looks visually sharp.';
+      return 'You\'re delivering more pixels than you\'re using. Consider responsive breakpoints.';
+    }
+
+    function updateDimensionsDial(ratio) {
+      if (!dimensionsDial) return;
+      var section = dimensionsDial.closest('.pt-hero__metadata-section');
+      var dimensionsTipEl = document.getElementById('dimensionsTip');
+      if (ratio === null || ratio === undefined) {
+        if (section) section.style.setProperty('--dial-color', '#9ca3af');
+        var track = dimensionsDial.querySelector('.pt-hero__metadata-dial__track');
+        if (track) track.style.borderColor = '#9ca3af';
+        if (dimensionsTipEl) dimensionsTipEl.textContent = 'Size should be smaller than or the same size as the frame.';
+        return;
+      }
+      var color = getDimensionsColor(ratio);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = dimensionsDial.querySelector('.pt-hero__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+      if (dimensionsTipEl) dimensionsTipEl.textContent = getDimensionsTipText(ratio);
+    }
+
+    // Format dial: WebM/AV1 = green, MP4 = yellow, MOV/AVI/legacy = red
+    function getFormatColor(urlLower) {
+      if (!urlLower) return '#9ca3af';
+      if (urlLower.includes('.webm') || urlLower.includes('av1') || urlLower.includes('av01')) return '#22c55e';
+      if (urlLower.includes('.mp4') || urlLower.includes('video/mp4')) return '#facc15';
+      if (urlLower.includes('.mov') || urlLower.includes('.avi') || urlLower.includes('.wmv')) return '#f87171';
+      return '#9ca3af';
+    }
+
+    function updateFormatDial(urlLower) {
+      if (!formatDial) return;
+      var section = formatDial.closest('.pt-hero__metadata-section');
+      var color = getFormatColor(urlLower);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = formatDial.querySelector('.pt-hero__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
+    // Image format dial: WebP/AVIF = green, JPEG/PNG/GIF = yellow, BMP/TIFF = red
+    function getImageFormatColor(urlLower, hasZoompan, contentType) {
+      if (hasZoompan && contentType) {
+        if (contentType === 'image/avif' || contentType === 'image/webp') return '#22c55e';
+        if (contentType === 'image/gif') return '#facc15';
+        return '#9ca3af';
+      }
+      if (hasZoompan) return '#9ca3af'; // still loading
+      if (!urlLower) return '#9ca3af';
+      if (urlLower.includes('.webp') || urlLower.includes('.avif')) return '#22c55e';
+      if (urlLower.includes('.jpg') || urlLower.includes('.jpeg') || urlLower.includes('.png') || urlLower.includes('.gif')) return '#facc15';
+      if (urlLower.includes('.bmp') || urlLower.includes('.tiff') || urlLower.includes('.tif')) return '#f87171';
+      return '#9ca3af';
+    }
+
+    function updateSquareImageFileSizeDial(bytes) {
+      if (!squareImageFileSizeDial) return;
+      var section = squareImageFileSizeDial.closest('.pt-square-formatting__metadata-section');
+      if (bytes === null || bytes === undefined) {
+        if (section) section.style.setProperty('--dial-color', '#9ca3af');
+        var track = squareImageFileSizeDial.querySelector('.pt-square-formatting__metadata-dial__track');
+        if (track) track.style.borderColor = '#9ca3af';
+        return;
+      }
+      var color = getFileSizeColor(bytes);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = squareImageFileSizeDial.querySelector('.pt-square-formatting__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
+    function updateSquareImageDimensionsDial(ratio) {
+      if (!squareImageDimensionsDial) return;
+      var section = squareImageDimensionsDial.closest('.pt-square-formatting__metadata-section');
+      if (ratio === null || ratio === undefined) {
+        if (section) section.style.setProperty('--dial-color', '#9ca3af');
+        var track = squareImageDimensionsDial.querySelector('.pt-square-formatting__metadata-dial__track');
+        if (track) track.style.borderColor = '#9ca3af';
+        if (squareImageDimensionsTip) squareImageDimensionsTip.textContent = 'Size should be smaller than or the same size as the frame.';
+        return;
+      }
+      var color = getDimensionsColor(ratio);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = squareImageDimensionsDial.querySelector('.pt-square-formatting__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+      if (squareImageDimensionsTip) squareImageDimensionsTip.textContent = getDimensionsTipText(ratio);
+    }
+
+    function updateSquareImageFormatDial(urlLower, hasZoompan, contentType) {
+      if (!squareImageFormatDial) return;
+      var section = squareImageFormatDial.closest('.pt-square-formatting__metadata-section');
+      var color = getImageFormatColor(urlLower, hasZoompan, contentType);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = squareImageFormatDial.querySelector('.pt-square-formatting__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
+    // Video length dial: 10s green, 17s yellow, 25s+ red
+    const VIDEO_LENGTH_GREEN = 10;
+    const VIDEO_LENGTH_YELLOW = 17;
+    const VIDEO_LENGTH_RED = 25;
+
+    function getVideoLengthColor(seconds) {
+      if (seconds === null || seconds === undefined || !isFinite(seconds) || seconds <= 0) return '#9ca3af';
+      if (seconds <= VIDEO_LENGTH_GREEN) return '#22c55e';
+      if (seconds <= VIDEO_LENGTH_YELLOW) return lerpColor('#22c55e', '#facc15', (seconds - VIDEO_LENGTH_GREEN) / (VIDEO_LENGTH_YELLOW - VIDEO_LENGTH_GREEN));
+      if (seconds <= VIDEO_LENGTH_RED) return lerpColor('#facc15', '#f87171', (seconds - VIDEO_LENGTH_YELLOW) / (VIDEO_LENGTH_RED - VIDEO_LENGTH_YELLOW));
+      return '#f87171';
+    }
+
+    function updateVideoLengthDial(seconds) {
+      if (!videoLengthDial) return;
+      var section = videoLengthDial.closest('.pt-hero__metadata-section');
+      var color = getVideoLengthColor(seconds);
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = videoLengthDial.querySelector('.pt-hero__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
     // Hero video asset evaluator - dimensions vs frame, format
     function updateHeroVideoStats(videoUrl) {
       if (!heroVideo || !heroContainer) return;
@@ -525,7 +774,8 @@
         heroFormatValue.textContent = format;
         heroFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
       }
-      
+      updateFormatDial(urlLower);
+
       // Dimensions vs frame
       if (!heroDimensionsValue) return;
       
@@ -535,16 +785,21 @@
         const containerHeight = heroContainer.offsetHeight || 0;
         const displayPixels = containerWidth * containerHeight;
         
+        let ratio = null;
         let ratioText = '';
-        if (displayPixels > 0 && videoPixels > displayPixels) {
-          const ratio = Math.sqrt(videoPixels / displayPixels);
-          ratioText = ' (' + ratio.toFixed(1) + '× display)';
+        if (displayPixels > 0) {
+          ratio = Math.sqrt(videoPixels / displayPixels);
+          if (videoPixels > displayPixels) {
+            ratioText = ' (' + ratio.toFixed(1) + '× display)';
+          }
         }
         
         heroDimensionsValue.textContent = heroVideo.videoWidth + '×' + heroVideo.videoHeight + ratioText;
         heroDimensionsValue.title = 'Video dimensions' + (ratioText ? '. Consider serving a smaller resolution.' : '');
+        updateDimensionsDial(ratio);
       } else {
         heroDimensionsValue.textContent = '—';
+        updateDimensionsDial(null);
       }
     }
     
@@ -651,6 +906,7 @@
       // Check if duration is available and valid
       if (heroVideo.duration && isFinite(heroVideo.duration) && heroVideo.duration > 0) {
         videoLengthValue.textContent = formatVideoDuration(heroVideo.duration);
+        updateVideoLengthDial(heroVideo.duration);
         return true;
       }
       return false;
@@ -662,6 +918,7 @@
 
       // Show loading state
       videoLengthValue.textContent = 'Loading...';
+      updateVideoLengthDial(null);
 
       // Try to get duration immediately
       if (checkAndUpdateVideoLength()) {
@@ -675,6 +932,7 @@
           setTimeout(function() {
             if (!checkAndUpdateVideoLength()) {
               videoLengthValue.textContent = 'Unknown';
+              updateVideoLengthDial(null);
             }
           }, 500);
         }
@@ -705,6 +963,7 @@
       if (oldBytes === null || oldBytes === undefined) {
         // No previous value, just set directly
         fileSizeValue.textContent = formatFileSize(newBytes);
+        updateFileSizeDial(newBytes);
         return;
       }
 
@@ -718,12 +977,14 @@
         
         const currentBytes = oldBytes + (difference * eased);
         fileSizeValue.textContent = formatFileSize(currentBytes);
+        updateFileSizeDial(currentBytes);
 
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
           // Ensure final value is exact
           fileSizeValue.textContent = formatFileSize(newBytes);
+          updateFileSizeDial(newBytes);
         }
       }
 
@@ -740,6 +1001,7 @@
       
       // Show loading state
       fileSizeValue.textContent = 'Loading...';
+      updateFileSizeDial(null);
       
       try {
         // Use HEAD request to get file size without downloading the video
@@ -806,6 +1068,7 @@
           mobileFileSizeValue.textContent = 'Size unavailable';
         } else if (fileSizeValue) {
           fileSizeValue.textContent = 'Size unavailable';
+          updateFileSizeDial(null);
         }
       } catch (error) {
         console.error('Error fetching file size:', error);
@@ -813,6 +1076,7 @@
           mobileFileSizeValue.textContent = 'Error';
         } else if (fileSizeValue) {
           fileSizeValue.textContent = 'Error';
+          updateFileSizeDial(null);
         }
       }
     }
@@ -938,6 +1202,7 @@
               heroVideo.duration > 0 &&
               heroVideo.readyState >= 2) {
             videoLengthValue.textContent = formatVideoDuration(heroVideo.duration);
+            updateVideoLengthDial(heroVideo.duration);
             videoLengthUpdated = true;
           } else if (attempt < retries) {
             // Retry after delay
@@ -985,6 +1250,10 @@
       
       // Reset dimensions, set format from URL immediately
       if (heroDimensionsValue) heroDimensionsValue.textContent = 'Loading...';
+      updateDimensionsDial(null);
+      updateFormatDial(null);
+      if (videoLengthValue) videoLengthValue.textContent = 'Loading...';
+      updateVideoLengthDial(null);
       updateHeroVideoStats(videoUrl);
       
       // Set up multiple event handlers BEFORE setting new src to catch early events
@@ -1123,6 +1392,7 @@
         console.error('Error loading video:', heroVideo.error);
         if (fileSizeValue) {
           fileSizeValue.textContent = 'Error loading';
+          updateFileSizeDial(null);
         }
       });
       
@@ -1420,6 +1690,21 @@
       }
     }
 
+    // Insert Cloudinary transform after upload/ in URL
+    function insertTransform(url, transform) {
+      if (!url || !transform) return url;
+      var trimmed = url.trim();
+      if (!trimmed.includes('upload/')) return trimmed;
+      if (trimmed.includes('/' + transform + '/') || trimmed.endsWith('/' + transform)) return trimmed;
+      var match = trimmed.match(/upload\/(.*?)(\/v\d+\/)/);
+      if (match) {
+        var existing = match[1];
+        var versionPart = match[2];
+        return trimmed.replace(/upload\/(.*?)(\/v\d+\/)/, 'upload/' + (existing ? existing + '/' : '') + transform + versionPart);
+      }
+      return trimmed.replace('upload/', 'upload/' + transform + '/');
+    }
+
     // Initialize URL editor
     if (videoUrlInput && updateVideoBtn) {
       // Set initial video URL
@@ -1428,6 +1713,22 @@
       
       if (initialVideoSrc) {
         updateUrlDisplay(initialVideoSrc);
+      }
+
+      // Handle transform buttons (hero video)
+      var heroMetadata = document.getElementById('metadataOverlay');
+      if (heroMetadata) {
+        heroMetadata.querySelectorAll('.pt-url-editor__transform-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var transform = btn.getAttribute('data-transform');
+            if (!transform || !videoUrlInput) return;
+            var url = (videoUrlInput.textContent || videoUrlInput.innerText || '').trim();
+            var newUrl = insertTransform(url, transform);
+            if (newUrl !== url) {
+              updateUrlDisplay(newUrl);
+            }
+          });
+        });
       }
 
       // Handle update button click
@@ -1470,70 +1771,6 @@
         // Already handled above, but ensure plain text
       }, true);
     }
-
-    // Video Selector Buttons Configuration
-    const videoButtons = document.querySelectorAll('.pt-hero__video-button');
-    
-    // Initialize video buttons - play previews on hover
-    videoButtons.forEach(function(button) {
-      const video = button.querySelector('.pt-hero__video-button-preview');
-      if (!video) return;
-      
-      // Play video on hover
-      button.addEventListener('mouseenter', function() {
-        video.play().catch(function(error) {
-          console.warn('Could not play preview video:', error);
-        });
-      });
-      
-      // Pause video when not hovering
-      button.addEventListener('mouseleave', function() {
-        video.pause();
-        video.currentTime = 0;
-      });
-      
-      // Handle click to update hero video
-      button.addEventListener('click', async function() {
-        const videoUrl = button.getAttribute('data-video-url');
-        if (!videoUrl) return;
-        
-        try {
-          // Update hero video
-          await updateHeroVideo(videoUrl);
-          
-          // Update source element
-          const sourceElement = heroVideo?.querySelector('source');
-          if (sourceElement) {
-            sourceElement.src = videoUrl;
-          }
-          
-          // Update URL input display
-          updateUrlDisplay(videoUrl);
-          
-          // Visual feedback - add active state
-          videoButtons.forEach(function(btn) {
-            btn.style.borderColor = '';
-          });
-          button.style.borderColor = 'var(--color-primary)';
-          button.style.boxShadow = 'var(--shadow-lg)';
-          
-          // Reset border after animation
-          setTimeout(function() {
-            button.style.borderColor = '';
-            button.style.boxShadow = '';
-          }, 500);
-          
-        } catch (error) {
-          console.error('Error updating video:', error);
-          alert('Error updating video. Please try again.');
-        }
-      });
-      
-      // Ensure video is loaded and ready
-      video.addEventListener('loadedmetadata', function() {
-        // Video is ready for preview
-      });
-    });
 
     // Embed Code Playground Configuration
     const embedCodeInput = document.getElementById('embedCodeInput');
@@ -1619,6 +1856,10 @@
     const squareImageSizeValue = document.getElementById('squareImageSizeValue');
     const squareImageDimensionsValue = document.getElementById('squareImageDimensionsValue');
     const squareImageFormatValue = document.getElementById('squareImageFormatValue');
+    const squareImageFileSizeDial = document.getElementById('squareImageFileSizeDial');
+    const squareImageDimensionsDial = document.getElementById('squareImageDimensionsDial');
+    const squareImageFormatDial = document.getElementById('squareImageFormatDial');
+    const squareImageDimensionsTip = document.getElementById('squareImageDimensionsTip');
     const squareVideo = document.getElementById('squareVideo');
     const squareVideoUrlInput = document.getElementById('squareVideoUrlInput');
     const updateSquareVideoBtn = document.getElementById('updateSquareVideoBtn');
@@ -1822,22 +2063,29 @@
       }, 300);
     }
 
-    // Square frame asset evaluators
-    async function fetchFileSizeBytes(url) {
+    // Square frame asset evaluators - returns bytes and contentType for format detection
+    async function fetchAssetInfo(url) {
       try {
         const response = await fetch(url, { method: 'HEAD' });
         if (response.ok) {
           const contentLength = response.headers.get('Content-Length');
-          if (contentLength) return parseInt(contentLength, 10);
+          const contentType = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
+          return {
+            bytes: contentLength ? parseInt(contentLength, 10) : null,
+            contentType: contentType || null
+          };
         }
         const rangeResponse = await fetch(url, { method: 'GET', headers: { Range: 'bytes=0-1' } });
         const contentRange = rangeResponse.headers.get('Content-Range');
+        const contentType = (rangeResponse.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
+        var bytes = null;
         if (contentRange) {
           const match = contentRange.match(/\/(\d+)/);
-          if (match) return parseInt(match[1], 10);
+          if (match) bytes = parseInt(match[1], 10);
         }
+        return { bytes: bytes, contentType: contentType || null };
       } catch (e) { /* ignore */ }
-      return null;
+      return { bytes: null, contentType: null };
     }
 
     function updateSquareImageStats(imageUrl) {
@@ -1846,18 +2094,27 @@
       const url = imageUrl || squareImage.src || '';
       const urlLower = (url || '').toLowerCase();
       
-      // Format
+      // Format: for zoompan/animated, detect from Content-Type; else from URL
       let format = '—';
       let isModern = false;
-      if (urlLower.includes('.webp')) { format = 'WebP ✓'; isModern = true; }
-      else if (urlLower.includes('.avif')) { format = 'AVIF ✓'; isModern = true; }
-      else if (urlLower.includes('.jpg') || urlLower.includes('.jpeg')) format = 'JPEG';
-      else if (urlLower.includes('.png')) format = 'PNG';
-      else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
-      squareImageFormatValue.textContent = format;
-      squareImageFormatValue.title = isModern ? 'Modern format' : 'Consider WebP or AVIF for better compression';
+      var hasZoompan = urlLower.includes('e_zoompan') || urlLower.includes('f_auto:animated') || urlLower.includes('e_loop');
+      if (!hasZoompan) {
+        if (urlLower.includes('.webp')) { format = 'WebP ✓'; isModern = true; }
+        else if (urlLower.includes('.avif')) { format = 'AVIF ✓'; isModern = true; }
+        else if (urlLower.includes('.jpg') || urlLower.includes('.jpeg')) format = 'JPEG';
+        else if (urlLower.includes('.png')) format = 'PNG';
+        else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
+        squareImageFormatValue.textContent = format;
+        squareImageFormatValue.title = isModern ? 'Modern format' : 'Consider WebP or AVIF for better compression';
+        updateSquareImageFormatDial(urlLower, false, null);
+      } else {
+        squareImageFormatValue.textContent = 'Loading...';
+        squareImageFormatValue.title = 'Zoompan transform outputs animated format';
+        updateSquareImageFormatDial(urlLower, true, null);
+      }
       
       // Dimensions (need image loaded)
+      let ratio = null;
       if (squareImage.naturalWidth && squareImage.naturalHeight) {
         const frameWrapper = squareImage.closest('.pt-square-formatting__frame-wrapper');
         const displayW = frameWrapper ? frameWrapper.offsetWidth : 0;
@@ -1865,20 +2122,42 @@
         const imgPixels = squareImage.naturalWidth * squareImage.naturalHeight;
         const displayPixels = displayW * displayH;
         let ratioText = '';
-        if (displayPixels > 0 && imgPixels > displayPixels) {
-          ratioText = ' (' + Math.sqrt(imgPixels / displayPixels).toFixed(1) + '× display)';
+        if (displayPixels > 0) {
+          ratio = Math.sqrt(imgPixels / displayPixels);
+          if (imgPixels > displayPixels) {
+            ratioText = ' (' + ratio.toFixed(1) + '× display)';
+          }
         }
         squareImageDimensionsValue.textContent = squareImage.naturalWidth + '×' + squareImage.naturalHeight + ratioText;
       } else {
         squareImageDimensionsValue.textContent = '—';
       }
+      updateSquareImageDimensionsDial(ratio);
       
       // File size
-      if (!url) { squareImageSizeValue.textContent = '—'; return; }
+      if (!url) {
+        squareImageSizeValue.textContent = '—';
+        updateSquareImageFileSizeDial(null);
+        return;
+      }
       squareImageSizeValue.textContent = 'Loading...';
-      fetchFileSizeBytes(url).then(function(bytes) {
+      updateSquareImageFileSizeDial(null);
+      fetchAssetInfo(url).then(function(info) {
+        var bytes = info.bytes;
+        var contentType = info.contentType;
         if (squareImageSizeValue) {
           squareImageSizeValue.textContent = bytes ? formatFileSize(bytes) : '—';
+        }
+        updateSquareImageFileSizeDial(bytes);
+        if (hasZoompan && squareImageFormatValue) {
+          var detectedFormat = '—';
+          var detectedModern = false;
+          if (contentType === 'image/avif') { detectedFormat = 'AVIF ✓'; detectedModern = true; }
+          else if (contentType === 'image/webp') { detectedFormat = 'WebP ✓'; detectedModern = true; }
+          else if (contentType === 'image/gif') detectedFormat = 'GIF';
+          squareImageFormatValue.textContent = detectedFormat;
+          squareImageFormatValue.title = contentType ? ('Zoompan output: ' + (detectedModern ? 'Modern format' : 'animated format')) : 'Zoompan transform outputs animated format';
+          updateSquareImageFormatDial(urlLower, true, contentType);
         }
       });
     }
@@ -1918,9 +2197,9 @@
       // File size
       if (!url) { squareVideoSizeValue.textContent = '—'; return; }
       squareVideoSizeValue.textContent = 'Loading...';
-      fetchFileSizeBytes(url).then(function(bytes) {
+      fetchAssetInfo(url).then(function(info) {
         if (squareVideoSizeValue) {
-          squareVideoSizeValue.textContent = bytes ? formatFileSize(bytes) : '—';
+          squareVideoSizeValue.textContent = info.bytes ? formatFileSize(info.bytes) : '—';
         }
       });
     }
@@ -2145,6 +2424,22 @@
             updateSquareImageStats(initialImageSrc);
           }, { once: true });
         }
+      }
+
+      // Handle transform buttons (square image)
+      var squareImageMetadata = document.getElementById('squareImageMetadata');
+      if (squareImageMetadata) {
+        squareImageMetadata.querySelectorAll('.pt-url-editor__transform-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var transform = btn.getAttribute('data-transform');
+            if (!transform || !squareImageUrlInput) return;
+            var url = (squareImageUrlInput.textContent || squareImageUrlInput.innerText || '').trim();
+            var newUrl = insertTransform(url, transform);
+            if (newUrl !== url) {
+              updateSquareImageUrlDisplay(newUrl);
+            }
+          });
+        });
       }
 
       // Handle update button click
