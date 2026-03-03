@@ -430,7 +430,7 @@ main {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 200;
-  z-index: 2;
+  z-index: 10;
   pointer-events: auto;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
