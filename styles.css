@@ -307,22 +307,18 @@ body {
   padding: 24px;
 }
 
-.pt-page-stats-popup__intro,
-.pt-page-stats-popup__note {
+.pt-page-stats-popup__intro {
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.pt-page-stats-popup__note {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8rem;
-}
-
 .pt-page-stats-summary {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin: 18px 0;
   padding: 16px;
   border-radius: var(--radius-md);
@@ -330,9 +326,13 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-.pt-page-stats-summary__label,
-.pt-page-stats-observation__label,
-.pt-page-stats-asset__label span {
+.pt-page-stats-summary__copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pt-page-stats-summary__label {
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.75rem;
   font-weight: 600;
@@ -350,6 +350,44 @@ body {
   font-size: 0.825rem;
 }
 
+.pt-page-stats-summary__dial-group {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  flex: 0 0 84px;
+  text-align: center;
+}
+
+.pt-page-stats-summary__dial {
+  width: 64px;
+  height: 64px;
+  overflow: visible;
+}
+
+.pt-page-stats-summary__dial-base,
+.pt-page-stats-summary__dial-change {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+
+.pt-page-stats-summary__dial-base {
+  stroke: var(--color-accent);
+}
+
+.pt-page-stats-summary__dial-change {
+  stroke: #39ff14;
+  stroke-dasharray: 163.36;
+  stroke-dashoffset: 163.36;
+  transition: stroke-dashoffset 360ms ease;
+}
+
+.pt-page-stats-summary__dial-message {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
 .pt-page-stats-assets {
   display: grid;
   gap: 10px;
@@ -365,8 +403,6 @@ body {
 }
 
 .pt-page-stats-asset__label {
-  display: grid;
-  gap: 3px;
   flex: 0 0 auto;
 }
 
@@ -379,16 +415,6 @@ body {
   font-size: 0.8rem;
   line-height: 1.45;
   text-align: right;
-}
-
-.pt-page-stats-observation {
-  display: grid;
-  gap: 4px;
-  margin: 0 0 14px;
-  padding: 12px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 0.825rem;
 }
 
 .pt-page-stats-popup__placeholder {

@@ -52,22 +52,26 @@
     <div class="pt-page-stats-popup__backdrop" data-close-popup></div>
     <div class="pt-page-stats-popup__content">
       <div class="pt-page-stats-popup__header">
-        <h2 class="pt-page-stats-popup__title" id="pageStatsTitle">Tracked media delivery</h2>
+        <h2 class="pt-page-stats-popup__title" id="pageStatsTitle">Page media delivery size</h2>
         <button class="pt-page-stats-popup__close" type="button" aria-label="Close" data-close-popup>×</button>
       </div>
       <div class="pt-page-stats-popup__body">
-        <p class="pt-page-stats-popup__intro">Hero Video, Shop Mens, and Shop Womens only. This is a fresh-load media estimate, not total page weight.</p>
+        <p class="pt-page-stats-popup__intro">Tracking the size of hero video, and the Shop Mens / Shop Womens images and video.</p>
         <div class="pt-page-stats-summary" aria-live="polite">
-          <span class="pt-page-stats-summary__label">Tracked media payload</span>
-          <strong class="pt-page-stats-summary__value" id="pageStatsPayload">Waiting for asset measurements…</strong>
-          <span class="pt-page-stats-summary__delta" id="pageStatsDelta"></span>
+          <div class="pt-page-stats-summary__copy">
+            <span class="pt-page-stats-summary__label">MEDIA PAYLOAD</span>
+            <strong class="pt-page-stats-summary__value" id="pageStatsPayload">Waiting for asset measurements…</strong>
+            <span class="pt-page-stats-summary__delta" id="pageStatsDelta"></span>
+          </div>
+          <div class="pt-page-stats-summary__dial-group">
+            <svg class="pt-page-stats-summary__dial" viewBox="0 0 64 64" aria-hidden="true">
+              <circle class="pt-page-stats-summary__dial-base" cx="32" cy="32" r="26" stroke-width="6" fill="none"></circle>
+              <circle class="pt-page-stats-summary__dial-change" id="pageStatsPayloadDial" cx="32" cy="32" r="26" stroke-width="6" fill="none"></circle>
+            </svg>
+            <span class="pt-page-stats-summary__dial-message" id="pageStatsPayloadMessage">Measuring delivery…</span>
+          </div>
         </div>
         <div class="pt-page-stats-assets" id="pageStatsAssets" aria-live="polite"></div>
-        <div class="pt-page-stats-observation">
-          <span class="pt-page-stats-observation__label">This browser visit</span>
-          <span id="pageStatsTiming">Navigation timing unavailable.</span>
-        </div>
-        <p class="pt-page-stats-popup__note">Page timing reflects this browser, network, and cache state. It is not attributed solely to these media changes.</p>
       </div>
     </div>
   </div>
@@ -574,9 +578,9 @@
     };
     const assetMeasurementState = new Map();
     const TRACKED_PAGE_ASSETS = [
-      { id: 'hero', label: 'Hero Video', priority: 'High priority' },
-      { id: 'shopMens', label: 'Shop Mens', priority: 'Below hero' },
-      { id: 'shopWomens', label: 'Shop Womens', priority: 'Below hero' }
+      { id: 'hero', label: 'Hero Video' },
+      { id: 'shopMens', label: 'Shop Mens' },
+      { id: 'shopWomens', label: 'Shop Womens' }
     ];
 
     function registerAssetMeasurementCard(assetId) {
@@ -737,14 +741,30 @@
     const pageStatsPayload = document.getElementById('pageStatsPayload');
     const pageStatsDelta = document.getElementById('pageStatsDelta');
     const pageStatsAssets = document.getElementById('pageStatsAssets');
-    const pageStatsTiming = document.getElementById('pageStatsTiming');
+    const pageStatsPayloadDial = document.getElementById('pageStatsPayloadDial');
+    const pageStatsPayloadMessage = document.getElementById('pageStatsPayloadMessage');
+    const PAGE_STATS_DIAL_CIRCUMFERENCE = 2 * Math.PI * 26;
 
-    function formatPageStatDuration(milliseconds) {
-      return milliseconds < 1000 ? Math.round(milliseconds) + ' ms' : (milliseconds / 1000).toFixed(2) + ' s';
+    function getPayloadDeliveryMessage(bytes) {
+      const megabytes = bytes / (1024 * 1024);
+      if (megabytes > 30) return "that's bananas!";
+      if (megabytes >= 12) return 'still way too large';
+      if (megabytes >= 5) return 'getting better, still heavy';
+      if (megabytes >= 3) return 'good';
+      return 'fantastic';
+    }
+
+    function updatePayloadDial(percentageChanged, message) {
+      if (pageStatsPayloadDial) {
+        const safePercentage = Math.max(0, Math.min(100, percentageChanged));
+        pageStatsPayloadDial.style.strokeDasharray = PAGE_STATS_DIAL_CIRCUMFERENCE;
+        pageStatsPayloadDial.style.strokeDashoffset = PAGE_STATS_DIAL_CIRCUMFERENCE * (1 - safePercentage / 100);
+      }
+      if (pageStatsPayloadMessage) pageStatsPayloadMessage.textContent = message;
     }
 
     function renderPageStats() {
-      if (!pageStatsPayload || !pageStatsDelta || !pageStatsAssets || !pageStatsTiming) return;
+      if (!pageStatsPayload || !pageStatsDelta || !pageStatsAssets) return;
 
       let baselineTotal = 0;
       let currentTotal = 0;
@@ -760,7 +780,7 @@
 
         const label = document.createElement('div');
         label.className = 'pt-page-stats-asset__label';
-        label.innerHTML = '<strong>' + asset.label + '</strong><span>' + asset.priority + '</span>';
+        label.innerHTML = '<strong>' + asset.label + '</strong>';
         const value = document.createElement('div');
         value.className = 'pt-page-stats-asset__value';
 
@@ -786,19 +806,13 @@
         } else {
           pageStatsDelta.textContent = 'No media delivery change yet.';
         }
+        updatePayloadDial(difference > 0 ? difference / baselineTotal * 100 : 0, getPayloadDeliveryMessage(currentTotal));
       } else {
         pageStatsPayload.textContent = 'Measuring ' + measuredCount + ' of ' + TRACKED_PAGE_ASSETS.length + ' assets…';
         pageStatsDelta.textContent = 'Totals appear once all tracked assets have a delivered size.';
+        updatePayloadDial(0, 'Measuring delivery…');
       }
 
-      const navigation = performance.getEntriesByType('navigation')[0];
-      if (navigation && navigation.domContentLoadedEventEnd) {
-        const domReady = formatPageStatDuration(navigation.domContentLoadedEventEnd);
-        const load = navigation.loadEventEnd ? formatPageStatDuration(navigation.loadEventEnd) : 'still loading';
-        pageStatsTiming.textContent = 'DOM ready ' + domReady + ' · Load event ' + load;
-      } else {
-        pageStatsTiming.textContent = 'Navigation timing unavailable.';
-      }
     }
 
     function openPageStatsPopup() {
