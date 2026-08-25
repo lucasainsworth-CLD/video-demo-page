@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="https://di2f2eolk-res.cloudinary.com/image/upload/width_30/height_30/v1738239354/samples/logo.png" type="image/png">
+  <link rel="icon" href="https://res.cloudinary.com/demohost/image/upload/v1787355224/O_L_Favicon.png" type="image/png">
   <title>Onyx & Linen - Video Performance</title>
   <meta name="description" content="Hero Video Cloudinary Playground.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,6 @@
             </div>
           </div>
         </div>
-        <a href="optimized.html" target="_blank" rel="noopener noreferrer" class="pt-header__link">Optimized site</a>
         <button class="pt-header__stats-toggle" type="button" id="assetStatsToggle" aria-pressed="false" aria-label="Toggle asset stats visibility">
           Show asset stats
         </button>
@@ -39,19 +38,36 @@
           Image tool
         </a>
       </nav>
+      <a href="settings.html" class="pt-header__settings-link" aria-label="Configure demo" title="Configure demo">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.08 2.08-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56v.09h-2.94v-.09a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-2.08-2.08.06-.06A1.7 1.7 0 0 0 7.16 15a1.7 1.7 0 0 0-1.56-1.03h-.09v-2.94h.09A1.7 1.7 0 0 0 7.16 10a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.08-2.08.06.06A1.7 1.7 0 0 0 10.78 6a1.7 1.7 0 0 0 1.03-1.56v-.09h2.94v.09A1.7 1.7 0 0 0 15.78 6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.08 2.08-.06.06A1.7 1.7 0 0 0 19.4 10a1.7 1.7 0 0 0 1.56 1.03h.09v2.94h-.09A1.7 1.7 0 0 0 19.4 15Z"></path>
+        </svg>
+      </a>
     </div>
   </header>
 
-  <!-- Page Stats Popup (placeholder - to be populated) -->
+  <!-- Page stats intentionally cover only the three media assets used in this demo. -->
   <div class="pt-page-stats-popup" id="pageStatsPopup" role="dialog" aria-labelledby="pageStatsTitle" aria-modal="true" hidden>
     <div class="pt-page-stats-popup__backdrop" data-close-popup></div>
     <div class="pt-page-stats-popup__content">
       <div class="pt-page-stats-popup__header">
-        <h2 class="pt-page-stats-popup__title" id="pageStatsTitle">Page Stats</h2>
+        <h2 class="pt-page-stats-popup__title" id="pageStatsTitle">Tracked media delivery</h2>
         <button class="pt-page-stats-popup__close" type="button" aria-label="Close" data-close-popup>×</button>
       </div>
       <div class="pt-page-stats-popup__body">
-        <p class="pt-page-stats-popup__placeholder">Overall page size, time to load, and image/video stats will appear here.</p>
+        <p class="pt-page-stats-popup__intro">Hero Video, Shop Mens, and Shop Womens only. This is a fresh-load media estimate, not total page weight.</p>
+        <div class="pt-page-stats-summary" aria-live="polite">
+          <span class="pt-page-stats-summary__label">Tracked media payload</span>
+          <strong class="pt-page-stats-summary__value" id="pageStatsPayload">Waiting for asset measurements…</strong>
+          <span class="pt-page-stats-summary__delta" id="pageStatsDelta"></span>
+        </div>
+        <div class="pt-page-stats-assets" id="pageStatsAssets" aria-live="polite"></div>
+        <div class="pt-page-stats-observation">
+          <span class="pt-page-stats-observation__label">This browser visit</span>
+          <span id="pageStatsTiming">Navigation timing unavailable.</span>
+        </div>
+        <p class="pt-page-stats-popup__note">Page timing reflects this browser, network, and cache state. It is not attributed solely to these media changes.</p>
       </div>
     </div>
   </div>
@@ -68,7 +84,7 @@
         loop
         preload="metadata"
       >
-        <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763149229/Going_Away_xpvrhi.mp4" type="video/mp4">
+        <source type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="pt-hero__overlay"></div>
@@ -124,6 +140,7 @@
             <p class="pt-hero__metadata-tip">For embedded looping video, file size is key. General best practice is keep videos under 17 seconds.</p>
           </div>
         </div>
+        <p class="pt-asset-comparison pt-hero__asset-comparison" id="heroAssetComparison" aria-live="polite"></p>
         <div class="pt-hero__metadata-url">
           <div class="pt-url-editor__wrapper">
             <label class="pt-url-editor__label" for="videoUrlInput">Video URL:</label>
@@ -175,7 +192,7 @@
             <img 
               id="squareImage"
               class="pt-square-formatting__media"
-              src="https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg"
+              src=""
               alt="Square image"
             >
             <div class="pt-square-formatting__overlay">
@@ -214,6 +231,7 @@
                   <p class="pt-square-formatting__metadata-tip">WebP & AVIF = green, JPEG/PNG = yellow, legacy = red</p>
                 </div>
               </div>
+              <p class="pt-asset-comparison pt-square-formatting__asset-comparison" id="shopMensAssetComparison" aria-live="polite"></p>
               <div class="pt-square-formatting__metadata-url">
                 <div class="pt-url-editor__wrapper">
                   <label class="pt-url-editor__label" for="squareImageUrlInput">Image URL:</label>
@@ -226,7 +244,7 @@
                       spellcheck="false"
                       role="textbox"
                       aria-label="Image URL"
-                    >https://res.cloudinary.com/onyx-linen-demo/image/upload/v1763149006/We_are_here_axfa0k.jpg</div>
+                    ></div>
                   </div>
                   <div class="pt-url-editor__buttons">
                     <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="Add f_auto,q_auto">
@@ -238,7 +256,7 @@
                     <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="g_auto" title="Add g_auto">
                       g_auto
                     </button>
-                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="e_zoompan:mode_ztl;maxzoom_1.2;du_8;fps_15/e_loop,f_auto:animated,q_auto" title="Add zoompan animation">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15;to_(g_auto)/e_loop,f_auto:animated,q_auto" title="Add zoompan animation">
                       zoompan
                     </button>
                     <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
@@ -255,38 +273,46 @@
         </div>
         
         <!-- Right: Video frame -->
-        <div class="pt-square-formatting__item">
+        <div class="pt-square-formatting__item" id="shopWomensCard">
           <div class="pt-square-formatting__frame-wrapper">
             <video 
               id="squareVideo"
               class="pt-square-formatting__media"
+              autoplay
+              loop
+              muted
               controls
+              playsinline
               preload="metadata"
             >
-              <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4" type="video/mp4">
+              <source type="video/mp4">
               Your browser does not support the video tag.
             </video>
             <div class="pt-square-formatting__overlay">
               <button type="button" class="pt-square-formatting__overlay-btn">Shop Womens</button>
             </div>
             <div class="pt-square-formatting__metadata" id="squareVideoMetadata" data-asset-stats-overlay>
-              <span class="pt-square-formatting__metadata-label">Size:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareVideoSizeValue">—</span>
-              <span class="pt-square-formatting__metadata-label">Dimensions:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareVideoDimensionsValue">—</span>
-              <span class="pt-square-formatting__metadata-label">Format:</span>
-              <span class="pt-square-formatting__metadata-value" id="squareVideoFormatValue">—</span>
-            </div>
-          </div>
-          <div class="pt-square-formatting__editor pt-url-drawer">
-            <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="squareVideoUrlDrawer" data-drawer-trigger aria-label="Toggle video URL editor">
-              <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </button>
-            <div class="pt-url-drawer__content" id="squareVideoUrlDrawer">
-              <div class="pt-url-drawer__content-inner">
-                <label class="pt-square-formatting__label" for="squareVideoUrlInput">Edit URL:</label>
+              <div class="pt-square-formatting__metadata-inner">
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--file-size">
+                  <div class="pt-square-formatting__metadata-dial" id="squareVideoFileSizeDial" data-dial-status="loading" aria-hidden="true"><div class="pt-square-formatting__metadata-dial__track"></div></div>
+                  <div class="pt-square-formatting__metadata-readout"><span class="pt-square-formatting__metadata-label">File Size:</span><span class="pt-square-formatting__metadata-value" id="squareVideoSizeValue">Loading...</span></div>
+                  <p class="pt-square-formatting__metadata-tip">For embedded video, aim for a concise, right-sized delivery.</p>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--dimensions">
+                  <div class="pt-square-formatting__metadata-dial" id="squareVideoDimensionsDial" data-dial-status="loading" aria-hidden="true"><div class="pt-square-formatting__metadata-dial__track"></div></div>
+                  <div class="pt-square-formatting__metadata-readout"><span class="pt-square-formatting__metadata-label">Dimensions:</span><span class="pt-square-formatting__metadata-value" id="squareVideoDimensionsValue">—</span></div>
+                  <p class="pt-square-formatting__metadata-tip" id="squareVideoDimensionsTip">Size should be smaller than or the same size as the frame.</p>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--format">
+                  <div class="pt-square-formatting__metadata-dial" id="squareVideoFormatDial" aria-hidden="true"><div class="pt-square-formatting__metadata-dial__track"></div></div>
+                  <div class="pt-square-formatting__metadata-readout"><span class="pt-square-formatting__metadata-label">Format:</span><span class="pt-square-formatting__metadata-value" id="squareVideoFormatValue">—</span></div>
+                  <p class="pt-square-formatting__metadata-tip">WebM & AV1 = green, MP4 = yellow, legacy = red</p>
+                </div>
+              </div>
+              <p class="pt-asset-comparison pt-square-formatting__asset-comparison" id="shopWomensAssetComparison" aria-live="polite"></p>
+              <div class="pt-square-formatting__metadata-url">
+                <div class="pt-url-editor__wrapper">
+                <label class="pt-url-editor__label" for="squareVideoUrlInput">Video URL:</label>
                 <div class="pt-url-editor__box" id="squareVideoUrlEditorBox">
                   <div 
                     contenteditable="true"
@@ -296,76 +322,20 @@
                     spellcheck="false"
                     role="textbox"
                     aria-label="Video URL"
-                  >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1763146465/coverr-two-men-hiking-7785-original_zfag1k.mp4</div>
+                  ></div>
                 </div>
-                <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
-                  <span>update</span>
-                  <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Customize Video Player Section -->
-  <section class="pt-playground">
-    <div class="pt-playground__content container">
-      <div class="pt-playground__layout">
-        <!-- Top: Rendered embed -->
-        <div class="pt-playground__output-section">
-          <label class="pt-playground__label">See our fashion travelogue:</label>
-          <div class="pt-playground__preview-wrapper" id="embedPreview">
-            <iframe
-              src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
-              width="640"
-              height="360" 
-              style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
-              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-              allowfullscreen
-              frameborder="0"
-            ></iframe>
-          </div>
-        </div>
-        
-        <!-- Bottom: Embed code input -->
-        <div class="pt-playground__input-section pt-url-drawer">
-          <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="embedCodeDrawer" data-drawer-trigger aria-label="Toggle embed code editor">
-            <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </button>
-          <div class="pt-url-drawer__content" id="embedCodeDrawer">
-            <div class="pt-url-drawer__content-inner">
-              <label class="pt-playground__label" for="embedCodeInput">Edit video embed code:</label>
-              <div class="pt-playground__input-wrapper">
-                <textarea 
-                  id="embedCodeInput" 
-                  class="pt-playground__textarea" 
-                  rows="12"
-                  placeholder="Paste your embed code here..."
-                  spellcheck="false"
-                ><iframe
-  src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
-  width="640"
-  height="360" 
-  style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
-  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-  allowfullscreen
-  frameborder="0"
-></iframe></textarea>
-              </div>
-              <div class="pt-playground__controls">
-                <button class="pt-playground__button" id="updateEmbedBtn" type="button">
-                  <span>update</span>
-                  <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </button>
+                <div class="pt-url-editor__buttons">
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto">f_auto,q_auto</button>
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900">c_fill,w_900,h_900</button>
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_10">du_10</button>
+                  <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
+                    <span>update</span>
+                    <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+                </div>
               </div>
             </div>
           </div>
@@ -378,7 +348,7 @@
   <section class="pt-mobile-playground">
     <div class="pt-mobile-playground__banner">
       <div class="pt-mobile-playground__banner-inner container">
-        <h2 class="pt-mobile-playground__title">Mobile formatting</h2>
+        <h2 class="pt-mobile-playground__title">Mobile formatting with g_auto</h2>
       </div>
     </div>
     
@@ -393,10 +363,14 @@
               <video 
                 id="mobileVideo" 
                 class="pt-mobile-playground__video" 
+                autoplay
+                loop
+                muted
                 controls
+                playsinline
                 preload="metadata"
               >
-                <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4" type="video/mp4">
+                <source src="https://res.cloudinary.com/demohost/video/upload/w_600/v1787601715/Black_Evening_Suit.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -414,14 +388,17 @@
                 spellcheck="false"
                 role="textbox"
                 aria-label="Video URL"
-              >https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4</div>
+              >https://res.cloudinary.com/demohost/video/upload/v1787601715/Black_Evening_Suit.mp4</div>
             </div>
-            <button class="pt-url-editor__button" id="updateMobileVideoBtn" type="button">
-              <span>update</span>
-              <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
+            <div class="pt-url-editor__buttons">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" id="autoCropMobileVideoBtn" type="button" title="Crop to a 9:16 phone frame with automatic gravity">ar_9:16,w_400,c_fill,g_auto</button>
+              <button class="pt-url-editor__button" id="updateMobileVideoBtn" type="button">
+                <span>update</span>
+                <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
         
@@ -444,7 +421,7 @@
                 preload="metadata"
                 style="width: 100%; height: 100%; object-fit: cover;"
               >
-                <source src="https://res.cloudinary.com/onyx-linen-demo/video/upload/v1765255304/coverr-long-boarding-in-a-coral-reef-4086-original_vfwd0l.mp4" type="video/mp4">
+                <source src="https://res.cloudinary.com/demohost/video/upload/c_fill,g_center,w_321,h_657/v1787601715/Black_Evening_Suit.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
               <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay" data-asset-stats-overlay>
@@ -462,10 +439,276 @@
     </div>
   </section>
 
+  <!-- Customize Video Player Section -->
+  <section class="pt-playground">
+    <div class="pt-playground__content container">
+      <div class="pt-playground__layout">
+        <div class="pt-playground__output-section">
+          <label class="pt-playground__label">See our fashion travelogue:</label>
+          <div class="pt-playground__preview-wrapper" id="embedPreview">
+            <iframe
+              src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
+              width="640"
+              height="360"
+              style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+              allowfullscreen
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+        <div class="pt-playground__input-section pt-url-drawer">
+          <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="embedCodeDrawer" data-drawer-trigger aria-label="Toggle embed code editor">
+            <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+          <div class="pt-url-drawer__content" id="embedCodeDrawer">
+            <div class="pt-url-drawer__content-inner">
+              <label class="pt-playground__label" for="embedCodeInput">Edit video embed code:</label>
+              <div class="pt-playground__input-wrapper">
+                <textarea id="embedCodeInput" class="pt-playground__textarea" rows="12" placeholder="Paste your embed code here..." spellcheck="false"><iframe
+  src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
+  width="640"
+  height="360"
+  style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+  allowfullscreen
+  frameborder="0"
+></iframe></textarea>
+              </div>
+              <div class="pt-playground__controls">
+                <button class="pt-playground__button" id="updateEmbedBtn" type="button">
+                  <span>update</span>
+                  <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <main>
   </main>
 
   <script>
+    // The page is driven by this data model so a future settings page can
+    // override starting assets without changing the instructional design.
+    // Keep URLs and card-specific options separate: only asset URLs will be
+    // included in a shareable configuration link.
+    const DEFAULT_DEMO_CONFIG = Object.freeze({
+      version: 1,
+      assets: {
+        hero: {
+          type: 'video',
+          url: 'https://res.cloudinary.com/demohost/video/upload/v1787601701/Going_Away.mp4',
+          metrics: ['fileSize', 'dimensions', 'format', 'duration'],
+          transforms: ['f_auto,q_auto', 'w_1280', 'du_15']
+        },
+        shopMens: {
+          type: 'image',
+          url: 'https://res.cloudinary.com/demohost/image/upload/v1787601608/Brush_short.jpg',
+          metrics: ['fileSize', 'dimensions', 'format'],
+          transforms: ['f_auto,q_auto', 'c_fill,w_900,h_900', 'g_auto', 'zoompan'],
+          intentionalTradeoffs: ['animated-output']
+        },
+        shopWomens: {
+          type: 'video',
+          url: 'https://res.cloudinary.com/demohost/video/upload/v1787601715/Black_Evening_Suit.mp4',
+          metrics: ['fileSize', 'dimensions', 'format'],
+          transforms: ['f_auto,q_auto', 'c_fill,w_900,h_900', 'g_auto', 'du_10']
+        }
+      }
+    });
+
+    // Only URLs are shareable. Card behavior remains part of the page code.
+    const DEMO_CONFIG_ASSET_IDS = ['hero', 'shopMens', 'shopWomens'];
+
+    function isCloudinaryDeliveryUrl(value) {
+      try {
+        const url = new URL(value);
+        return (url.protocol === 'https:' || url.protocol === 'http:') && url.hostname === 'res.cloudinary.com';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function decodeShareableDemoConfig(hash) {
+      const encoded = new URLSearchParams((hash || '').replace(/^#/, '')).get('cfg');
+      if (!encoded) return null;
+      try {
+        const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - encoded.length % 4) % 4);
+        const bytes = Uint8Array.from(atob(base64), function(character) { return character.charCodeAt(0); });
+        return JSON.parse(new TextDecoder().decode(bytes));
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function resolveDemoConfig(defaultConfig, sharedConfig) {
+      const resolved = JSON.parse(JSON.stringify(defaultConfig));
+      if (!sharedConfig || sharedConfig.version !== defaultConfig.version || !sharedConfig.assets) return resolved;
+      DEMO_CONFIG_ASSET_IDS.forEach(function(assetId) {
+        const url = sharedConfig.assets[assetId] && sharedConfig.assets[assetId].url;
+        if (isCloudinaryDeliveryUrl(url)) resolved.assets[assetId].url = url;
+      });
+      return resolved;
+    }
+
+    const demoConfig = resolveDemoConfig(DEFAULT_DEMO_CONFIG, decodeShareableDemoConfig(window.location.hash));
+
+    // UI bindings are intentionally separate from the config. New cards only
+    // need an asset id and a comparison element to participate in measurement.
+    const ASSET_CARD_BINDINGS = {
+      hero: { comparisonElementId: 'heroAssetComparison' },
+      shopMens: {
+        comparisonElementId: 'shopMensAssetComparison',
+        mediaElementId: 'squareImage',
+        measurementMode: 'browser'
+      },
+      shopWomens: { comparisonElementId: 'shopWomensAssetComparison' }
+    };
+    const assetMeasurementState = new Map();
+    const TRACKED_PAGE_ASSETS = [
+      { id: 'hero', label: 'Hero Video', priority: 'High priority' },
+      { id: 'shopMens', label: 'Shop Mens', priority: 'Below hero' },
+      { id: 'shopWomens', label: 'Shop Womens', priority: 'Below hero' }
+    ];
+
+    function registerAssetMeasurementCard(assetId) {
+      if (!assetMeasurementState.has(assetId)) {
+        assetMeasurementState.set(assetId, { baseline: null, current: null });
+      }
+      return assetMeasurementState.get(assetId);
+    }
+
+    function renderAssetComparison(assetId) {
+      const binding = ASSET_CARD_BINDINGS[assetId];
+      const comparisonElement = binding && document.getElementById(binding.comparisonElementId);
+      const state = assetMeasurementState.get(assetId);
+      if (!comparisonElement || !state || !state.current || !state.current.bytes) return;
+
+      const baselineBytes = state.baseline && state.baseline.bytes;
+      const currentBytes = state.current.bytes;
+      if (!baselineBytes || state.baseline.url === state.current.url) {
+        const label = state.current.source === 'browser' ? 'Browser-delivered baseline' : 'Baseline delivered size';
+        comparisonElement.textContent = label + ': ' + formatFileSize(currentBytes);
+        return;
+      }
+
+      const difference = baselineBytes - currentBytes;
+      const percentage = Math.abs(difference / baselineBytes * 100).toFixed(1);
+      const direction = difference >= 0 ? 'smaller' : 'larger';
+      comparisonElement.textContent = formatFileSize(baselineBytes) + ' → ' + formatFileSize(currentBytes) + ' · ' + percentage + '% ' + direction;
+    }
+
+    function recordAssetMeasurement(assetId, measurement) {
+      const state = registerAssetMeasurementCard(assetId);
+      if (!measurement || !measurement.bytes) return state;
+
+      const previous = state.current;
+      state.current = measurement;
+      if (!state.baseline) state.baseline = measurement;
+      renderAssetComparison(assetId);
+      renderPageStats();
+      return { state: state, previous: previous };
+    }
+
+    async function measureDeliveredAsset(url, timeoutMs = 6000) {
+      function responseInfo(response) {
+        const contentLength = response.headers.get('Content-Length');
+        const contentRange = response.headers.get('Content-Range');
+        const rangeMatch = contentRange && contentRange.match(/\/(\d+)$/);
+        return {
+          bytes: rangeMatch ? parseInt(rangeMatch[1], 10) : (contentLength ? parseInt(contentLength, 10) : null),
+          contentType: (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase(),
+          url: url
+        };
+      }
+
+      async function fetchWithTimeout(options) {
+        const controller = new AbortController();
+        const timeout = setTimeout(function() { controller.abort(); }, timeoutMs);
+        try {
+          return await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+
+      try {
+        const headResponse = await fetchWithTimeout({ method: 'HEAD' });
+        const headInfo = responseInfo(headResponse);
+        if (headResponse.ok && headInfo.bytes) return headInfo;
+      } catch (error) { /* Try the range request below. */ }
+
+      try {
+        const rangeResponse = await fetchWithTimeout({
+          method: 'GET',
+          headers: { Range: 'bytes=0-1' }
+        });
+        if (rangeResponse.ok || rangeResponse.status === 206) return responseInfo(rangeResponse);
+      } catch (error) { /* Size is unavailable for this delivery host. */ }
+
+      return { bytes: null, contentType: null, url: url };
+    }
+
+    function browserResourceMeasurement(url) {
+      const absoluteUrl = new URL(url, window.location.href).href;
+      const entries = performance.getEntriesByName(absoluteUrl, 'resource');
+      const entry = entries[entries.length - 1];
+      if (!entry || !entry.encodedBodySize) return null;
+      return {
+        bytes: entry.encodedBodySize,
+        contentType: null,
+        source: 'browser',
+        url: url
+      };
+    }
+
+    async function measureAssetForCard(assetId, url) {
+      const binding = ASSET_CARD_BINDINGS[assetId];
+      if (!binding || binding.measurementMode !== 'browser') {
+        return measureDeliveredAsset(url);
+      }
+
+      const mediaElement = document.getElementById(binding.mediaElementId);
+      const absoluteUrl = new URL(url, window.location.href).href;
+      const mediaHasLoadedUrl = mediaElement && mediaElement.currentSrc === absoluteUrl && mediaElement.complete && mediaElement.naturalWidth > 0;
+      if (!mediaHasLoadedUrl) return { bytes: null, contentType: null, url: url };
+
+      // The resource timing entry represents the response actually selected
+      // for this browser, including f_auto:animated negotiation.
+      await new Promise(function(resolve) { requestAnimationFrame(resolve); });
+      return browserResourceMeasurement(url) || measureDeliveredAsset(url);
+    }
+
+    function applyStartingAssetUrls(config) {
+      const heroSource = document.querySelector('#heroVideo source');
+      const shopMensImage = document.getElementById('squareImage');
+      const shopWomensSource = document.querySelector('#squareVideo source');
+
+      if (heroSource && config.assets.hero.url) {
+        heroSource.src = config.assets.hero.url;
+        heroSource.parentElement.load();
+      }
+
+      if (shopMensImage && config.assets.shopMens.url) {
+        shopMensImage.src = config.assets.shopMens.url;
+      }
+
+      if (shopWomensSource && config.assets.shopWomens.url) {
+        shopWomensSource.src = config.assets.shopWomens.url;
+        shopWomensSource.parentElement.load();
+      }
+    }
+
+    applyStartingAssetUrls(demoConfig);
+
     // Asset stats visibility toggle - controls all elements with data-asset-stats-overlay
     const assetStatsToggle = document.getElementById('assetStatsToggle');
     if (assetStatsToggle) {
@@ -491,8 +734,76 @@
     // Page stats popup toggle
     const pageStatsToggle = document.getElementById('pageStatsToggle');
     const pageStatsPopup = document.getElementById('pageStatsPopup');
+    const pageStatsPayload = document.getElementById('pageStatsPayload');
+    const pageStatsDelta = document.getElementById('pageStatsDelta');
+    const pageStatsAssets = document.getElementById('pageStatsAssets');
+    const pageStatsTiming = document.getElementById('pageStatsTiming');
+
+    function formatPageStatDuration(milliseconds) {
+      return milliseconds < 1000 ? Math.round(milliseconds) + ' ms' : (milliseconds / 1000).toFixed(2) + ' s';
+    }
+
+    function renderPageStats() {
+      if (!pageStatsPayload || !pageStatsDelta || !pageStatsAssets || !pageStatsTiming) return;
+
+      let baselineTotal = 0;
+      let currentTotal = 0;
+      let measuredCount = 0;
+      pageStatsAssets.innerHTML = '';
+
+      TRACKED_PAGE_ASSETS.forEach(function(asset) {
+        const state = assetMeasurementState.get(asset.id);
+        const baseline = state && state.baseline && state.baseline.bytes;
+        const current = state && state.current && state.current.bytes;
+        const row = document.createElement('div');
+        row.className = 'pt-page-stats-asset';
+
+        const label = document.createElement('div');
+        label.className = 'pt-page-stats-asset__label';
+        label.innerHTML = '<strong>' + asset.label + '</strong><span>' + asset.priority + '</span>';
+        const value = document.createElement('div');
+        value.className = 'pt-page-stats-asset__value';
+
+        if (baseline && current) {
+          measuredCount += 1;
+          baselineTotal += baseline;
+          currentTotal += current;
+          const difference = baseline - current;
+          const percentage = Math.abs(difference / baseline * 100).toFixed(1);
+          value.textContent = formatFileSize(baseline) + ' → ' + formatFileSize(current) + (difference ? ' · ' + percentage + '% ' + (difference > 0 ? 'smaller' : 'larger') : ' · unchanged');
+        } else {
+          value.textContent = 'Waiting for measurement…';
+        }
+        row.append(label, value);
+        pageStatsAssets.appendChild(row);
+      });
+
+      if (measuredCount === TRACKED_PAGE_ASSETS.length) {
+        pageStatsPayload.textContent = formatFileSize(baselineTotal) + ' → ' + formatFileSize(currentTotal);
+        const difference = baselineTotal - currentTotal;
+        if (difference) {
+          pageStatsDelta.textContent = formatFileSize(Math.abs(difference)) + ' ' + (difference > 0 ? 'smaller' : 'larger') + ' across tracked media (' + Math.abs(difference / baselineTotal * 100).toFixed(1) + '%).';
+        } else {
+          pageStatsDelta.textContent = 'No media delivery change yet.';
+        }
+      } else {
+        pageStatsPayload.textContent = 'Measuring ' + measuredCount + ' of ' + TRACKED_PAGE_ASSETS.length + ' assets…';
+        pageStatsDelta.textContent = 'Totals appear once all tracked assets have a delivered size.';
+      }
+
+      const navigation = performance.getEntriesByType('navigation')[0];
+      if (navigation && navigation.domContentLoadedEventEnd) {
+        const domReady = formatPageStatDuration(navigation.domContentLoadedEventEnd);
+        const load = navigation.loadEventEnd ? formatPageStatDuration(navigation.loadEventEnd) : 'still loading';
+        pageStatsTiming.textContent = 'DOM ready ' + domReady + ' · Load event ' + load;
+      } else {
+        pageStatsTiming.textContent = 'Navigation timing unavailable.';
+      }
+    }
+
     function openPageStatsPopup() {
       if (pageStatsPopup) {
+        renderPageStats();
         pageStatsPopup.removeAttribute('hidden');
         pageStatsToggle?.setAttribute('aria-expanded', 'true');
       }
@@ -726,6 +1037,27 @@
       if (section) section.style.setProperty('--dial-color', color);
       var track = squareImageFormatDial.querySelector('.pt-square-formatting__metadata-dial__track');
       if (track) track.style.borderColor = color;
+    }
+
+    function updateSquareVideoDial(dial, color) {
+      if (!dial) return;
+      var section = dial.closest('.pt-square-formatting__metadata-section');
+      if (section) section.style.setProperty('--dial-color', color);
+      var track = dial.querySelector('.pt-square-formatting__metadata-dial__track');
+      if (track) track.style.borderColor = color;
+    }
+
+    function updateSquareVideoFileSizeDial(bytes) {
+      updateSquareVideoDial(squareVideoFileSizeDial, bytes === null || bytes === undefined ? '#9ca3af' : getFileSizeColor(bytes));
+    }
+
+    function updateSquareVideoDimensionsDial(ratio) {
+      updateSquareVideoDial(squareVideoDimensionsDial, ratio === null || ratio === undefined ? '#9ca3af' : getDimensionsColor(ratio));
+      if (squareVideoDimensionsTip) squareVideoDimensionsTip.textContent = getDimensionsTipText(ratio);
+    }
+
+    function updateSquareVideoFormatDial(urlLower) {
+      updateSquareVideoDial(squareVideoFormatDial, getFormatColor(urlLower));
     }
 
     // Video length dial: 10s green, 17s yellow, 25s+ red
@@ -994,45 +1326,22 @@
       requestAnimationFrame(animate);
     }
     
-    // Function to fetch and display file size with animation
+    // Hero adapter for the shared measurement layer.
     async function updateFileSize(videoUrl) {
       if (!fileSizeValue) return Promise.resolve();
-      
-      // Get current file size before updating
-      const currentText = fileSizeValue.textContent;
-      const oldBytes = parseFileSize(currentText);
-      
-      // Show loading state
+
       fileSizeValue.textContent = 'Loading...';
       updateFileSizeDial(null);
-      
-      try {
-        // Use HEAD request to get file size without downloading the video
-        const response = await fetch(videoUrl, { method: 'HEAD' });
-        
-        if (response.ok) {
-          const contentLength = response.headers.get('Content-Length');
-          
-          if (contentLength) {
-            const fileSize = parseInt(contentLength, 10);
-            animateFileSize(oldBytes, fileSize);
-            return Promise.resolve();
-          } else {
-            // If Content-Length not available, try alternative method
-            await loadVideoSizeFromMetadata(videoUrl, oldBytes);
-            return Promise.resolve();
-          }
-        } else {
-          // If HEAD fails, try loading video metadata
-          await loadVideoSizeFromMetadata(videoUrl, oldBytes);
-          return Promise.resolve();
-        }
-      } catch (error) {
-        console.warn('Could not fetch file size via HEAD request:', error);
-        // Fallback to metadata method
-        await loadVideoSizeFromMetadata(videoUrl, oldBytes);
-        return Promise.resolve();
+
+      const measurement = await measureDeliveredAsset(videoUrl);
+      if (!measurement.bytes) {
+        fileSizeValue.textContent = 'Size unavailable';
+        updateFileSizeDial(null);
+        return;
       }
+
+      const result = recordAssetMeasurement('hero', measurement);
+      animateFileSize(result.previous && result.previous.bytes, measurement.bytes);
     }
     
     // Fallback method: Try to get size from video metadata
@@ -1708,6 +2017,195 @@
       return trimmed.replace('upload/', 'upload/' + transform + '/');
     }
 
+    // Shop Mens has dependent transformations, so its controls normalize the
+    // URL instead of simply appending strings. This makes button order
+    // irrelevant while preserving unrelated transformation components.
+    const SHOP_MENS_SQUARE_WIDTH = 'w_900';
+    const SHOP_MENS_SQUARE_HEIGHT = 'h_900';
+    const SHOP_MENS_ZOOM_PAN = 'e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15';
+    const SHOP_MENS_ANIMATED_FORMAT = 'e_loop,f_auto:animated,q_auto';
+
+    function shopMensZoomPan(useAutoGravity) {
+      return SHOP_MENS_ZOOM_PAN + (useAutoGravity ? ';to_(g_auto)' : '');
+    }
+
+    function parseCloudinaryTransformationUrl(url) {
+      const trimmed = (url || '').trim();
+      const marker = '/upload/';
+      const uploadIndex = trimmed.indexOf(marker);
+      if (uploadIndex < 0) return null;
+
+      const prefix = trimmed.slice(0, uploadIndex + marker.length);
+      const remainder = trimmed.slice(uploadIndex + marker.length);
+      const versionMatch = remainder.match(/(^|\/)(v\d+\/)/);
+      if (!versionMatch || versionMatch.index === undefined) return null;
+
+      const versionStart = versionMatch.index + (versionMatch[1] === '/' ? 1 : 0);
+      const transformationPath = remainder.slice(0, versionStart).replace(/\/$/, '');
+      return {
+        prefix: prefix,
+        components: transformationPath ? transformationPath.split('/').filter(Boolean) : [],
+        suffix: remainder.slice(versionStart)
+      };
+    }
+
+    function transformationTokens(component) {
+      return component.split(',').filter(Boolean);
+    }
+
+    function withoutTokens(components, predicate) {
+      return components.map(function(component) {
+        return transformationTokens(component).filter(function(token) {
+          return !predicate(token);
+        }).join(',');
+      }).filter(Boolean);
+    }
+
+    function hasShopMensZoomPan(components) {
+      return components.some(function(component) {
+        return transformationTokens(component).some(function(token) {
+          return token.indexOf('e_zoompan:') === 0;
+        });
+      });
+    }
+
+    function hasShopMensZoomPanAutoGravity(components) {
+      return components.some(function(component) {
+        return transformationTokens(component).some(function(token) {
+          return token.indexOf('e_zoompan:') === 0 && token.indexOf('to_(g_auto)') >= 0;
+        });
+      });
+    }
+
+    function setShopMensZoomPanGravity(components, useAutoGravity) {
+      return components.map(function(component) {
+        const tokens = transformationTokens(component).map(function(token) {
+          if (token.indexOf('e_zoompan:') !== 0) return token;
+          const withoutAutoGravity = token.replace(/;to_\(g_auto\)/g, '');
+          return withoutAutoGravity + (useAutoGravity ? ';to_(g_auto)' : '');
+        });
+        return tokens.join(',');
+      });
+    }
+
+    function setShopMensFormat(components, animated) {
+      const normalized = withoutTokens(components, function(token) {
+        return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+      });
+
+      if (animated) {
+        const loopIndex = normalized.findIndex(function(component) {
+          return transformationTokens(component).some(function(token) { return token.indexOf('e_loop') === 0; });
+        });
+        if (loopIndex >= 0) {
+          normalized[loopIndex] += ',f_auto:animated,q_auto';
+        } else {
+          normalized.push(SHOP_MENS_ANIMATED_FORMAT);
+        }
+      } else {
+        normalized.push('f_auto,q_auto');
+      }
+      return normalized;
+    }
+
+    function setShopMensCrop(components, useAutoGravity, forceSquareSize) {
+      const cropIndex = components.findIndex(function(component) {
+        return transformationTokens(component).indexOf('c_fill') >= 0;
+      });
+      const existingTokens = cropIndex >= 0 ? transformationTokens(components[cropIndex]) : [];
+      const existingWidth = existingTokens.find(function(token) { return token.indexOf('w_') === 0; });
+      const existingHeight = existingTokens.find(function(token) { return token.indexOf('h_') === 0; });
+      const retainedTokens = existingTokens.filter(function(token) {
+        return token !== 'c_fill' && token.indexOf('w_') !== 0 && token.indexOf('h_') !== 0 && token.indexOf('g_') !== 0;
+      });
+      const crop = ['c_fill'];
+      if (useAutoGravity) crop.push('g_auto');
+      crop.push(forceSquareSize ? SHOP_MENS_SQUARE_WIDTH : (existingWidth || SHOP_MENS_SQUARE_WIDTH));
+      crop.push(forceSquareSize ? SHOP_MENS_SQUARE_HEIGHT : (existingHeight || SHOP_MENS_SQUARE_HEIGHT));
+      Array.prototype.push.apply(crop, retainedTokens);
+
+      if (cropIndex >= 0) components[cropIndex] = crop.join(',');
+      else {
+        const zoomPanIndex = components.findIndex(function(component) {
+          return transformationTokens(component).some(function(token) {
+            return token.indexOf('e_zoompan:') === 0;
+          });
+        });
+        if (zoomPanIndex >= 0) components.splice(zoomPanIndex, 0, crop.join(','));
+        else components.push(crop.join(','));
+      }
+      return components;
+    }
+
+    function applyShopMensTransform(url, action) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return url;
+
+      let components = parsed.components.slice();
+      const hasZoomPan = hasShopMensZoomPan(components);
+      const hadAutoGravity = components.some(function(component) {
+        return transformationTokens(component).indexOf('g_auto') >= 0;
+      }) || hasShopMensZoomPanAutoGravity(components);
+
+      if (action === 'format') {
+        components = setShopMensFormat(components, hasShopMensZoomPan(components));
+      } else if (action === 'crop') {
+        components = withoutTokens(components, function(token) { return token === 'g_auto'; });
+        components = setShopMensCrop(components, !hasZoomPan && hadAutoGravity, true);
+      } else if (action === 'gravity') {
+        components = withoutTokens(components, function(token) { return token === 'g_auto'; });
+        components = setShopMensCrop(components, !hasZoomPan, false);
+        if (hasZoomPan) components = setShopMensZoomPanGravity(components, true);
+      } else if (action === 'zoompan') {
+        components = withoutTokens(components, function(token) { return token === 'g_auto'; });
+        components = components.filter(function(component) {
+          const tokens = transformationTokens(component);
+          const hasZoomPan = tokens.some(function(token) { return token.indexOf('e_zoompan:') === 0; });
+          const isPreviousAnimatedFormat = tokens.some(function(token) { return token.indexOf('e_loop') === 0; }) && tokens.some(function(token) { return token.indexOf('f_auto:animated') === 0; });
+          return !hasZoomPan && !isPreviousAnimatedFormat;
+        });
+        components = setShopMensFormat(components, false);
+        components = withoutTokens(components, function(token) {
+          return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+        });
+        components.push(shopMensZoomPan(true), SHOP_MENS_ANIMATED_FORMAT);
+      } else {
+        return url;
+      }
+
+      return parsed.prefix + (components.length ? components.join('/') + '/' : '') + parsed.suffix;
+    }
+
+    // Shop Womens is a video card. Its controls are normalized so crop and
+    // gravity remain in the same component regardless of button order.
+    function applyShopWomensTransform(url, action) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return url;
+
+      let components = parsed.components.slice();
+      if (action === 'format') {
+        components = withoutTokens(components, function(token) {
+          return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+        });
+        components.push('f_auto,q_auto');
+      } else if (action === 'duration') {
+        components = withoutTokens(components, function(token) { return token.indexOf('du_') === 0; });
+        components.push('du_10');
+      } else if (action === 'crop' || action === 'gravity') {
+        const hasAutoGravity = components.some(function(component) {
+          return transformationTokens(component).indexOf('g_auto') >= 0;
+        }) || action === 'gravity';
+        components = withoutTokens(components, function(token) {
+          return token === 'g_auto' || token === 'c_fill' || token === 'w_900' || token === 'h_900';
+        });
+        components.push(['c_fill', hasAutoGravity ? 'g_auto' : null, 'w_900', 'h_900'].filter(Boolean).join(','));
+      } else {
+        return url;
+      }
+
+      return parsed.prefix + (components.length ? components.join('/') + '/' : '') + parsed.suffix;
+    }
+
     // Initialize URL editor
     if (videoUrlInput && updateVideoBtn) {
       // Set initial video URL
@@ -1869,6 +2367,10 @@
     const squareVideoSizeValue = document.getElementById('squareVideoSizeValue');
     const squareVideoDimensionsValue = document.getElementById('squareVideoDimensionsValue');
     const squareVideoFormatValue = document.getElementById('squareVideoFormatValue');
+    const squareVideoFileSizeDial = document.getElementById('squareVideoFileSizeDial');
+    const squareVideoDimensionsDial = document.getElementById('squareVideoDimensionsDial');
+    const squareVideoFormatDial = document.getElementById('squareVideoFormatDial');
+    const squareVideoDimensionsTip = document.getElementById('squareVideoDimensionsTip');
 
     // Function to get cursor position for square image input
     function getSquareImageCursorPosition() {
@@ -2066,29 +2568,9 @@
       }, 300);
     }
 
-    // Square frame asset evaluators - returns bytes and contentType for format detection
-    async function fetchAssetInfo(url) {
-      try {
-        const response = await fetch(url, { method: 'HEAD' });
-        if (response.ok) {
-          const contentLength = response.headers.get('Content-Length');
-          const contentType = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
-          return {
-            bytes: contentLength ? parseInt(contentLength, 10) : null,
-            contentType: contentType || null
-          };
-        }
-        const rangeResponse = await fetch(url, { method: 'GET', headers: { Range: 'bytes=0-1' } });
-        const contentRange = rangeResponse.headers.get('Content-Range');
-        const contentType = (rangeResponse.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
-        var bytes = null;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)/);
-          if (match) bytes = parseInt(match[1], 10);
-        }
-        return { bytes: bytes, contentType: contentType || null };
-      } catch (e) { /* ignore */ }
-      return { bytes: null, contentType: null };
+    // Shared measurement adapter for square cards and future sections.
+    async function fetchAssetInfo(url, assetId) {
+      return assetId ? measureAssetForCard(assetId, url) : measureDeliveredAsset(url);
     }
 
     function updateSquareImageStats(imageUrl) {
@@ -2145,15 +2627,16 @@
       }
       squareImageSizeValue.textContent = 'Loading...';
       updateSquareImageFileSizeDial(null);
-      fetchAssetInfo(url).then(function(info) {
+      fetchAssetInfo(url, 'shopMens').then(function(info) {
         var bytes = info.bytes;
         var contentType = info.contentType;
         if (squareImageSizeValue) {
           squareImageSizeValue.textContent = bytes ? formatFileSize(bytes) : '—';
         }
+        if (bytes) recordAssetMeasurement('shopMens', info);
         updateSquareImageFileSizeDial(bytes);
         if (hasZoompan && squareImageFormatValue) {
-          var detectedFormat = '—';
+          var detectedFormat = info.source === 'browser' ? 'Animated' : '—';
           var detectedModern = false;
           if (contentType === 'image/avif') { detectedFormat = 'AVIF ✓'; detectedModern = true; }
           else if (contentType === 'image/webp') { detectedFormat = 'WebP ✓'; detectedModern = true; }
@@ -2180,14 +2663,17 @@
       else if (url) format = url.split('.').pop().split('?')[0].toUpperCase() || '—';
       squareVideoFormatValue.textContent = format;
       squareVideoFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
+      updateSquareVideoFormatDial(urlLower);
       
       // Dimensions
+      let ratio = null;
       if (squareVideo.videoWidth && squareVideo.videoHeight) {
         const frameWrapper = squareVideo.closest('.pt-square-formatting__frame-wrapper');
         const displayW = frameWrapper ? frameWrapper.offsetWidth : 0;
         const displayH = frameWrapper ? frameWrapper.offsetHeight : 0;
         const videoPixels = squareVideo.videoWidth * squareVideo.videoHeight;
         const displayPixels = displayW * displayH;
+        ratio = displayW && displayH ? Math.sqrt(videoPixels / displayPixels) : null;
         let ratioText = '';
         if (displayPixels > 0 && videoPixels > displayPixels) {
           ratioText = ' (' + Math.sqrt(videoPixels / displayPixels).toFixed(1) + '× display)';
@@ -2196,14 +2682,22 @@
       } else {
         squareVideoDimensionsValue.textContent = '—';
       }
+      updateSquareVideoDimensionsDial(ratio);
       
       // File size
-      if (!url) { squareVideoSizeValue.textContent = '—'; return; }
+      if (!url) {
+        squareVideoSizeValue.textContent = '—';
+        updateSquareVideoFileSizeDial(null);
+        return;
+      }
       squareVideoSizeValue.textContent = 'Loading...';
-      fetchAssetInfo(url).then(function(info) {
+      updateSquareVideoFileSizeDial(null);
+      fetchAssetInfo(url, 'shopWomens').then(function(info) {
         if (squareVideoSizeValue) {
           squareVideoSizeValue.textContent = info.bytes ? formatFileSize(info.bytes) : '—';
         }
+        if (info.bytes) recordAssetMeasurement('shopWomens', info);
+        updateSquareVideoFileSizeDial(info.bytes);
       });
     }
 
@@ -2437,7 +2931,13 @@
             var transform = btn.getAttribute('data-transform');
             if (!transform || !squareImageUrlInput) return;
             var url = (squareImageUrlInput.textContent || squareImageUrlInput.innerText || '').trim();
-            var newUrl = insertTransform(url, transform);
+            var actions = {
+              'f_auto,q_auto': 'format',
+              'c_fill,w_900,h_900': 'crop',
+              'g_auto': 'gravity',
+              'e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15;to_(g_auto)/e_loop,f_auto:animated,q_auto': 'zoompan'
+            };
+            var newUrl = applyShopMensTransform(url, actions[transform]);
             if (newUrl !== url) {
               updateSquareImageUrlDisplay(newUrl);
             }
@@ -2499,6 +2999,24 @@
         }
       }
 
+      var shopWomensCard = document.getElementById('shopWomensCard');
+      if (shopWomensCard) {
+        shopWomensCard.querySelectorAll('.pt-url-editor__transform-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var transform = btn.getAttribute('data-transform');
+            var actions = {
+              'f_auto,q_auto': 'format',
+              'c_fill,w_900,h_900': 'crop',
+              'g_auto': 'gravity',
+              'du_10': 'duration'
+            };
+            var url = getSquareVideoUrlFromInput().trim();
+            var newUrl = applyShopWomensTransform(url, actions[transform]);
+            if (newUrl !== url) updateSquareVideoUrlDisplay(newUrl);
+          });
+        });
+      }
+
       // Handle update button click
       updateSquareVideoBtn.addEventListener('click', handleSquareVideoUpdate);
 
@@ -2536,12 +3054,76 @@
 
     // Mobile Playground Configuration
     const mobileVideoUrlInput = document.getElementById('mobileVideoUrlInput');
+    const autoCropMobileVideoBtn = document.getElementById('autoCropMobileVideoBtn');
     const updateMobileVideoBtn = document.getElementById('updateMobileVideoBtn');
     const mobileVideo = document.getElementById('mobileVideo');
     const phoneVideo = document.getElementById('phoneVideo');
     const mobileFileSizeValue = document.getElementById('mobileFileSizeValue');
     const mobileDimensionsValue = document.getElementById('mobileDimensionsValue');
     const mobileFormatValue = document.getElementById('mobileFormatValue');
+    const MOBILE_AUTO_CROP = 'ar_9:16,w_400,c_fill,g_auto';
+    const PHONE_FRAME_DELIVERY = 'c_fill,g_center,w_321,h_657';
+
+    function applyMobileAutoCrop(url) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return insertTransform(url, MOBILE_AUTO_CROP);
+
+      const components = withoutTokens(parsed.components, function(token) {
+        return token === 'c_fill' || token.indexOf('g_') === 0 || token.indexOf('w_') === 0 || token.indexOf('h_') === 0 || token.indexOf('ar_') === 0;
+      });
+      components.push(MOBILE_AUTO_CROP);
+      return parsed.prefix + components.join('/') + '/' + parsed.suffix;
+    }
+
+    function addMobileAutoCropDebug(url) {
+      return url.replace(/g_auto(?=,|\/)/g, 'g_auto:debug');
+    }
+
+    function addMobileSourceWidth(url) {
+      const marker = '/upload/';
+      const markerIndex = url.indexOf(marker);
+      if (markerIndex < 0) return url;
+
+      const prefix = url.slice(0, markerIndex + marker.length);
+      const remainder = url.slice(markerIndex + marker.length);
+      if (remainder.indexOf('w_600/') === 0 || remainder.indexOf('w_600,') === 0) return url;
+      return prefix + 'w_600/' + remainder;
+    }
+
+    function addPhoneFrameDelivery(url) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return insertTransform(url, PHONE_FRAME_DELIVERY);
+      if (parsed.components.indexOf(PHONE_FRAME_DELIVERY) >= 0) return url;
+
+      const components = parsed.components.concat(PHONE_FRAME_DELIVERY);
+      return parsed.prefix + components.join('/') + '/' + parsed.suffix;
+    }
+
+    async function resolveMobileSourceVideoUrl(videoUrl) {
+      const debugUrl = addMobileAutoCropDebug(videoUrl);
+      if (debugUrl === videoUrl) return videoUrl;
+
+      try {
+        const response = await fetch(debugUrl, { method: 'HEAD', cache: 'no-store' });
+        // Some accounts do not have debug delivery enabled. In that case,
+        // retain the transformed video URL but omit the debug qualifier.
+        return response.status === 400 ? videoUrl : debugUrl;
+      } catch (error) {
+        // A blocked preflight or network issue should not prevent playback.
+        return debugUrl;
+      }
+    }
+
+    function updateMobileSourceVideo(videoUrl) {
+      if (!mobileVideo) return;
+
+      const deliveryUrl = addMobileSourceWidth(videoUrl);
+      const sourceElement = mobileVideo.querySelector('source');
+      if (sourceElement) sourceElement.src = deliveryUrl;
+      mobileVideo.src = deliveryUrl;
+      mobileVideo.load();
+      mobileVideo.play().catch(function() {});
+    }
 
     // Phone video asset evaluator - dimensions vs frame, format
     function updatePhoneVideoStats(videoUrl) {
@@ -2754,6 +3336,7 @@
     // Function to update phone video only (source video stays at default)
     async function updatePhoneVideo(videoUrl) {
       if (!phoneVideo) return;
+      const deliveryUrl = addPhoneFrameDelivery(videoUrl);
 
       // Flag to ensure we only update file size once per video change
       let fileSizeUpdated = false;
@@ -2764,12 +3347,12 @@
         fileSizeUpdated = true;
         
         // Update format immediately from URL
-        updatePhoneVideoStats(videoUrl);
+        updatePhoneVideoStats(deliveryUrl);
         
         // Wait 1 second after video finishes loading before updating file size
         setTimeout(function() {
-          updateMobileFileSize(videoUrl);
-          updatePhoneVideoStats(videoUrl);
+          updateMobileFileSize(deliveryUrl);
+          updatePhoneVideoStats(deliveryUrl);
         }, 1000);
       }
 
@@ -2798,7 +3381,7 @@
       }, { once: true });
 
       // Update only phone video
-      phoneVideo.src = videoUrl;
+      phoneVideo.src = deliveryUrl;
       
       // Load phone video
       phoneVideo.load();
@@ -2888,13 +3471,16 @@
       }
 
       try {
-        // Update only phone video (source video stays at default)
+        // Keep the phone preview on the delivery URL and show the crop-debug
+        // overlay in the source player for the side-by-side comparison.
+        const sourceVideoUrl = await resolveMobileSourceVideoUrl(addMobileSourceWidth(newUrl));
         await updatePhoneVideo(newUrl);
+        updateMobileSourceVideo(sourceVideoUrl);
         
         // Update only phone video source element
         const phoneSourceElement = phoneVideo?.querySelector('source');
         if (phoneSourceElement) {
-          phoneSourceElement.src = newUrl;
+          phoneSourceElement.src = addPhoneFrameDelivery(newUrl);
         }
 
         // Update URL display
@@ -2932,8 +3518,8 @@
     // Initialize mobile playground
     if (mobileVideoUrlInput && updateMobileVideoBtn) {
       // Set initial video URL
-      const mobileSourceElement = mobileVideo?.querySelector('source');
-      const initialMobileVideoSrc = mobileSourceElement ? mobileSourceElement.src : (mobileVideo?.src || '');
+      const initialMobileVideoSrc = getMobileUrlFromInput().trim() || mobileVideo?.querySelector('source')?.src || mobileVideo?.src || '';
+      const initialPhoneVideoSrc = addPhoneFrameDelivery(initialMobileVideoSrc);
       
       if (initialMobileVideoSrc) {
         updateMobileUrlDisplay(initialMobileVideoSrc);
@@ -2941,21 +3527,29 @@
 
       // Update file size and stats on initial load
       if (phoneVideo && initialMobileVideoSrc) {
-        updatePhoneVideoStats(initialMobileVideoSrc);
+        updatePhoneVideoStats(initialPhoneVideoSrc);
         phoneVideo.addEventListener('loadedmetadata', function() {
           setTimeout(function() {
-            updateMobileFileSize(initialMobileVideoSrc);
-            updatePhoneVideoStats(initialMobileVideoSrc);
+            updateMobileFileSize(initialPhoneVideoSrc);
+            updatePhoneVideoStats(initialPhoneVideoSrc);
           }, 1000);
         }, { once: true });
         
         // Check if already loaded
         if (phoneVideo.readyState >= 1) {
           setTimeout(function() {
-            updateMobileFileSize(initialMobileVideoSrc);
-            updatePhoneVideoStats(initialMobileVideoSrc);
+            updateMobileFileSize(initialPhoneVideoSrc);
+            updatePhoneVideoStats(initialPhoneVideoSrc);
           }, 1000);
         }
+      }
+
+      if (autoCropMobileVideoBtn) {
+        autoCropMobileVideoBtn.addEventListener('click', function() {
+          const url = getMobileUrlFromInput().trim();
+          const croppedUrl = applyMobileAutoCrop(url);
+          if (croppedUrl !== url) updateMobileUrlDisplay(croppedUrl);
+        });
       }
 
       // Handle update button click

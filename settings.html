@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure demo | Onyx & Linen</title>
+  <link rel="icon" href="https://res.cloudinary.com/demohost/image/upload/v1787355224/O_L_Favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .pt-settings { padding: 132px 0 56px; }
+    .pt-settings__content { max-width: 760px; }
+    .pt-settings__eyebrow { color: var(--color-primary-light); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .pt-settings__title { margin: 8px 0; color: #fff; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; }
+    .pt-settings__intro { margin: 0 0 28px; max-width: 650px; color: #d1d5db; }
+    .pt-settings__card { display: grid; gap: 22px; padding: 28px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg-light); }
+    .pt-settings__field { display: grid; gap: 8px; }
+    .pt-settings__field label { color: #fff; font-weight: 650; }
+    .pt-settings__guidance { color: #c7c7c7; font-size: .86rem; line-height: 1.45; }
+    .pt-settings__input { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid #636363; border-radius: var(--radius-sm); background: #272727; color: #fff; font: .9rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .pt-settings__input:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+    .pt-settings__input[aria-invalid="true"] { border-color: #f87171; }
+    .pt-settings__error { min-height: 1.2em; color: #fca5a5; font-size: .8rem; }
+    .pt-settings__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .pt-settings__button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 16px; border: 0; border-radius: var(--radius-sm); background: var(--color-primary-light); color: #172315; cursor: pointer; font: inherit; font-weight: 700; }
+    .pt-settings__button--secondary { background: #555; color: #fff; }
+    .pt-settings__share { display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid var(--color-border); }
+    .pt-settings__share label { color: #fff; font-weight: 650; }
+    .pt-settings__share-row { display: flex; gap: 8px; }
+    .pt-settings__share input { flex: 1; min-width: 0; }
+    .pt-settings__status { min-height: 1.2em; color: var(--color-primary-light); font-size: .85rem; }
+    @media (max-width: 640px) { .pt-settings { padding-top: 108px; } .pt-settings__card { padding: 20px; } .pt-settings__share-row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="pt-header scrolled">
+    <div class="pt-header__inner container">
+      <a href="index.html" class="pt-header__logo-link" aria-label="Return to demo">
+        <img src="https://di2f2eolk-res.cloudinary.com/image/upload/f_auto,q_auto,w_500/v1726693460/zy9w1erlzswz2nfezygu.png" alt="" class="pt-header__logo">
+      </a>
+      <nav class="pt-header__nav" aria-label="Primary navigation">
+        <a href="index.html" class="pt-header__link">Demo</a>
+        <a href="settings.html" class="pt-header__link" aria-current="page">Configure demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-settings">
+    <div class="pt-settings__content container">
+      <p class="pt-settings__eyebrow">demo page setup</p>
+      <h1 class="pt-settings__title">Configure</h1>
+      <p class="pt-settings__intro">Paste three Cloudinary delivery URLs to make the demo custom, you can save a link to the customized verison.</p>
+
+      <form class="pt-settings__card" id="demoSettingsForm" novalidate>
+        <div class="pt-settings__field">
+          <label for="heroUrl">Hero Video URL</label>
+          <p class="pt-settings__guidance">Use a video that is at least 1920×1080 and longer than 15 seconds so the optimization story is visible.</p>
+          <input class="pt-settings__input" id="heroUrl" name="hero" type="url" inputmode="url" autocomplete="off" required>
+          <span class="pt-settings__error" id="heroUrlError"></span>
+        </div>
+        <div class="pt-settings__field">
+          <label for="shopMensUrl">Shop Mens Image URL</label>
+          <p class="pt-settings__guidance">Use a Cloudinary image URL that is large and not square. This gives crop, auto gravity, and animated Zoompan something meaningful to demonstrate.</p>
+          <input class="pt-settings__input" id="shopMensUrl" name="shopMens" type="url" inputmode="url" autocomplete="off" required>
+          <span class="pt-settings__error" id="shopMensUrlError"></span>
+        </div>
+        <div class="pt-settings__field">
+          <label for="shopWomensUrl">Shop Womens Video URL</label>
+          <p class="pt-settings__guidance">Use a large, non-square Cloudinary video URL so cropping, duration, and delivery optimization are easy to compare.</p>
+          <input class="pt-settings__input" id="shopWomensUrl" name="shopWomens" type="url" inputmode="url" autocomplete="off" required>
+          <span class="pt-settings__error" id="shopWomensUrlError"></span>
+        </div>
+        <div class="pt-settings__actions">
+          <button class="pt-settings__button" type="submit">Open personalized demo</button>
+          <button class="pt-settings__button pt-settings__button--secondary" id="copyShareLink" type="button">Copy shareable link</button>
+        </div>
+        <div class="pt-settings__share">
+          <label for="shareLink">Shareable demo link</label>
+          <div class="pt-settings__share-row">
+            <input class="pt-settings__input" id="shareLink" type="text" readonly aria-describedby="shareStatus">
+          </div>
+          <span class="pt-settings__status" id="shareStatus" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const DEFAULT_URLS = Object.freeze({
+      hero: 'https://res.cloudinary.com/demohost/video/upload/v1787601701/Going_Away.mp4',
+      shopMens: 'https://res.cloudinary.com/demohost/image/upload/v1787601608/Brush_short.jpg',
+      shopWomens: 'https://res.cloudinary.com/demohost/video/upload/v1787601715/Black_Evening_Suit.mp4'
+    });
+    const ASSET_IDS = ['hero', 'shopMens', 'shopWomens'];
+    const form = document.getElementById('demoSettingsForm');
+    const shareLink = document.getElementById('shareLink');
+    const shareStatus = document.getElementById('shareStatus');
+
+    function isCloudinaryDeliveryUrl(value) {
+      try {
+        const url = new URL(value);
+        return (url.protocol === 'https:' || url.protocol === 'http:') && url.hostname === 'res.cloudinary.com';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function decodeConfig(hash) {
+      const encoded = new URLSearchParams((hash || '').replace(/^#/, '')).get('cfg');
+      if (!encoded) return null;
+      try {
+        const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - encoded.length % 4) % 4);
+        const bytes = Uint8Array.from(atob(base64), function(character) { return character.charCodeAt(0); });
+        return JSON.parse(new TextDecoder().decode(bytes));
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function configuredUrls() {
+      const urls = {};
+      ASSET_IDS.forEach(function(id) { urls[id] = document.getElementById(id === 'hero' ? 'heroUrl' : id + 'Url').value.trim(); });
+      return urls;
+    }
+
+    function validateUrls(urls) {
+      let valid = true;
+      ASSET_IDS.forEach(function(id) {
+        const input = document.getElementById(id === 'hero' ? 'heroUrl' : id + 'Url');
+        const error = document.getElementById(id === 'hero' ? 'heroUrlError' : id + 'UrlError');
+        const message = isCloudinaryDeliveryUrl(urls[id]) ? '' : 'Enter a valid Cloudinary delivery URL from res.cloudinary.com.';
+        input.setAttribute('aria-invalid', message ? 'true' : 'false');
+        error.textContent = message;
+        if (message) valid = false;
+      });
+      return valid;
+    }
+
+    function encodeConfig(urls) {
+      const payload = JSON.stringify({ version: 1, assets: ASSET_IDS.reduce(function(assets, id) { assets[id] = { url: urls[id] }; return assets; }, {}) });
+      const binary = Array.from(new TextEncoder().encode(payload), function(byte) { return String.fromCharCode(byte); }).join('');
+      return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    function updateShareLink() {
+      const urls = configuredUrls();
+      if (!validateUrls(urls)) { shareLink.value = ''; return null; }
+      const demoUrl = new URL('index.html', window.location.href);
+      demoUrl.hash = 'cfg=' + encodeConfig(urls);
+      shareLink.value = demoUrl.href;
+      return demoUrl.href;
+    }
+
+    const sharedConfig = decodeConfig(window.location.hash);
+    ASSET_IDS.forEach(function(id) {
+      const input = document.getElementById(id === 'hero' ? 'heroUrl' : id + 'Url');
+      input.value = sharedConfig && sharedConfig.assets && isCloudinaryDeliveryUrl(sharedConfig.assets[id] && sharedConfig.assets[id].url) ? sharedConfig.assets[id].url : DEFAULT_URLS[id];
+      input.addEventListener('input', function() { shareStatus.textContent = ''; updateShareLink(); });
+    });
+    updateShareLink();
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const demoUrl = updateShareLink();
+      if (demoUrl) window.location.assign(demoUrl);
+    });
+
+    document.getElementById('copyShareLink').addEventListener('click', async function() {
+      const demoUrl = updateShareLink();
+      if (!demoUrl) return;
+      try {
+        await navigator.clipboard.writeText(demoUrl);
+        shareStatus.textContent = 'Shareable link copied.';
+      } catch (error) {
+        shareLink.focus();
+        shareLink.select();
+        document.execCommand('copy');
+        shareStatus.textContent = 'Shareable link selected and copied.';
+      }
+    });
+  </script>
+</body>
+</html>
