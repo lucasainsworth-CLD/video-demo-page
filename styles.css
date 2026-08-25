@@ -617,8 +617,8 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  padding-top: 16px;
+  margin-top: -12px;
+  padding-top: 0;
 }
 
 .pt-hero__metadata-url .pt-url-editor__wrapper {
@@ -1245,7 +1245,15 @@ main {
   min-width: 120px;
 }
 
+.pt-square-formatting__metadata-section--video-length {
+  min-width: 120px;
+}
+
 .pt-square-formatting__metadata-section--dimensions .pt-square-formatting__metadata-tip {
+  max-width: 180px;
+}
+
+.pt-square-formatting__metadata-section--video-length .pt-square-formatting__metadata-tip {
   max-width: 180px;
 }
 
@@ -1298,8 +1306,8 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  padding-top: 12px;
+  margin-top: -12px;
+  padding-top: 0;
 }
 
 .pt-square-formatting__asset-comparison {

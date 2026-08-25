@@ -35,7 +35,7 @@
           Show page stats
         </button>
         <a href="image.html" class="pt-header__stats-toggle" aria-label="Go to Image tool">
-          Image tool
+          Image demo
         </a>
       </nav>
       <a href="settings.html" class="pt-header__settings-link" aria-label="Configure demo" title="Configure demo">
@@ -160,13 +160,13 @@
               ></div>
             </div>
             <div class="pt-url-editor__buttons">
-              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="Add f_auto,q_auto">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="optimize format and quality">
                 f_auto,q_auto
               </button>
-              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="w_1280" title="Add w_1280">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="w_1280" title="scale to a width of 1280px">
                 w_1280
               </button>
-              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_15" title="Add du_15">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_15" title="trim to 15 seconds">
                 du_15
               </button>
               <button class="pt-url-editor__button" id="updateVideoBtn" type="button">
@@ -251,13 +251,13 @@
                     ></div>
                   </div>
                   <div class="pt-url-editor__buttons">
-                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="Add f_auto,q_auto">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="optimize format and quality">
                       f_auto,q_auto
                     </button>
-                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900" title="Add c_fill,w_900,h_900">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900" title="fill-crop to 900x900px">
                       c_fill,w_900,h_900
                     </button>
-                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="g_auto" title="Add g_auto">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="g_auto" title="auto crop gravity (centering)">
                       g_auto
                     </button>
                     <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15;to_(g_auto)/e_loop,f_auto:animated,q_auto" title="Add zoompan animation">
@@ -312,6 +312,11 @@
                   <div class="pt-square-formatting__metadata-readout"><span class="pt-square-formatting__metadata-label">Format:</span><span class="pt-square-formatting__metadata-value" id="squareVideoFormatValue">—</span></div>
                   <p class="pt-square-formatting__metadata-tip">WebM & AV1 = green, MP4 = yellow, legacy = red</p>
                 </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--video-length">
+                  <div class="pt-square-formatting__metadata-dial" id="squareVideoLengthDial" aria-hidden="true"><div class="pt-square-formatting__metadata-dial__track"></div></div>
+                  <div class="pt-square-formatting__metadata-readout"><span class="pt-square-formatting__metadata-label">Video Length:</span><span class="pt-square-formatting__metadata-value" id="squareVideoLengthValue">Loading...</span></div>
+                  <p class="pt-square-formatting__metadata-tip">For embedded looping video, file size is key. General best practice is keep videos under 17 seconds.</p>
+                </div>
               </div>
               <p class="pt-asset-comparison pt-square-formatting__asset-comparison" id="shopWomensAssetComparison" aria-live="polite"></p>
               <div class="pt-square-formatting__metadata-url">
@@ -329,9 +334,9 @@
                   ></div>
                 </div>
                 <div class="pt-url-editor__buttons">
-                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto">f_auto,q_auto</button>
-                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900">c_fill,w_900,h_900</button>
-                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_10">du_10</button>
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="f_auto,q_auto" title="optimize format and quality">f_auto,q_auto</button>
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900" title="fill-crop to 900x900px">c_fill,w_900,h_900</button>
+                  <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="du_10" title="trim to 10 seconds">du_10</button>
                   <button class="pt-url-editor__button" id="updateSquareVideoBtn" type="button">
                     <span>update</span>
                     <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -428,67 +433,6 @@
                 <source src="https://res.cloudinary.com/demohost/video/upload/c_fill,g_center,w_321,h_657/v1787601715/Black_Evening_Suit.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
-              <div class="pt-mobile-playground__file-size" id="mobileFileSizeOverlay" data-asset-stats-overlay>
-                <span class="pt-mobile-playground__file-size-label">File Size:</span>
-                <span class="pt-mobile-playground__file-size-value" id="mobileFileSizeValue">Loading...</span>
-                <span class="pt-mobile-playground__file-size-label">Dimensions:</span>
-                <span class="pt-mobile-playground__file-size-value" id="mobileDimensionsValue">—</span>
-                <span class="pt-mobile-playground__file-size-label">Format:</span>
-                <span class="pt-mobile-playground__file-size-value" id="mobileFormatValue">—</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Customize Video Player Section -->
-  <section class="pt-playground">
-    <div class="pt-playground__content container">
-      <div class="pt-playground__layout">
-        <div class="pt-playground__output-section">
-          <label class="pt-playground__label">See our fashion travelogue:</label>
-          <div class="pt-playground__preview-wrapper" id="embedPreview">
-            <iframe
-              src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
-              width="640"
-              height="360"
-              style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
-              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-              allowfullscreen
-              frameborder="0"
-            ></iframe>
-          </div>
-        </div>
-        <div class="pt-playground__input-section pt-url-drawer">
-          <button class="pt-url-drawer__trigger" type="button" aria-expanded="false" aria-controls="embedCodeDrawer" data-drawer-trigger aria-label="Toggle embed code editor">
-            <svg class="pt-url-drawer__trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </button>
-          <div class="pt-url-drawer__content" id="embedCodeDrawer">
-            <div class="pt-url-drawer__content-inner">
-              <label class="pt-playground__label" for="embedCodeInput">Edit video embed code:</label>
-              <div class="pt-playground__input-wrapper">
-                <textarea id="embedCodeInput" class="pt-playground__textarea" rows="12" placeholder="Paste your embed code here..." spellcheck="false"><iframe
-  src="https://player.cloudinary.com/embed/?cloud_name=onyx-linen-demo&public_id=tree_sunset_1_vbufkx&profile=cld-default"
-  width="640"
-  height="360"
-  style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
-  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-  allowfullscreen
-  frameborder="0"
-></iframe></textarea>
-              </div>
-              <div class="pt-playground__controls">
-                <button class="pt-playground__button" id="updateEmbedBtn" type="button">
-                  <span>update</span>
-                  <svg class="pt-playground__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -1012,6 +956,15 @@
       return '#9ca3af';
     }
 
+    // Shop Mens is an image, so its delivery-size targets are intentionally
+    // much smaller than the video thresholds used elsewhere on the page.
+    function getSquareImageFileSizeColor(bytes) {
+      if (bytes < 300 * 1024) return '#39ff14';
+      if (bytes < 1024 * 1024) return '#166534';
+      if (bytes <= 2 * 1024 * 1024) return '#facc15';
+      return '#f97316';
+    }
+
     function updateSquareImageFileSizeDial(bytes) {
       if (!squareImageFileSizeDial) return;
       var section = squareImageFileSizeDial.closest('.pt-square-formatting__metadata-section');
@@ -1021,7 +974,7 @@
         if (track) track.style.borderColor = '#9ca3af';
         return;
       }
-      var color = getFileSizeColor(bytes);
+      var color = getSquareImageFileSizeColor(bytes);
       if (section) section.style.setProperty('--dial-color', color);
       var track = squareImageFileSizeDial.querySelector('.pt-square-formatting__metadata-dial__track');
       if (track) track.style.borderColor = color;
@@ -1072,6 +1025,10 @@
 
     function updateSquareVideoFormatDial(urlLower) {
       updateSquareVideoDial(squareVideoFormatDial, getFormatColor(urlLower));
+    }
+
+    function updateSquareVideoLengthDial(seconds) {
+      updateSquareVideoDial(squareVideoLengthDial, getVideoLengthColor(seconds));
     }
 
     // Video length dial: 10s green, 17s yellow, 25s+ red
@@ -2287,83 +2244,6 @@
       }, true);
     }
 
-    // Embed Code Playground Configuration
-    const embedCodeInput = document.getElementById('embedCodeInput');
-    const updateEmbedBtn = document.getElementById('updateEmbedBtn');
-    const embedPreview = document.getElementById('embedPreview');
-
-    // Function to handle embed code update
-    function handleEmbedUpdate() {
-      if (!embedCodeInput || !embedPreview) return;
-
-      const embedCode = embedCodeInput.value.trim();
-
-      if (!embedCode) {
-        alert('Please enter embed code');
-        return;
-      }
-
-      // Disable button during update
-      if (updateEmbedBtn) {
-        updateEmbedBtn.disabled = true;
-        const buttonSpan = updateEmbedBtn.querySelector('span');
-        const buttonIcon = updateEmbedBtn.querySelector('svg');
-        if (buttonSpan) buttonSpan.textContent = 'Updating...';
-        if (buttonIcon) buttonIcon.style.display = 'none';
-      }
-
-      try {
-        // Clear previous embed completely
-        while (embedPreview.firstChild) {
-          embedPreview.removeChild(embedPreview.firstChild);
-        }
-        
-        // Insert new embed code
-        embedPreview.innerHTML = embedCode;
-
-        // Show success briefly
-        if (updateEmbedBtn) {
-          const buttonSpan = updateEmbedBtn.querySelector('span');
-          const buttonIcon = updateEmbedBtn.querySelector('svg');
-          if (buttonSpan) buttonSpan.textContent = 'Updated!';
-          if (buttonIcon) buttonIcon.style.display = 'none';
-          
-          setTimeout(() => {
-            if (updateEmbedBtn) {
-              if (buttonSpan) buttonSpan.textContent = 'update';
-              if (buttonIcon) buttonIcon.style.display = '';
-              updateEmbedBtn.disabled = false;
-            }
-          }, 1000);
-        }
-      } catch (error) {
-        console.error('Error updating embed:', error);
-        alert('Error updating embed. Please check the code and try again.');
-        
-        if (updateEmbedBtn) {
-          const buttonSpan = updateEmbedBtn.querySelector('span');
-          const buttonIcon = updateEmbedBtn.querySelector('svg');
-          if (buttonSpan) buttonSpan.textContent = 'update';
-          if (buttonIcon) buttonIcon.style.display = '';
-          updateEmbedBtn.disabled = false;
-        }
-      }
-    }
-
-    // Initialize embed playground
-    if (embedCodeInput && updateEmbedBtn) {
-      // Handle update button click
-      updateEmbedBtn.addEventListener('click', handleEmbedUpdate);
-
-      // Handle Cmd/Ctrl + Enter to update
-      embedCodeInput.addEventListener('keydown', function(e) {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-          e.preventDefault();
-          handleEmbedUpdate();
-        }
-      });
-    }
-
     // Square Formatting Configuration
     const squareImage = document.getElementById('squareImage');
     const squareImageUrlInput = document.getElementById('squareImageUrlInput');
@@ -2381,9 +2261,11 @@
     const squareVideoSizeValue = document.getElementById('squareVideoSizeValue');
     const squareVideoDimensionsValue = document.getElementById('squareVideoDimensionsValue');
     const squareVideoFormatValue = document.getElementById('squareVideoFormatValue');
+    const squareVideoLengthValue = document.getElementById('squareVideoLengthValue');
     const squareVideoFileSizeDial = document.getElementById('squareVideoFileSizeDial');
     const squareVideoDimensionsDial = document.getElementById('squareVideoDimensionsDial');
     const squareVideoFormatDial = document.getElementById('squareVideoFormatDial');
+    const squareVideoLengthDial = document.getElementById('squareVideoLengthDial');
     const squareVideoDimensionsTip = document.getElementById('squareVideoDimensionsTip');
 
     // Function to get cursor position for square image input
@@ -2678,6 +2560,13 @@
       squareVideoFormatValue.textContent = format;
       squareVideoFormatValue.title = isModern ? 'Modern format' : 'Consider WebM or AV1 for better compression';
       updateSquareVideoFormatDial(urlLower);
+
+      // Video length
+      const duration = squareVideo.duration;
+      if (squareVideoLengthValue) {
+        squareVideoLengthValue.textContent = duration && isFinite(duration) && duration > 0 ? formatVideoDuration(duration) : '—';
+      }
+      updateSquareVideoLengthDial(duration);
       
       // Dimensions
       let ratio = null;
