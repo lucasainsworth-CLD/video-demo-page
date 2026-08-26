@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://res.cloudinary.com/demohost/image/upload/v1787355224/O_L_Favicon.png" type="image/png">
+  <title>Mobile formatting with g_auto | Onyx & Linen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="pt-mobile-playground">
+    <header class="pt-mobile-page-header">
+      <div class="pt-mobile-page-header__inner container">
+        <a class="pt-mobile-page-header__brand" href="https://cloudinary.com" aria-label="Visit Cloudinary">
+          <img src="https://res.cloudinary.com/demohost/image/upload/w_426,f_auto,q_auto/v1787338544/samples/cloudinary-logo-vector.svg" alt="Cloudinary" class="pt-mobile-page-header__logo">
+        </a>
+        <h1 class="pt-mobile-page-header__title">Mobile formatting with <code>g_auto</code></h1>
+      </div>
+    </header>
+
+    <div class="pt-mobile-playground__content container">
+      <div class="pt-mobile-playground__layout">
+        <div class="pt-mobile-playground__controls">
+          <div class="pt-mobile-playground__video-section">
+            <label class="pt-mobile-playground__label">Source Video:</label>
+            <div class="pt-mobile-playground__video-wrapper">
+              <video id="mobileVideo" class="pt-mobile-playground__video" autoplay loop muted controls playsinline preload="metadata">
+                <source src="https://res.cloudinary.com/demohost/video/upload/w_600/v1787601715/Black_Evening_Suit.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          <div class="pt-mobile-playground__code-section">
+            <label class="pt-mobile-playground__label" for="mobileVideoUrlInput">Video URL:</label>
+            <div class="pt-url-editor__box" id="mobileUrlEditorBox">
+              <div contenteditable="true" id="mobileVideoUrlInput" class="pt-url-editor__input" data-placeholder="Enter video URL..." spellcheck="false" role="textbox" aria-label="Video URL">https://res.cloudinary.com/demohost/video/upload/v1787601715/Black_Evening_Suit.mp4</div>
+            </div>
+            <div class="pt-url-editor__buttons">
+              <button class="pt-url-editor__button pt-url-editor__transform-btn" id="autoCropMobileVideoBtn" type="button" title="Crop to a 9:16 phone frame with automatic gravity">ar_9:16,w_400,c_fill,g_auto</button>
+              <button class="pt-url-editor__button" id="updateMobileVideoBtn" type="button">
+                <span>update</span>
+                <svg class="pt-url-editor__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-mobile-playground__phone-section">
+          <div class="pt-mobile-playground__phone-wrapper">
+            <img src="https://res.cloudinary.com/dz6ajwh6k/image/upload/v1765254943/511-5115286_mobile-frame-on-hand-png-clipart_qbtbks.png" alt="Phone frame" class="pt-mobile-playground__phone-image">
+            <div class="pt-mobile-playground__phone-screen">
+              <video id="phoneVideo" class="pt-mobile-playground__phone-video" autoplay muted playsinline loop preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
+                <source src="https://res.cloudinary.com/demohost/video/upload/c_fill,g_center,w_321,h_657/v1787601715/Black_Evening_Suit.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const mobileVideoUrlInput = document.getElementById('mobileVideoUrlInput');
+    const autoCropMobileVideoBtn = document.getElementById('autoCropMobileVideoBtn');
+    const updateMobileVideoBtn = document.getElementById('updateMobileVideoBtn');
+    const mobileVideo = document.getElementById('mobileVideo');
+    const phoneVideo = document.getElementById('phoneVideo');
+    const MOBILE_AUTO_CROP = 'ar_9:16,w_400,c_fill,g_auto';
+    const PHONE_FRAME_DELIVERY = 'c_fill,g_center,w_321,h_657';
+
+    function parseCloudinaryTransformationUrl(url) {
+      const trimmed = (url || '').trim();
+      const marker = '/upload/';
+      const uploadIndex = trimmed.indexOf(marker);
+      if (uploadIndex < 0) return null;
+      const prefix = trimmed.slice(0, uploadIndex + marker.length);
+      const remainder = trimmed.slice(uploadIndex + marker.length);
+      const versionMatch = remainder.match(/(^|\/)(v\d+\/)/);
+      if (!versionMatch || versionMatch.index === undefined) return null;
+      const versionStart = versionMatch.index + (versionMatch[1] === '/' ? 1 : 0);
+      const transformationPath = remainder.slice(0, versionStart).replace(/\/$/, '');
+      return { prefix: prefix, components: transformationPath ? transformationPath.split('/').filter(Boolean) : [], suffix: remainder.slice(versionStart) };
+    }
+
+    function withoutTokens(components, predicate) {
+      return components.map(function(component) {
+        return component.split(',').filter(Boolean).filter(function(token) { return !predicate(token); }).join(',');
+      }).filter(Boolean);
+    }
+
+    function insertTransform(url, transform) {
+      const trimmed = (url || '').trim();
+      return trimmed.includes('/upload/') ? trimmed.replace('/upload/', '/upload/' + transform + '/') : trimmed;
+    }
+
+    function applyMobileAutoCrop(url) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return insertTransform(url, MOBILE_AUTO_CROP);
+      const components = withoutTokens(parsed.components, function(token) {
+        return token === 'c_fill' || token.indexOf('g_') === 0 || token.indexOf('w_') === 0 || token.indexOf('h_') === 0 || token.indexOf('ar_') === 0;
+      });
+      components.push(MOBILE_AUTO_CROP);
+      return parsed.prefix + components.join('/') + '/' + parsed.suffix;
+    }
+
+    function addMobileSourceWidth(url) {
+      const marker = '/upload/';
+      const markerIndex = url.indexOf(marker);
+      if (markerIndex < 0) return url;
+      const prefix = url.slice(0, markerIndex + marker.length);
+      const remainder = url.slice(markerIndex + marker.length);
+      if (remainder.indexOf('w_600/') === 0 || remainder.indexOf('w_600,') === 0) return url;
+      return prefix + 'w_600/' + remainder;
+    }
+
+    function addPhoneFrameDelivery(url) {
+      const parsed = parseCloudinaryTransformationUrl(url);
+      if (!parsed) return insertTransform(url, PHONE_FRAME_DELIVERY);
+      if (parsed.components.indexOf(PHONE_FRAME_DELIVERY) >= 0) return url;
+      return parsed.prefix + parsed.components.concat(PHONE_FRAME_DELIVERY).join('/') + '/' + parsed.suffix;
+    }
+
+    function addMobileAutoCropDebug(url) {
+      return url.replace(/g_auto(?=,|\/)/g, 'g_auto:debug');
+    }
+
+    async function resolveMobileSourceVideoUrl(videoUrl) {
+      const debugUrl = addMobileAutoCropDebug(videoUrl);
+      if (debugUrl === videoUrl) return videoUrl;
+      try {
+        const response = await fetch(debugUrl, { method: 'HEAD', cache: 'no-store' });
+        return response.status === 400 ? videoUrl : debugUrl;
+      } catch (error) {
+        return debugUrl;
+      }
+    }
+
+    function updateVideo(video, url) {
+      const source = video.querySelector('source');
+      if (source) source.src = url;
+      video.src = url;
+      video.load();
+      video.play().catch(function() {});
+    }
+
+    function getUrl() {
+      return (mobileVideoUrlInput.textContent || mobileVideoUrlInput.innerText || '').trim();
+    }
+
+    autoCropMobileVideoBtn.addEventListener('click', function() {
+      mobileVideoUrlInput.textContent = applyMobileAutoCrop(getUrl());
+    });
+
+    updateMobileVideoBtn.addEventListener('click', async function() {
+      const cleanUrl = getUrl();
+      try {
+        new URL(cleanUrl);
+      } catch (error) {
+        alert('Please enter a valid video URL');
+        return;
+      }
+      updateMobileVideoBtn.disabled = true;
+      updateMobileVideoBtn.querySelector('span').textContent = 'Updating...';
+      const sourceUrl = await resolveMobileSourceVideoUrl(addMobileSourceWidth(cleanUrl));
+      updateVideo(mobileVideo, sourceUrl);
+      updateVideo(phoneVideo, addPhoneFrameDelivery(cleanUrl));
+      updateMobileVideoBtn.querySelector('span').textContent = 'Updated!';
+      setTimeout(function() {
+        updateMobileVideoBtn.disabled = false;
+        updateMobileVideoBtn.querySelector('span').textContent = 'update';
+      }, 900);
+    });
+
+    mobileVideoUrlInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        updateMobileVideoBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
