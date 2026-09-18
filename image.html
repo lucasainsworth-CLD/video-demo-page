@@ -230,43 +230,68 @@
       >
     </div>
 
-    <!-- Dials — below the image -->
+    <!-- Dials — below the image (Shop Mens stats layout) -->
     <div class="pt-image-demo__controls pt-image-demo__controls--bottom">
       <div class="pt-image-demo__controls-card">
         <div class="pt-square-formatting__metadata" id="demoImageMetadata">
-          <div class="pt-square-formatting__metadata-inner">
-            <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--file-size">
-              <div class="pt-square-formatting__metadata-dial" id="demoImageFileSizeDial" data-dial-status="loading" aria-hidden="true">
-                <div class="pt-square-formatting__metadata-dial__track"></div>
+          <div class="pt-square-formatting__stats-panels">
+            <div class="pt-square-formatting__metrics-panel">
+              <div class="pt-square-formatting__metrics-grid">
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--file-size" data-tip="Aim for &lt;150–300 KB for product images to ensure near-instant page renders.">
+                  <div class="pt-square-formatting__metadata-dial" id="demoImageFileSizeDial" data-dial-status="loading" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">File Size</span>
+                    <span class="pt-square-formatting__metadata-value" id="demoImageSizeValue">Loading...</span>
+                  </div>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--dimensions" id="demoImageDimensionsSection" data-tip="Match 1× or 2× display density to eliminate wasted pixel delivery.">
+                  <div class="pt-square-formatting__metadata-dial" id="demoImageDimensionsDial" data-dial-status="loading" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">Dimensions</span>
+                    <span class="pt-square-formatting__metadata-value" id="demoImageDimensionsValue">—</span>
+                  </div>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--format" id="demoImageFormatSection" data-tip="Next-gen formats (AVIF, WebP) cut file sizes by 30–60% over JPEG/PNG with zero visual loss.">
+                  <div class="pt-square-formatting__metadata-dial" id="demoImageFormatDial" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label" id="demoImageFormatLabel">Format</span>
+                    <span class="pt-square-formatting__metadata-value" id="demoImageFormatValue">—</span>
+                  </div>
+                </div>
+                <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--video-length" id="demoImageLengthSection" hidden data-tip="Keep animated loops short so motion doesn’t erase the size win from optimization.">
+                  <div class="pt-square-formatting__metadata-dial" id="demoImageLengthDial" aria-hidden="true">
+                    <div class="pt-square-formatting__metadata-dial__track"></div>
+                  </div>
+                  <div class="pt-square-formatting__metadata-readout">
+                    <span class="pt-square-formatting__metadata-label">Duration</span>
+                    <span class="pt-square-formatting__metadata-value" id="demoImageLengthValue">—</span>
+                  </div>
+                </div>
               </div>
-              <div class="pt-square-formatting__metadata-readout">
-                <span class="pt-square-formatting__metadata-label">File Size:</span>
-                <span class="pt-square-formatting__metadata-value" id="demoImageSizeValue">Loading...</span>
-              </div>
-              <p class="pt-square-formatting__metadata-tip">Aim for &lt;150–300 KB for product images to ensure near-instant page renders.</p>
             </div>
-            <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--dimensions">
-              <div class="pt-square-formatting__metadata-dial" id="demoImageDimensionsDial" data-dial-status="loading" aria-hidden="true">
-                <div class="pt-square-formatting__metadata-dial__track"></div>
+
+            <div class="pt-square-formatting__savings-panel" aria-live="polite">
+              <div class="pt-square-formatting__savings-gauge" id="demoImageSavingsGauge" data-state="waiting">
+                <svg class="pt-square-formatting__savings-gauge__svg" viewBox="0 0 200 170" aria-hidden="true">
+                  <g transform="translate(100 95)">
+                    <circle class="pt-square-formatting__savings-gauge__baseline" cx="0" cy="0" r="64" fill="none" stroke="#4b5563" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="66.67 33.33" transform="rotate(150)"></circle>
+                    <circle class="pt-square-formatting__savings-gauge__current" id="demoImageSavingsCurrentArc" cx="0" cy="0" r="64" fill="none" stroke="#f97316" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="66.67 33.33" transform="rotate(150)" opacity="0"></circle>
+                  </g>
+                </svg>
+                <div class="pt-square-formatting__savings-gauge__center">
+                  <span class="pt-square-formatting__savings-gauge__percent" id="demoImageSavingsPercent">—</span>
+                  <span class="pt-square-formatting__savings-gauge__caption" id="demoImageSavingsCaption">Waiting</span>
+                </div>
               </div>
-              <div class="pt-square-formatting__metadata-readout">
-                <span class="pt-square-formatting__metadata-label">Dimensions:</span>
-                <span class="pt-square-formatting__metadata-value" id="demoImageDimensionsValue">—</span>
-              </div>
-              <p class="pt-square-formatting__metadata-tip" id="demoImageDimensionsTip">Match 1× or 2× display density to eliminate wasted pixel delivery.</p>
-            </div>
-            <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--format">
-              <div class="pt-square-formatting__metadata-dial" id="demoImageFormatDial" aria-hidden="true">
-                <div class="pt-square-formatting__metadata-dial__track"></div>
-              </div>
-              <div class="pt-square-formatting__metadata-readout">
-                <span class="pt-square-formatting__metadata-label">Format:</span>
-                <span class="pt-square-formatting__metadata-value" id="demoImageFormatValue">—</span>
-              </div>
-              <p class="pt-square-formatting__metadata-tip">Next-gen formats (AVIF, WebP) cut file sizes by 30–60% over JPEG/PNG with zero visual loss.</p>
+              <p class="pt-square-formatting__savings-sizes" id="demoImageAssetComparison">Waiting for measurement…</p>
             </div>
           </div>
-          <p class="pt-asset-comparison" id="demoImageAssetComparison" aria-live="polite"></p>
         </div><!-- /.pt-square-formatting__metadata -->
       </div><!-- /.pt-image-demo__controls-card -->
     </div><!-- /.pt-image-demo__controls--bottom -->
@@ -378,18 +403,88 @@
       return '#' + [r,g,b].map(x => ('0'+x.toString(16)).slice(-2)).join('');
     }
 
+    function parseCloudinaryTransformationUrl(url) {
+      const trimmed = (url || '').trim();
+      const marker = '/upload/';
+      const uploadIndex = trimmed.indexOf(marker);
+      if (uploadIndex < 0) return null;
+
+      const prefix = trimmed.slice(0, uploadIndex + marker.length);
+      const remainder = trimmed.slice(uploadIndex + marker.length);
+      const versionMatch = remainder.match(/(^|\/)(v\d+\/)/);
+      if (!versionMatch || versionMatch.index === undefined) return null;
+
+      const versionStart = versionMatch.index + (versionMatch[1] === '/' ? 1 : 0);
+      const transformationPath = remainder.slice(0, versionStart).replace(/\/$/, '');
+      return {
+        prefix: prefix,
+        components: transformationPath ? transformationPath.split('/').filter(Boolean) : [],
+        suffix: remainder.slice(versionStart)
+      };
+    }
+
+    function transformationTokens(component) {
+      return String(component || '').split(',').filter(Boolean);
+    }
+
+    function withoutTokens(components, predicate) {
+      return components.map(function(component) {
+        return transformationTokens(component).filter(function(token) {
+          return !predicate(token);
+        }).join(',');
+      }).filter(Boolean);
+    }
+
+    function isFormatQualityComponent(component) {
+      const tokens = transformationTokens(component);
+      return tokens.length > 0 && tokens.every(function(token) {
+        return token.indexOf('f_') === 0 || token.indexOf('q_') === 0;
+      });
+    }
+
+    function isFormatOptimizeTransform(transform) {
+      const tokens = transformationTokens(transform);
+      return tokens.length > 0 && tokens.every(function(token) {
+        return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+      });
+    }
+
+    // Append transforms before /v…/public_id. Format/quality always stays last so
+    // clicking f_auto,q_auto before/after other buttons still applies correctly.
     function insertTransform(url, transform) {
       if (!url || !transform) return url;
       var trimmed = url.trim();
       if (!trimmed.includes('upload/')) return trimmed;
-      if (trimmed.includes('/' + transform + '/') || trimmed.endsWith('/' + transform)) return trimmed;
-      var match = trimmed.match(/upload\/(.*?)(\/v\d+\/)/);
-      if (match) {
-        var existing = match[1];
-        var versionPart = match[2];
-        return trimmed.replace(/upload\/(.*?)(\/v\d+\/)/, 'upload/' + (existing ? existing + '/' : '') + transform + versionPart);
+
+      var parsed = parseCloudinaryTransformationUrl(trimmed);
+      if (!parsed) {
+        if (trimmed.includes('/' + transform + '/') || trimmed.endsWith('/' + transform)) return trimmed;
+        return trimmed.replace('upload/', 'upload/' + transform + '/');
       }
-      return trimmed.replace('upload/', 'upload/' + transform + '/');
+
+      var components = parsed.components.slice();
+
+      if (isFormatOptimizeTransform(transform)) {
+        components = withoutTokens(components, function(token) {
+          return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+        });
+        components.push(transform);
+      } else {
+        if (components.indexOf(transform) >= 0) {
+          return trimmed;
+        }
+        var formatIndex = -1;
+        for (var i = components.length - 1; i >= 0; i--) {
+          if (isFormatQualityComponent(components[i])) {
+            formatIndex = i;
+            break;
+          }
+        }
+        if (formatIndex >= 0) components.splice(formatIndex, 0, transform);
+        else components.push(transform);
+      }
+
+      return parsed.prefix + (components.length ? components.join('/') + '/' : '') + parsed.suffix;
     }
 
     // Match the Shop Mens delivery-size targets for image assets.
@@ -421,18 +516,221 @@
       return "You're delivering more pixels than you're using. Consider responsive breakpoints.";
     }
 
-    function getImageFormatColor(urlLower, hasZoompan, contentType) {
-      if (hasZoompan && contentType) {
-        if (contentType === 'image/avif' || contentType === 'image/webp') return '#22c55e';
-        if (contentType === 'image/gif') return '#facc15';
-        return '#9ca3af';
+    // Prefer Cloudinary Server-Timing format (same pipeline as Shop Mens).
+    async function measureDeliveredAsset(url, timeoutMs) {
+      timeoutMs = timeoutMs || 6000;
+
+      function responseInfo(response) {
+        const contentLength = response.headers.get('Content-Length');
+        const contentRange = response.headers.get('Content-Range');
+        const rangeMatch = contentRange && contentRange.match(/\/(\d+)$/);
+        const contentTypeHeader = response.headers.get('Content-Type') || '';
+        const serverTiming = response.headers.get('Server-Timing') || '';
+        const deliveryFormatMatch = serverTiming.match(/\bformat="([^"]+)"/i);
+        const deliveryCodecMatch = serverTiming.match(/\bvc="([^"]+)"/i);
+        const deliveryDurationMatch = serverTiming.match(/\bdu=([\d.]+)/i);
+        return {
+          bytes: rangeMatch ? parseInt(rangeMatch[1], 10) : (contentLength ? parseInt(contentLength, 10) : null),
+          contentType: contentTypeHeader.split(';')[0].trim().toLowerCase(),
+          contentTypeHeader: contentTypeHeader,
+          deliveryFormat: deliveryFormatMatch ? deliveryFormatMatch[1].toUpperCase() : null,
+          deliveryCodec: deliveryCodecMatch ? deliveryCodecMatch[1].toLowerCase() : null,
+          deliveryDuration: deliveryDurationMatch ? parseFloat(deliveryDurationMatch[1]) : null,
+          url: url
+        };
       }
+
+      async function fetchWithTimeout(options) {
+        const controller = new AbortController();
+        const timeout = setTimeout(function() { controller.abort(); }, timeoutMs);
+        try {
+          return await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+
+      try {
+        const headResponse = await fetchWithTimeout({ method: 'HEAD' });
+        const headInfo = responseInfo(headResponse);
+        if (headResponse.ok && (headInfo.bytes || headInfo.contentType || headInfo.deliveryFormat)) return headInfo;
+      } catch (error) { /* Try the range request below. */ }
+
+      try {
+        const rangeResponse = await fetchWithTimeout({
+          method: 'GET',
+          headers: { Range: 'bytes=0-1' }
+        });
+        if (rangeResponse.ok || rangeResponse.status === 206) {
+          const info = responseInfo(rangeResponse);
+          if (info.contentType || info.deliveryFormat || info.bytes) return info;
+        }
+      } catch (error) { /* Size is unavailable for this delivery host. */ }
+
+      try {
+        const controller2 = new AbortController();
+        const timeout2 = setTimeout(function() { controller2.abort(); }, timeoutMs);
+        const getResponse = await fetch(url, { method: 'GET', signal: controller2.signal });
+        clearTimeout(timeout2);
+        controller2.abort();
+        if (getResponse.ok) return responseInfo(getResponse);
+      } catch (error) { /* Aborted or failed. */ }
+
+      return {
+        bytes: null,
+        contentType: null,
+        contentTypeHeader: '',
+        deliveryFormat: null,
+        deliveryCodec: null,
+        deliveryDuration: null,
+        url: url
+      };
+    }
+
+    function deliveredImagePresentation(info, url) {
+      const deliveryFormat = (info && info.deliveryFormat) ? info.deliveryFormat.toUpperCase() : null;
+      const mimeFormat = (info && info.contentType) ? (info.contentType.split('/')[1] || '').split(';')[0].trim().toUpperCase() : null;
+      let rawFormat = deliveryFormat || mimeFormat;
+      if (!rawFormat && url) {
+        const urlLower = url.toLowerCase();
+        if (urlLower.includes('.webp')) rawFormat = 'WEBP';
+        else if (urlLower.includes('.avif')) rawFormat = 'AVIF';
+        else if (urlLower.includes('.jpg') || urlLower.includes('.jpeg')) rawFormat = 'JPEG';
+        else if (urlLower.includes('.png')) rawFormat = 'PNG';
+        else if (urlLower.includes('.gif')) rawFormat = 'GIF';
+      }
+
+      let label = '—';
+      let isModern = false;
+      if (rawFormat === 'AVIF') { label = 'AVIF ✓'; isModern = true; }
+      else if (rawFormat === 'WEBP') { label = 'WebP ✓'; isModern = true; }
+      else if (rawFormat === 'JPEG' || rawFormat === 'JPG') { label = 'JPEG'; }
+      else if (rawFormat === 'PNG') { label = 'PNG'; }
+      else if (rawFormat === 'GIF') { label = 'GIF'; }
+      else if (rawFormat) { label = rawFormat; }
+
+      return {
+        format: rawFormat || '—',
+        label: label,
+        isModern: isModern
+      };
+    }
+
+    function looksAnimatedFromUrl(url) {
+      const value = String(url || '').toLowerCase();
+      return value.indexOf('e_zoompan') !== -1 ||
+        value.indexOf('f_auto:animated') !== -1 ||
+        value.indexOf('e_loop') !== -1;
+    }
+
+    function durationHintFromUrl(url) {
+      const match = String(url || '').match(/(?:^|[/,;_])du_([\d.]+)/i);
+      return match ? parseFloat(match[1]) : null;
+    }
+
+    function classifyDelivery(info, url) {
+      const contentType = String((info && info.contentType) || '').toLowerCase();
+      const urlLower = String(url || '').toLowerCase();
+      const animatedHint = looksAnimatedFromUrl(urlLower) || contentType === 'image/gif';
+
+      if (contentType.indexOf('video/') === 0) return 'video';
+      if (contentType.indexOf('image/') === 0) return animatedHint || (info && info.deliveryDuration) ? 'animated' : 'image';
+      if (animatedHint) return 'animated';
+      if (/\.(mp4|webm|mov|m4v|avi|mkv)(?:\?|$)/i.test(urlLower)) return 'video';
+      return 'image';
+    }
+
+    function deliveredMediaPresentation(info, url, kind) {
+      const resolvedKind = kind || classifyDelivery(info, url);
+      const presentation = deliveredImagePresentation(info || {}, url);
+      presentation.kind = resolvedKind;
+      presentation.codec = null;
+      presentation.url = url;
+      if (resolvedKind === 'animated' && presentation.format && presentation.format !== '—') {
+        presentation.label = presentation.label.indexOf('animated') === -1
+          ? presentation.label.replace(' ✓', '') + ' · animated'
+          : presentation.label;
+      }
+      return presentation;
+    }
+
+    // Image format dial: WebP/AVIF = green, JPEG/PNG/GIF = yellow, BMP/TIFF = red
+    function getImageFormatColor(urlLower, hasZoompan, formatOrMime) {
+      const val = (formatOrMime || '').toLowerCase();
+      if (val.includes('avif') || val.includes('webp')) return '#22c55e';
+      if (val.includes('jpeg') || val.includes('jpg') || val.includes('png') || val.includes('gif')) return '#facc15';
+      if (val.includes('bmp') || val.includes('tiff') || val.includes('tif')) return '#f87171';
       if (hasZoompan) return '#9ca3af';
       if (!urlLower) return '#9ca3af';
       if (urlLower.includes('.webp') || urlLower.includes('.avif')) return '#22c55e';
       if (urlLower.includes('.jpg') || urlLower.includes('.jpeg') || urlLower.includes('.png') || urlLower.includes('.gif')) return '#facc15';
       if (urlLower.includes('.bmp') || urlLower.includes('.tiff') || urlLower.includes('.tif')) return '#f87171';
       return '#9ca3af';
+    }
+
+    function getDeliveryColor(kind, presentation, url) {
+      return getImageFormatColor(
+        String(url || (presentation && presentation.url) || '').toLowerCase(),
+        kind === 'animated',
+        presentation && presentation.format
+      );
+    }
+
+    function deliveryFormatTitle(presentation) {
+      if (!presentation) return '';
+      if (presentation.kind === 'animated') {
+        return presentation.format && presentation.format !== '—'
+          ? 'Animated delivery: ' + presentation.format
+          : 'Animated transform output';
+      }
+      return presentation.isModern
+        ? 'Modern format'
+        : 'Consider WebP or AVIF for better compression';
+    }
+
+    function deliveryFormatTip(kind) {
+      if (kind === 'animated') {
+        return 'Animated output trades size for motion—keep loops short and prefer modern animated formats.';
+      }
+      return 'Next-gen formats (AVIF, WebP) cut file sizes by 30–60% over JPEG/PNG with zero visual loss.';
+    }
+
+    function setDurationSectionVisible(sectionEl, visible) {
+      if (!sectionEl) return;
+      if (visible) sectionEl.removeAttribute('hidden');
+      else sectionEl.setAttribute('hidden', '');
+    }
+
+    function formatVideoDuration(seconds) {
+      if (isNaN(seconds) || !isFinite(seconds) || seconds <= 0) return 'Unknown';
+      const total = Math.round(seconds);
+      const hours = Math.floor(total / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const secs = total % 60;
+      if (hours > 0) {
+        return hours + ':' + String(minutes).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+      }
+      return minutes + ':' + String(secs).padStart(2, '0');
+    }
+
+    const VIDEO_LENGTH_GREEN = 10;
+    const VIDEO_LENGTH_YELLOW = 17;
+    const VIDEO_LENGTH_RED = 25;
+
+    function getVideoLengthColor(seconds) {
+      if (seconds === null || seconds === undefined || !isFinite(seconds) || seconds <= 0) return '#9ca3af';
+      if (seconds <= VIDEO_LENGTH_GREEN) return '#22c55e';
+      if (seconds <= VIDEO_LENGTH_YELLOW) return lerpColor('#22c55e', '#facc15', (seconds - VIDEO_LENGTH_GREEN) / (VIDEO_LENGTH_YELLOW - VIDEO_LENGTH_GREEN));
+      if (seconds <= VIDEO_LENGTH_RED) return lerpColor('#facc15', '#f87171', (seconds - VIDEO_LENGTH_YELLOW) / (VIDEO_LENGTH_RED - VIDEO_LENGTH_YELLOW));
+      return '#f87171';
+    }
+
+    function applyDialColor(dial, color) {
+      if (!dial) return;
+      var section = dial.closest('.pt-square-formatting__metadata-section');
+      if (section) section.style.setProperty('--dial-color', color || '#9ca3af');
+      var track = dial.querySelector('.pt-square-formatting__metadata-dial__track');
+      if (track) track.style.borderColor = color || '#9ca3af';
     }
 
     // DOM refs
@@ -444,10 +742,19 @@
     const demoImageSizeValue = document.getElementById('demoImageSizeValue');
     const demoImageDimensionsValue = document.getElementById('demoImageDimensionsValue');
     const demoImageFormatValue = document.getElementById('demoImageFormatValue');
+    const demoImageFormatLabel = document.getElementById('demoImageFormatLabel');
+    const demoImageFormatSection = document.getElementById('demoImageFormatSection');
     const demoImageFileSizeDial = document.getElementById('demoImageFileSizeDial');
     const demoImageDimensionsDial = document.getElementById('demoImageDimensionsDial');
     const demoImageFormatDial = document.getElementById('demoImageFormatDial');
-    const demoImageDimensionsTip = document.getElementById('demoImageDimensionsTip');
+    const demoImageLengthSection = document.getElementById('demoImageLengthSection');
+    const demoImageLengthDial = document.getElementById('demoImageLengthDial');
+    const demoImageLengthValue = document.getElementById('demoImageLengthValue');
+    const demoImageDimensionsSection = document.getElementById('demoImageDimensionsSection');
+    const demoImageSavingsGauge = document.getElementById('demoImageSavingsGauge');
+    const demoImageSavingsCurrentArc = document.getElementById('demoImageSavingsCurrentArc');
+    const demoImageSavingsPercent = document.getElementById('demoImageSavingsPercent');
+    const demoImageSavingsCaption = document.getElementById('demoImageSavingsCaption');
     const demoImageAssetComparison = document.getElementById('demoImageAssetComparison');
     const imageShareToggle = document.getElementById('imageShareToggle');
     const imageSharePopup = document.getElementById('imageSharePopup');
@@ -456,39 +763,69 @@
     const imageShareStatus = document.getElementById('imageShareStatus');
     let demoImageBaselineMeasurement = null;
     let demoImageInitialUrl = '';
+    let demoImageDeliveryStatsRequestId = 0;
 
     const sharedImageUrl = decodeImageShareConfig(window.location.hash);
 
-    function renderDemoImageAssetComparison(measurement) {
-      if (!demoImageAssetComparison || !measurement || !measurement.bytes) return;
-      if (!demoImageBaselineMeasurement) demoImageBaselineMeasurement = measurement;
-
-      const baseline = demoImageBaselineMeasurement;
-      if (baseline.url === measurement.url) {
-        demoImageAssetComparison.textContent = 'Baseline delivered size: ' + formatFileSize(measurement.bytes);
+    function renderDemoImageSavingsGauge(measurement) {
+      const ARC_SPAN = 66.67;
+      if (!demoImageSavingsGauge || !demoImageSavingsCurrentArc || !demoImageSavingsPercent || !demoImageSavingsCaption || !demoImageAssetComparison) {
         return;
       }
 
-      const difference = baseline.bytes - measurement.bytes;
-      const percentage = Math.abs(difference / baseline.bytes * 100).toFixed(1);
-      const direction = difference >= 0 ? 'smaller' : 'larger';
-      demoImageAssetComparison.textContent = formatFileSize(baseline.bytes) + ' → ' + formatFileSize(measurement.bytes) + ' · ' + percentage + '% ' + direction;
+      function setCurrentArc(visibleSpan, color, opacity) {
+        demoImageSavingsCurrentArc.setAttribute('stroke-dasharray', visibleSpan + ' ' + (100 - visibleSpan));
+        demoImageSavingsCurrentArc.setAttribute('stroke', color);
+        demoImageSavingsCurrentArc.setAttribute('opacity', String(opacity));
+      }
+
+      if (!measurement || !measurement.bytes) {
+        demoImageSavingsGauge.setAttribute('data-state', 'waiting');
+        setCurrentArc(ARC_SPAN, '#f97316', 0);
+        demoImageSavingsPercent.textContent = '—';
+        demoImageSavingsPercent.style.color = '';
+        demoImageSavingsCaption.textContent = 'Waiting';
+        demoImageAssetComparison.textContent = 'Waiting for measurement…';
+        return;
+      }
+
+      if (!demoImageBaselineMeasurement) demoImageBaselineMeasurement = measurement;
+
+      const baseline = demoImageBaselineMeasurement;
+      const baselineBytes = baseline && baseline.bytes;
+      const currentBytes = measurement.bytes;
+
+      if (!baselineBytes || baseline.url === measurement.url) {
+        demoImageSavingsGauge.setAttribute('data-state', 'baseline');
+        setCurrentArc(ARC_SPAN, '#f97316', 0);
+        demoImageSavingsPercent.textContent = formatFileSize(currentBytes);
+        demoImageSavingsPercent.style.color = '#f97316';
+        demoImageSavingsCaption.textContent = 'Baseline';
+        demoImageAssetComparison.textContent = 'Baseline delivered size: ' + formatFileSize(currentBytes);
+        return;
+      }
+
+      const savingsPct = (baselineBytes - currentBytes) / baselineBytes * 100;
+      const remainingRatio = currentBytes / baselineBytes;
+      const arcVisible = savingsPct < 0 ? ARC_SPAN : Math.max(0, Math.min(1, remainingRatio)) * ARC_SPAN;
+      const color = savingsPct <= 0
+        ? '#f97316'
+        : lerpColor('#f97316', '#39ff14', Math.min(1, savingsPct / 100));
+
+      demoImageSavingsGauge.setAttribute('data-state', savingsPct < 0 ? 'larger' : 'savings');
+      setCurrentArc(arcVisible, color, 1);
+      demoImageSavingsPercent.textContent = Math.round(savingsPct) + '%';
+      demoImageSavingsPercent.style.color = color;
+      demoImageSavingsCaption.textContent = savingsPct < 0 ? 'Larger' : 'Smaller';
+      demoImageAssetComparison.textContent = formatFileSize(baselineBytes) + ' → ' + formatFileSize(currentBytes);
     }
 
     // Dial update functions
     function updateDemoImageFileSizeDial(bytes) {
-      if (!demoImageFileSizeDial) return;
-      var section = demoImageFileSizeDial.closest('.pt-square-formatting__metadata-section');
-      if (bytes === null || bytes === undefined) {
-        if (section) section.style.setProperty('--dial-color', '#9ca3af');
-        var track = demoImageFileSizeDial.querySelector('.pt-square-formatting__metadata-dial__track');
-        if (track) track.style.borderColor = '#9ca3af';
-        return;
-      }
-      var color = getFileSizeColor(bytes);
-      if (section) section.style.setProperty('--dial-color', color);
-      var track = demoImageFileSizeDial.querySelector('.pt-square-formatting__metadata-dial__track');
-      if (track) track.style.borderColor = color;
+      applyDialColor(
+        demoImageFileSizeDial,
+        bytes === null || bytes === undefined ? '#9ca3af' : getFileSizeColor(bytes)
+      );
     }
 
     function animateDemoImageFileSize(oldBytes, newBytes, duration = 1000) {
@@ -518,51 +855,25 @@
     }
 
     function updateDemoImageDimensionsDial(ratio) {
-      if (!demoImageDimensionsDial) return;
-      var section = demoImageDimensionsDial.closest('.pt-square-formatting__metadata-section');
       if (ratio === null || ratio === undefined) {
-        if (section) section.style.setProperty('--dial-color', '#9ca3af');
-        var track = demoImageDimensionsDial.querySelector('.pt-square-formatting__metadata-dial__track');
-        if (track) track.style.borderColor = '#9ca3af';
-        if (demoImageDimensionsTip) demoImageDimensionsTip.textContent = 'Match 1× or 2× display density to eliminate wasted pixel delivery.';
+        applyDialColor(demoImageDimensionsDial, '#9ca3af');
+        if (demoImageDimensionsSection) {
+          demoImageDimensionsSection.setAttribute('data-tip', 'Match 1× or 2× display density to eliminate wasted pixel delivery.');
+        }
         return;
       }
-      var color = getDimensionsColor(ratio);
-      if (section) section.style.setProperty('--dial-color', color);
-      var track = demoImageDimensionsDial.querySelector('.pt-square-formatting__metadata-dial__track');
-      if (track) track.style.borderColor = color;
-      if (demoImageDimensionsTip) demoImageDimensionsTip.textContent = getDimensionsTipText(ratio);
+      applyDialColor(demoImageDimensionsDial, getDimensionsColor(ratio));
+      if (demoImageDimensionsSection) {
+        demoImageDimensionsSection.setAttribute('data-tip', getDimensionsTipText(ratio));
+      }
     }
 
-    function updateDemoImageFormatDial(urlLower, hasZoompan, contentType) {
-      if (!demoImageFormatDial) return;
-      var section = demoImageFormatDial.closest('.pt-square-formatting__metadata-section');
-      var color = getImageFormatColor(urlLower, hasZoompan, contentType);
-      if (section) section.style.setProperty('--dial-color', color);
-      var track = demoImageFormatDial.querySelector('.pt-square-formatting__metadata-dial__track');
-      if (track) track.style.borderColor = color;
+    function updateDemoImageFormatDial(kind, presentation, url) {
+      applyDialColor(demoImageFormatDial, getDeliveryColor(kind, presentation, url));
     }
 
-    // Fetch asset info
-    async function fetchAssetInfo(url) {
-      try {
-        const response = await fetch(url, { method: 'HEAD' });
-        if (response.ok) {
-          const contentLength = response.headers.get('Content-Length');
-          const contentType = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
-          return { bytes: contentLength ? parseInt(contentLength, 10) : null, contentType: contentType || null };
-        }
-        const rangeResponse = await fetch(url, { method: 'GET', headers: { Range: 'bytes=0-1' } });
-        const contentRange = rangeResponse.headers.get('Content-Range');
-        const contentType = (rangeResponse.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
-        var bytes = null;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)/);
-          if (match) bytes = parseInt(match[1], 10);
-        }
-        return { bytes, contentType: contentType || null };
-      } catch (e) {}
-      return { bytes: null, contentType: null };
+    function updateDemoImageLengthDial(seconds) {
+      applyDialColor(demoImageLengthDial, getVideoLengthColor(seconds));
     }
 
     // Update frame wrapper aspect ratio to match image natural dimensions
@@ -571,37 +882,30 @@
       demoImageFrameWrapper.style.aspectRatio = demoImage.naturalWidth + ' / ' + demoImage.naturalHeight;
     }
 
-    // Derive format label and modernity from a MIME content-type string
-    function getFormatFromContentType(contentType) {
-      if (!contentType) return { format: '—', isModern: false };
-      if (contentType === 'image/avif') return { format: 'AVIF ✓', isModern: true };
-      if (contentType === 'image/webp') return { format: 'WebP ✓', isModern: true };
-      if (contentType === 'image/jpeg') return { format: 'JPEG', isModern: false };
-      if (contentType === 'image/png')  return { format: 'PNG',  isModern: false };
-      if (contentType === 'image/gif')  return { format: 'GIF',  isModern: false };
-      if (contentType === 'image/bmp')  return { format: 'BMP',  isModern: false };
-      const sub = contentType.split('/')[1];
-      return { format: sub ? sub.toUpperCase() : '—', isModern: false };
-    }
-
-    function getColorFromContentType(contentType) {
-      if (!contentType) return '#9ca3af';
-      if (contentType === 'image/avif' || contentType === 'image/webp') return '#22c55e';
-      if (['image/jpeg','image/png','image/gif'].includes(contentType)) return '#facc15';
-      if (contentType === 'image/bmp' || contentType === 'image/tiff') return '#f87171';
-      return '#9ca3af';
-    }
-
-    // Stats update
+    // Stats update — same delivery format pipeline as Shop Mens
     function updateDemoImageStats(imageUrl) {
       if (!demoImage || !demoImageSizeValue || !demoImageDimensionsValue || !demoImageFormatValue) return;
+      const requestId = ++demoImageDeliveryStatsRequestId;
       const url = imageUrl || demoImage.src || '';
-      const urlLower = (url || '').toLowerCase();
+      const provisionalKind = classifyDelivery(null, url);
+      const provisional = deliveredMediaPresentation(null, url, provisionalKind);
+      const showDuration = provisionalKind === 'video' || provisionalKind === 'animated';
 
-      // Format will be resolved from Content-Type — show loading state now
+      if (demoImageFormatLabel) {
+        demoImageFormatLabel.textContent = provisionalKind === 'video' ? 'Format / Codec' : 'Format';
+      }
+      if (demoImageFormatSection) {
+        demoImageFormatSection.setAttribute('data-tip', deliveryFormatTip(provisionalKind));
+      }
       demoImageFormatValue.textContent = 'Loading...';
-      demoImageFormatValue.title = '';
-      updateDemoImageFormatDial(urlLower, false, null);
+      demoImageFormatValue.title = deliveryFormatTitle(provisional);
+      updateDemoImageFormatDial(provisionalKind, provisional, url);
+      setDurationSectionVisible(demoImageLengthSection, showDuration);
+      if (showDuration && demoImageLengthValue) {
+        const urlDuration = durationHintFromUrl(url);
+        demoImageLengthValue.textContent = urlDuration ? formatVideoDuration(urlDuration) : '—';
+        updateDemoImageLengthDial(urlDuration);
+      }
 
       let ratio = null;
       if (demoImage.naturalWidth && demoImage.naturalHeight) {
@@ -627,28 +931,44 @@
         demoImageFormatValue.textContent = '—';
         return;
       }
+
       const oldBytes = parseFileSize(demoImageSizeValue.textContent);
       demoImageSizeValue.textContent = 'Loading...';
       updateDemoImageFileSizeDial(null);
-      fetchAssetInfo(url).then(function(info) {
-        var bytes = info.bytes;
-        var contentType = info.contentType;
+
+      measureDeliveredAsset(url).then(function(info) {
+        if (requestId !== demoImageDeliveryStatsRequestId) return;
+
+        const kind = classifyDelivery(info, url);
+        const delivery = deliveredMediaPresentation(info, url, kind);
+        const durationVisible = kind === 'video' || kind === 'animated';
+        const bytes = info.bytes;
+
         if (bytes) {
           animateDemoImageFileSize(oldBytes, bytes);
-          renderDemoImageAssetComparison({ url: url, bytes: bytes });
+          renderDemoImageSavingsGauge({ url: url, bytes: bytes });
         } else {
           if (demoImageSizeValue) demoImageSizeValue.textContent = '—';
           updateDemoImageFileSizeDial(null);
         }
+
+        if (demoImageFormatLabel) {
+          demoImageFormatLabel.textContent = kind === 'video' ? 'Format / Codec' : 'Format';
+        }
+        if (demoImageFormatSection) {
+          demoImageFormatSection.setAttribute('data-tip', deliveryFormatTip(kind));
+        }
         if (demoImageFormatValue) {
-          var { format, isModern } = getFormatFromContentType(contentType);
-          demoImageFormatValue.textContent = format;
-          demoImageFormatValue.title = isModern ? 'Modern format' : 'Consider WebP or AVIF for better compression';
-          var color = getColorFromContentType(contentType);
-          var section = demoImageFormatDial ? demoImageFormatDial.closest('.pt-square-formatting__metadata-section') : null;
-          if (section) section.style.setProperty('--dial-color', color);
-          var track = demoImageFormatDial ? demoImageFormatDial.querySelector('.pt-square-formatting__metadata-dial__track') : null;
-          if (track) track.style.borderColor = color;
+          demoImageFormatValue.textContent = delivery.label;
+          demoImageFormatValue.title = deliveryFormatTitle(delivery);
+        }
+        updateDemoImageFormatDial(kind, delivery, url);
+
+        setDurationSectionVisible(demoImageLengthSection, durationVisible);
+        if (durationVisible && demoImageLengthValue) {
+          const seconds = durationHintFromUrl(url) || info.deliveryDuration;
+          demoImageLengthValue.textContent = seconds ? formatVideoDuration(seconds) : '—';
+          updateDemoImageLengthDial(seconds);
         }
       });
     }

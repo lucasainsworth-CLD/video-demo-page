@@ -2387,14 +2387,42 @@
       if (!url || !transform) return url;
       var trimmed = url.trim();
       if (!trimmed.includes('upload/')) return trimmed;
-      if (trimmed.includes('/' + transform + '/') || trimmed.endsWith('/' + transform)) return trimmed;
-      var match = trimmed.match(/upload\/(.*?)(\/v\d+\/)/);
-      if (match) {
-        var existing = match[1];
-        var versionPart = match[2];
-        return trimmed.replace(/upload\/(.*?)(\/v\d+\/)/, 'upload/' + (existing ? existing + '/' : '') + transform + versionPart);
+
+      var parsed = parseCloudinaryTransformationUrl(trimmed);
+      if (!parsed) {
+        if (trimmed.includes('/' + transform + '/') || trimmed.endsWith('/' + transform)) return trimmed;
+        return trimmed.replace('upload/', 'upload/' + transform + '/');
       }
-      return trimmed.replace('upload/', 'upload/' + transform + '/');
+
+      var components = parsed.components.slice();
+      var tokens = transformationTokens(transform);
+      var isFormatOptimize = tokens.length > 0 && tokens.every(function(token) {
+        return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+      });
+
+      if (isFormatOptimize) {
+        components = withoutTokens(components, function(token) {
+          return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
+        });
+        components.push(transform);
+      } else {
+        if (components.indexOf(transform) >= 0) return trimmed;
+        var formatIndex = -1;
+        for (var i = components.length - 1; i >= 0; i--) {
+          var componentTokens = transformationTokens(components[i]);
+          var isFormatQuality = componentTokens.length > 0 && componentTokens.every(function(token) {
+            return token.indexOf('f_') === 0 || token.indexOf('q_') === 0;
+          });
+          if (isFormatQuality) {
+            formatIndex = i;
+            break;
+          }
+        }
+        if (formatIndex >= 0) components.splice(formatIndex, 0, transform);
+        else components.push(transform);
+      }
+
+      return parsed.prefix + (components.length ? components.join('/') + '/' : '') + parsed.suffix;
     }
 
     // Shop Mens has dependent transformations, so its controls normalize the
