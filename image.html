@@ -243,7 +243,7 @@
                 <span class="pt-square-formatting__metadata-label">File Size:</span>
                 <span class="pt-square-formatting__metadata-value" id="demoImageSizeValue">Loading...</span>
               </div>
-              <p class="pt-square-formatting__metadata-tip">For product images, aim for &lt;500 KB for fast loading</p>
+              <p class="pt-square-formatting__metadata-tip">Aim for &lt;150–300 KB for product images to ensure near-instant page renders.</p>
             </div>
             <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--dimensions">
               <div class="pt-square-formatting__metadata-dial" id="demoImageDimensionsDial" data-dial-status="loading" aria-hidden="true">
@@ -253,7 +253,7 @@
                 <span class="pt-square-formatting__metadata-label">Dimensions:</span>
                 <span class="pt-square-formatting__metadata-value" id="demoImageDimensionsValue">—</span>
               </div>
-              <p class="pt-square-formatting__metadata-tip" id="demoImageDimensionsTip">Size should be smaller than or the same size as the frame.</p>
+              <p class="pt-square-formatting__metadata-tip" id="demoImageDimensionsTip">Match 1× or 2× display density to eliminate wasted pixel delivery.</p>
             </div>
             <div class="pt-square-formatting__metadata-section pt-square-formatting__metadata-section--format">
               <div class="pt-square-formatting__metadata-dial" id="demoImageFormatDial" aria-hidden="true">
@@ -263,7 +263,7 @@
                 <span class="pt-square-formatting__metadata-label">Format:</span>
                 <span class="pt-square-formatting__metadata-value" id="demoImageFormatValue">—</span>
               </div>
-              <p class="pt-square-formatting__metadata-tip">WebP &amp; AVIF = green, JPEG/PNG = yellow, legacy = red</p>
+              <p class="pt-square-formatting__metadata-tip">Next-gen formats (AVIF, WebP) cut file sizes by 30–60% over JPEG/PNG with zero visual loss.</p>
             </div>
           </div>
           <p class="pt-asset-comparison" id="demoImageAssetComparison" aria-live="polite"></p>
@@ -414,7 +414,7 @@
     }
 
     function getDimensionsTipText(ratio) {
-      if (ratio === null || ratio === undefined) return 'Size should be smaller than or the same size as the frame.';
+      if (ratio === null || ratio === undefined) return 'Match 1× or 2× display density to eliminate wasted pixel delivery.';
       if (ratio < DIMENSIONS_LOW) return 'Flirting with danger! The resolution may be noticeably poor.';
       if (ratio >= 0.99 && ratio <= 1.01) return 'Perfect resolution for the frame.';
       if (ratio < DIMENSIONS_PERFECT) return "Optimal file size—you're upscaling slightly, check that it looks visually sharp.";
@@ -524,7 +524,7 @@
         if (section) section.style.setProperty('--dial-color', '#9ca3af');
         var track = demoImageDimensionsDial.querySelector('.pt-square-formatting__metadata-dial__track');
         if (track) track.style.borderColor = '#9ca3af';
-        if (demoImageDimensionsTip) demoImageDimensionsTip.textContent = 'Size should be smaller than or the same size as the frame.';
+        if (demoImageDimensionsTip) demoImageDimensionsTip.textContent = 'Match 1× or 2× display density to eliminate wasted pixel delivery.';
         return;
       }
       var color = getDimensionsColor(ratio);
