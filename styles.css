@@ -1278,6 +1278,10 @@ main {
   filter: saturate(0.9);
 }
 
+.pt-square-formatting__media[hidden] {
+  display: none !important;
+}
+
 .pt-square-formatting__overlay {
   position: absolute;
   inset: 0;

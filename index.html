@@ -290,6 +290,17 @@
               src=""
               alt="Square image"
             >
+            <video
+              id="squareImageVideo"
+              class="pt-square-formatting__media"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="metadata"
+              hidden
+              aria-label="Animated Shop Mens product image"
+            ></video>
             <div class="pt-square-formatting__overlay">
               <button type="button" class="pt-square-formatting__overlay-btn">Shop Mens</button>
             </div>
@@ -355,7 +366,7 @@
 
               <div class="pt-square-formatting__metadata-url">
                 <div class="pt-url-editor__wrapper">
-                  <label class="pt-url-editor__label" for="squareImageUrlInput">Image URL:</label>
+                  <label class="pt-url-editor__label" for="squareImageUrlInput">Media URL:</label>
                   <div class="pt-url-editor__box" id="squareImageUrlEditorBox">
                     <div 
                       contenteditable="true"
@@ -364,7 +375,7 @@
                       data-placeholder="Enter image URL..."
                       spellcheck="false"
                       role="textbox"
-                      aria-label="Image URL"
+                      aria-label="Shop Mens media URL"
                     ></div>
                   </div>
                   <div class="pt-url-editor__buttons">
@@ -374,7 +385,7 @@
                     <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900" title="fill-crop to 900x900px">
                       c_fill,w_900,h_900
                     </button>
-                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15;to_(g_auto)/e_loop,f_auto:animated,q_auto" title="Add zoompan animation">
+                    <button class="pt-url-editor__button pt-url-editor__transform-btn" type="button" data-transform="c_fill,w_900,h_900/e_zoompan:mode_ztl;maxzoom_1.2;du_5;to_(g_auto)/f_auto:video" title="Add zoompan video">
                       zoompan
                     </button>
                     <button class="pt-url-editor__button" id="updateSquareImageBtn" type="button">
@@ -386,7 +397,7 @@
                   </div>
                 </div>
               </div>
-              <button class="pt-asset-reset" type="button" data-reset-asset="shopMens" title="Reload the original Shop Mens image">reset</button>
+              <button class="pt-asset-reset" type="button" data-reset-asset="shopMens" title="Reload the original Shop Mens media">reset</button>
             </div>
           </div>
         </div>
@@ -400,7 +411,6 @@
               autoplay
               loop
               muted
-              controls
               playsinline
               preload="metadata"
             >
@@ -870,13 +880,20 @@
         return measureDeliveredAsset(url);
       }
 
-      const mediaElement = document.getElementById(binding.mediaElementId);
+      let mediaElement = document.getElementById(binding.mediaElementId);
+      if (assetId === 'shopMens' && typeof getShopMensActiveMedia === 'function') {
+        mediaElement = getShopMensActiveMedia(url);
+      }
       const absoluteUrl = new URL(url, window.location.href).href;
-      const mediaHasLoadedUrl = mediaElement && mediaElement.currentSrc === absoluteUrl && mediaElement.complete && mediaElement.naturalWidth > 0;
+      const mediaHasLoadedUrl = mediaElement && mediaElement.currentSrc === absoluteUrl && (
+        mediaElement.tagName === 'VIDEO'
+          ? mediaElement.readyState >= 2 && mediaElement.videoWidth > 0
+          : mediaElement.complete && mediaElement.naturalWidth > 0
+      );
       if (!mediaHasLoadedUrl) return measureDeliveredAsset(url);
 
       // The resource timing entry represents the response actually selected
-      // for this browser, including f_auto:animated negotiation.
+      // for this browser, including automatic format negotiation.
       await new Promise(function(resolve) { requestAnimationFrame(resolve); });
       const browserMeasurement = browserResourceMeasurement(url);
       if (browserMeasurement && browserMeasurement.contentType) return browserMeasurement;
@@ -1332,6 +1349,7 @@
       const codec = (info && (info.deliveryCodec || codecFromContentType(info.contentTypeHeader))) || null;
       const animatedHint = looksAnimatedFromUrl(urlLower) || contentType === 'image/gif';
 
+      if (urlLower.includes('f_auto:video')) return 'video';
       if (contentType.indexOf('video/') === 0) return 'video';
       if (contentType.indexOf('image/') === 0) return animatedHint || (info && info.deliveryDuration) ? 'animated' : 'image';
       if (codec) return 'video';
@@ -2430,8 +2448,9 @@
     // irrelevant while preserving unrelated transformation components.
     const SHOP_MENS_SQUARE_WIDTH = 'w_900';
     const SHOP_MENS_SQUARE_HEIGHT = 'h_900';
-    const SHOP_MENS_ZOOM_PAN = 'e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15';
-    const SHOP_MENS_ANIMATED_FORMAT = 'e_loop,f_auto:animated,q_auto';
+    const SHOP_MENS_ZOOM_PAN_CROP = 'c_fill,w_900,h_900';
+    const SHOP_MENS_ZOOM_PAN = 'e_zoompan:mode_ztl;maxzoom_1.2;du_5';
+    const SHOP_MENS_VIDEO_FORMAT = 'f_auto:video';
 
     function shopMensZoomPan(useAutoGravity) {
       return SHOP_MENS_ZOOM_PAN + (useAutoGravity ? ';to_(g_auto)' : '');
@@ -2496,20 +2515,20 @@
       });
     }
 
-    function setShopMensFormat(components, animated) {
+    function setShopMensFormat(components, video) {
       const normalized = withoutTokens(components, function(token) {
         return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
       });
 
-      if (animated) {
-        const loopIndex = normalized.findIndex(function(component) {
-          return transformationTokens(component).some(function(token) { return token.indexOf('e_loop') === 0; });
-        });
-        if (loopIndex >= 0) {
-          normalized[loopIndex] += ',f_auto:animated,q_auto';
-        } else {
-          normalized.push(SHOP_MENS_ANIMATED_FORMAT);
+      if (video) {
+        // Remove the legacy animated-image loop when switching this card to video.
+        for (let i = normalized.length - 1; i >= 0; i -= 1) {
+          const tokens = transformationTokens(normalized[i]);
+          if (tokens.some(function(token) { return token.indexOf('e_loop') === 0; })) {
+            normalized.splice(i, 1);
+          }
         }
+        normalized.push(SHOP_MENS_VIDEO_FORMAT);
       } else {
         normalized.push('f_auto,q_auto');
       }
@@ -2569,14 +2588,15 @@
         components = components.filter(function(component) {
           const tokens = transformationTokens(component);
           const hasZoomPan = tokens.some(function(token) { return token.indexOf('e_zoompan:') === 0; });
+          const isPreviousZoomPanVideoFormat = tokens.some(function(token) { return token.indexOf('f_auto:video') === 0; });
+          const isPreviousZoomPanCrop = tokens.some(function(token) { return token === 'c_fill' || token === 'c_scale' || token.indexOf('w_') === 0 || token.indexOf('h_') === 0; });
           const isPreviousAnimatedFormat = tokens.some(function(token) { return token.indexOf('e_loop') === 0; }) && tokens.some(function(token) { return token.indexOf('f_auto:animated') === 0; });
-          return !hasZoomPan && !isPreviousAnimatedFormat;
+          return !hasZoomPan && !isPreviousZoomPanVideoFormat && !isPreviousZoomPanCrop && !isPreviousAnimatedFormat;
         });
-        components = setShopMensFormat(components, false);
         components = withoutTokens(components, function(token) {
           return token.indexOf('f_auto') === 0 || token.indexOf('q_auto') === 0;
         });
-        components.push(shopMensZoomPan(true), SHOP_MENS_ANIMATED_FORMAT);
+        components.push(SHOP_MENS_ZOOM_PAN_CROP, shopMensZoomPan(true), SHOP_MENS_VIDEO_FORMAT);
       } else {
         return url;
       }
@@ -2683,6 +2703,7 @@
 
     // Square Formatting Configuration
     const squareImage = document.getElementById('squareImage');
+    const squareImageVideo = document.getElementById('squareImageVideo');
     const squareImageUrlInput = document.getElementById('squareImageUrlInput');
     const updateSquareImageBtn = document.getElementById('updateSquareImageBtn');
     const squareImageSizeValue = document.getElementById('squareImageSizeValue');
@@ -2708,6 +2729,34 @@
     const squareVideoFormatDial = document.getElementById('squareVideoFormatDial');
     const squareVideoLengthDial = document.getElementById('squareVideoLengthDial');
     let squareImageDeliveryStatsRequestId = 0;
+
+    function isShopMensVideoUrl(url) {
+      return String(url || '').toLowerCase().includes('f_auto:video');
+    }
+
+    function getShopMensActiveMedia(url) {
+      return isShopMensVideoUrl(url) ? squareImageVideo : squareImage;
+    }
+
+    function setShopMensMedia(url) {
+      const useVideo = isShopMensVideoUrl(url);
+      if (!squareImage || !squareImageVideo) return;
+
+      if (useVideo) {
+        squareImage.hidden = true;
+        squareImageVideo.hidden = false;
+        squareImageVideo.src = url;
+        squareImageVideo.load();
+        squareImageVideo.play().catch(function() {});
+      } else {
+        squareImageVideo.pause();
+        squareImageVideo.removeAttribute('src');
+        squareImageVideo.load();
+        squareImageVideo.hidden = true;
+        squareImage.hidden = false;
+        squareImage.src = url;
+      }
+    }
     let squareVideoDeliveryStatsRequestId = 0;
 
     // Function to get cursor position for square image input
@@ -2915,7 +2964,8 @@
       if (!squareImage || !squareImageSizeValue || !squareImageDimensionsValue || !squareImageFormatValue) return;
       const requestId = ++squareImageDeliveryStatsRequestId;
       
-      const url = imageUrl || squareImage.src || '';
+      const url = imageUrl || squareImage.src || squareImageVideo.src || '';
+      const activeMedia = getShopMensActiveMedia(url);
       const provisionalKind = classifyDelivery(null, url);
       const provisional = deliveredMediaPresentation(null, url, provisionalKind);
       const showDuration = provisionalKind === 'video' || provisionalKind === 'animated';
@@ -2936,11 +2986,13 @@
       
       // Dimensions (need image loaded)
       let ratio = null;
-      if (squareImage.naturalWidth && squareImage.naturalHeight) {
-        const frameWrapper = squareImage.closest('.pt-square-formatting__frame-wrapper');
+      const mediaWidth = activeMedia && activeMedia.tagName === 'VIDEO' ? activeMedia.videoWidth : activeMedia && activeMedia.naturalWidth;
+      const mediaHeight = activeMedia && activeMedia.tagName === 'VIDEO' ? activeMedia.videoHeight : activeMedia && activeMedia.naturalHeight;
+      if (mediaWidth && mediaHeight) {
+        const frameWrapper = activeMedia.closest('.pt-square-formatting__frame-wrapper');
         const displayW = frameWrapper ? frameWrapper.offsetWidth : 0;
         const displayH = frameWrapper ? frameWrapper.offsetHeight : 0;
-        const imgPixels = squareImage.naturalWidth * squareImage.naturalHeight;
+        const imgPixels = mediaWidth * mediaHeight;
         const displayPixels = displayW * displayH;
         let ratioText = '';
         if (displayPixels > 0) {
@@ -2949,7 +3001,7 @@
             ratioText = ' (' + ratio.toFixed(1) + '× display)';
           }
         }
-        squareImageDimensionsValue.textContent = squareImage.naturalWidth + '×' + squareImage.naturalHeight + ratioText;
+        squareImageDimensionsValue.textContent = mediaWidth + '×' + mediaHeight + ratioText;
       } else {
         squareImageDimensionsValue.textContent = '—';
       }
@@ -3085,7 +3137,7 @@
       const newUrl = getSquareImageUrlFromInput().trim();
 
       if (!newUrl) {
-        alert('Please enter an image URL');
+        alert('Please enter a valid media URL');
         return;
       }
 
@@ -3107,25 +3159,8 @@
       }
 
       try {
-        // Update the image
-        if (squareImage) {
-          if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = 'Loading...';
-          squareImage.onload = function() {
-            updateSquareImageStats(newUrl);
-            squareImage.onload = null;
-            squareImage.onerror = null;
-          };
-          squareImage.onerror = function() {
-            if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = '—';
-            squareImage.onload = null;
-            squareImage.onerror = null;
-          };
-          squareImage.src = newUrl;
-          updateSquareImageStats(newUrl);
-        }
-
-        // Update URL display
-        updateSquareImageUrlDisplay(newUrl);
+        // The transformed URL may be either an image or a looping video.
+        applyAssetUrl('shopMens', newUrl);
 
         // Show success briefly
         if (updateSquareImageBtn) {
@@ -3294,7 +3329,7 @@
             var actions = {
               'f_auto,q_auto': 'format',
               'c_fill,w_900,h_900': 'crop',
-              'e_zoompan:mode_ztl;maxzoom_1.2;du_5;fps_15;to_(g_auto)/e_loop,f_auto:animated,q_auto': 'zoompan'
+              'c_fill,w_900,h_900/e_zoompan:mode_ztl;maxzoom_1.2;du_5;to_(g_auto)/f_auto:video': 'zoompan'
             };
             var newUrl = applyShopMensTransform(url, actions[transform]);
             if (newUrl !== url) {
@@ -3431,19 +3466,22 @@
 
       if (assetId === 'shopMens') {
         updateSquareImageUrlDisplay(url);
-        if (!squareImage) return;
+        if (!squareImage || !squareImageVideo) return;
         if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = 'Loading...';
-        squareImage.onload = function() {
+        const activeMedia = getShopMensActiveMedia(url);
+        const onLoaded = function() {
           updateSquareImageStats(url);
-          squareImage.onload = null;
-          squareImage.onerror = null;
+          activeMedia.removeEventListener('load', onLoaded);
+          activeMedia.removeEventListener('loadedmetadata', onLoaded);
         };
-        squareImage.onerror = function() {
+        const onError = function() {
           if (squareImageDimensionsValue) squareImageDimensionsValue.textContent = '—';
-          squareImage.onload = null;
-          squareImage.onerror = null;
+          activeMedia.removeEventListener('error', onError);
         };
-        squareImage.src = url;
+        activeMedia.addEventListener('load', onLoaded);
+        activeMedia.addEventListener('loadedmetadata', onLoaded);
+        activeMedia.addEventListener('error', onError);
+        setShopMensMedia(url);
         updateSquareImageStats(url);
         return;
       }
@@ -3484,7 +3522,7 @@
     function optimizeAllAssets() {
       const presets = {
         hero: 'w_1000/du_8/vc_av1/f_auto,q_auto',
-        shopMens: 'c_fill,w_900,h_900/f_auto,q_auto',
+        shopMens: 'c_fill,w_900,h_900/e_zoompan:mode_ztl;maxzoom_1.2;du_5;to_(g_auto)/f_auto:video',
         shopWomens: 'c_fill,w_900,h_900/du_8/vc_av1/f_auto,q_auto'
       };
 
